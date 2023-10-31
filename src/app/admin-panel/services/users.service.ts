@@ -1,0 +1,31 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, QueryList, computed, inject, signal } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/auth/interfaces';
+import { environment } from 'src/app/environments/environments';
+import { UsersResponse } from '../interfaces/get-users.response';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UsersService {
+
+  private readonly baseUrl: string = environment.baseUrl;
+  private htpp = inject(HttpClient);
+
+  private _users = signal<User[] | null>(null);
+
+  //! Al mundo exterior
+  public users = computed( () => this._users() );
+
+
+  getUsers(page: number = 1, pagSize: number = 5): Observable<UsersResponse> {
+
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    return this.htpp.get<UsersResponse>(`${this.baseUrl}/auth?pageSize=${pagSize}&page=${page}`, {headers});
+  }
+
+}
