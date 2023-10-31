@@ -1,0 +1,74 @@
+<div class="h-screen flex items-end justify-end">
+
+  <button class="fixed lg:hidden bottom-10 right-10 bg-teal-500 w-10 h-10 rounded-full drop-shadow-lg text-white text-4xl hover:bg-violet-600 duration-300" (click)="toggleSideBar()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+      class="w-6 h-6 mx-auto">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    </svg>
+  </button>
+
+  <div [ngClass]="state() ? 'ml-0' : '-ml-72'" class="w-72 lg:ml-0 bg-teal-500 h-screen relative duration-500 p-2 flex flex-col" >
+
+    <div class="justify-center m-3">
+      <h1 class="text-white font-medium text-2xl text-center">Panel</h1>
+    </div>
+
+    <hr>
+
+    <ul class="pt-2 mb-auto">
+
+      <div *ngFor="let item of sidebarItems()" class="cursor-pointer">
+        <li
+        class="
+          text-white
+          text-sm
+          flex
+          items-center
+          gap-x-4
+          p-2
+          hover:bg-teal-400
+          rounded-md
+          mb-2
+          duration-300"
+          [routerLink]="item.route" routerLinkActive="bg-teal-400"
+          (click)="item.submenu ? item.dropState = !item.dropState : toggleSideBar()">
+          <span class="text-xl w-4 flex justify-center mr-3">
+            <i [class]="item.icon" class="ml-4"></i>
+          </span>
+          <span class="text-base font-medium flex-1" >
+            {{ item.title }}
+          </span>
+          <span *ngIf="item.submenu">
+            <i class="fa-solid fa-chevron-down"></i>
+          </span>
+        </li>
+        <ul class="w-full" *ngIf="item.dropState">
+          <li class="text-white
+          text-sm
+          ml-5
+          p-2
+          hover:bg-teal-400
+          duration-300
+          rounded-md
+          mb-2"
+          (click)="toggleSideBar()"
+          [routerLink]="subItem.route" routerLinkActive="bg-teal-400" *ngFor="let subItem of item.submenuItems">{{subItem.title}}</li>
+        </ul>
+      </div>
+
+    </ul>
+
+    <hr>
+
+    <div class="flex items-center text-white">
+      <img [src]="user() | userImage" class="rounded w-14 m-2" alt="">
+      <div class="text-white font-medium text-md mt-auto mb-2">
+        <h2>{{ user()?.name || 'no name' | titlecase }}</h2>
+        <small>{{ user()?.email || 'no email' }}</small>
+      </div>
+      <span class="ml-auto mr-2 text-xl cursor-pointer" (click)="onLogout()" routerLink="/auth/login">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      </span>
+    </div>
+  </div>
+</div>

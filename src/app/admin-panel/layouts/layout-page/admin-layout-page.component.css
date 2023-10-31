@@ -1,0 +1,5 @@
+@media (max-width: 1024px) {
+  .content {
+    flex: 0 0 100%
+  }
+}
