@@ -18,7 +18,7 @@
         autocomplete="email"
         formControlName="email"
       >
-      <p customLabel [isDirty]="myForm.get('email')?.dirty" [errors]="myForm.get('email')?.errors"></p>
+      <p customLabel [isTouched]="myForm.get('email')?.touched" [errors]="myForm.get('email')?.errors"></p>
     </div>
     <div>
       <label class="text-lg font-medium" for="password">Password</label>
@@ -49,7 +49,7 @@
 
         </div>
       </div>
-      <p customLabel [isDirty]="myForm.get('password')?.dirty" [errors]="myForm.get('password')?.errors"></p>
+      <p customLabel [isTouched]="myForm.get('password')?.touched" [errors]="myForm.get('password')?.errors"></p>
     </div>
     <div class="mt-2 flex justify-between items-center">
       <div>

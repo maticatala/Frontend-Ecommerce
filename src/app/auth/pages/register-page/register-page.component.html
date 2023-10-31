@@ -1,4 +1,4 @@
-<div class="bg-white w-full px-10 py-12 rounded-3xl border-2 border-gray-100"
+<form class="bg-white w-full px-10 py-12 rounded-3xl border-2 border-gray-100"
   [formGroup]="myForm"
   (ngSubmit)="onSubmit()"
 >
@@ -18,7 +18,7 @@
           formControlName="firstName"
           type="text"
         >
-        <p customLabel [isDirty]="myForm.get('firstName')?.dirty" [errors]="myForm.get('firstName')?.errors"></p>
+        <p customLabel [isTouched]="myForm.get('firstName')?.touched" [errors]="myForm.get('firstName')?.errors"></p>
       </div>
       <div>
         <label class="text-lg font-medium" for="lastName">Last Name</label>
@@ -29,7 +29,7 @@
           formControlName="lastName"
           type="text"
         >
-        <p customLabel [isDirty]="myForm.get('lastName')?.dirty" [errors]="myForm.get('lastName')?.errors"></p>
+        <p customLabel [isTouched]="myForm.get('lastName')?.touched" [errors]="myForm.get('lastName')?.errors"></p>
       </div>
     </div>
 
@@ -43,7 +43,7 @@
         formControlName="email"
         type="text"
       >
-      <p customLabel [isDirty]="myForm.get('email')?.dirty" [errors]="myForm.get('email')?.errors"></p>
+      <p customLabel [isTouched]="myForm.get('email')?.touched" [errors]="myForm.get('email')?.errors"></p>
     </div>
 
     <div class="mt-2">
@@ -73,16 +73,16 @@
           </svg>
 
         </div>
-        <p customLabel [isDirty]="myForm.get('password')?.dirty" [errors]="myForm.get('password')?.errors"></p>
+        <p customLabel [isTouched]="myForm.get('password')?.touched" [errors]="myForm.get('password')?.errors"></p>
       </div>
       <input [type]="password()" class="w-full border-2 border-gray-100 rounded-xl p-4 mt-2 bg-transparent"
         placeholder="Confirm your Password" name="password2" formControlName="password2">
-      <p customLabel [isDirty]="myForm.get('password2')?.dirty" [errors]="myForm.get('password2')?.errors"></p>
+      <p customLabel [isTouched]="myForm.get('password2')?.touched" [errors]="myForm.get('password2')?.errors"></p>
     </div>
     <div class="mt-8 flex flex-col">
       <button
-        class="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out py-3 rounded-xl bg-teal-500 text-white text-lg font-bold"
         type="submit"
+        class="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out py-3 rounded-xl bg-teal-500 text-white text-lg font-bold"
       >
         Register
       </button>
@@ -93,5 +93,8 @@
     </div>
   </div>
 
-</div>
+</form>
 
+
+{{ myForm.get('firstName')?.errors | json}}
+{{ myForm.get('firstName')?.touched | json}}

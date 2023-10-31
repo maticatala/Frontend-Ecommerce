@@ -9,7 +9,7 @@ export class CustomLabelDirective implements OnInit {
   private htmlElement?: ElementRef<HTMLElement>;
   private _color: string = 'rgb(248 113 113)' ;
   private _errors?: ValidationErrors | null;
-  private _isDirty?: boolean;
+  private _isTouched?: boolean;
 
   @Input()
   set color(value: string) {
@@ -18,14 +18,15 @@ export class CustomLabelDirective implements OnInit {
   }
 
   @Input()
-  set isDirty(value: boolean | undefined) {
-    this._isDirty = value;
+  set isTouched(value: boolean | undefined) {
+    this._isTouched = value;
+    if (this._isTouched && this._errors) this.setErrorMessage();
   }
 
   @Input()
   set errors(value: ValidationErrors | null | undefined) {
     this._errors = value;
-    if (this._isDirty) this.setErrorMessage();
+    if (this._isTouched) this.setErrorMessage();
   }
 
   constructor( private el: ElementRef<HTMLElement> ) {

@@ -42,8 +42,13 @@ export class RegisterPageComponent {
     const { email, password, firstName, lastName } = this.myForm.value;
     const name = firstName + ' ' + lastName;
 
-
-    if (this.myForm.invalid) return;
+    if (this.myForm.invalid) {
+      this.myForm.markAllAsTouched();
+      this.myForm.markAsDirty();
+      this.myForm.markAsPristine();
+      this.myForm.markAsTouched();
+      return;
+    };
 
     this.authService.register(email, password, name)
     .subscribe({
