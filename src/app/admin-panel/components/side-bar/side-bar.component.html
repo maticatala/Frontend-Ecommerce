@@ -19,38 +19,22 @@
 
       <div *ngFor="let item of sidebarItems()" class="cursor-pointer">
         <li
-        class="
-          text-white
-          text-sm
-          flex
-          items-center
-          gap-x-4
-          p-2
-          hover:bg-teal-400
-          rounded-md
-          mb-2
-          duration-300"
+        class=" text-white text-sm flex items-center gap-x-4 p-2 hover:bg-teal-400 rounded-md mb-2 duration-300"
           [routerLink]="item.route" routerLinkActive="bg-teal-400"
           (click)="item.submenu ? item.dropState = !item.dropState : toggleSideBar()">
           <span class="text-xl w-4 flex justify-center mr-3">
-            <i [class]="item.icon" class="ml-4"></i>
+            <fa-icon *ngIf="item.icon" [icon]="item.icon" class="ml-4" ></fa-icon>
           </span>
           <span class="text-base font-medium flex-1" >
             {{ item.title }}
           </span>
-          <span *ngIf="item.submenu">
-            <i class="fa-solid fa-chevron-down"></i>
+          <span *ngIf="item.submenu" class="duration-300" [ngClass]="item.dropState ? 'rotate-180' : 'rotate-0'">
+            <fa-icon [icon]="faChevronDown"></fa-icon>
+            <!-- <i class="fa-solid fa-chevron-down"></i> -->
           </span>
         </li>
         <ul class="w-full" *ngIf="item.dropState">
-          <li class="text-white
-          text-sm
-          ml-5
-          p-2
-          hover:bg-teal-400
-          duration-300
-          rounded-md
-          mb-2"
+          <li class="text-white text-sm ml-5 p-2 hover:bg-teal-400 duration-300 rounded-md mb-2"
           (click)="toggleSideBar()"
           [routerLink]="subItem.route" routerLinkActive="bg-teal-400" *ngFor="let subItem of item.submenuItems">{{subItem.title}}</li>
         </ul>
@@ -67,7 +51,7 @@
         <small>{{ user()?.email || 'no email' }}</small>
       </div>
       <span class="ml-auto mr-2 text-xl cursor-pointer" (click)="onLogout()" routerLink="/auth/login">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <fa-icon [icon]="faArrowRightFromBracket"></fa-icon>
       </span>
     </div>
   </div>

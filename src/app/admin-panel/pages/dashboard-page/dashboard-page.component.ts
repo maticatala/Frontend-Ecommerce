@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   templateUrl: './dashboard-page.component.html',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
 })
 export class DashboardPageComponent {
 
-  constructor(){}
+  private authService = inject(AuthService)
+
+
+  constructor() { }
+
 }

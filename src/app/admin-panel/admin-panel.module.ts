@@ -7,6 +7,8 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { UserImagePipe } from './pipes/user-image.pipe';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatTableModule } from '@angular/material/table'
 
 
 @NgModule({
@@ -15,11 +17,13 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
     DashboardPageComponent,
     UsersPageComponent,
     UserImagePipe,
-    SideBarComponent
+    SideBarComponent,
   ],
   imports: [
     CommonModule,
     AdminPanelRoutingModule,
+    FontAwesomeModule,
+    MatTableModule
   ]
 })
 export class AdminPanelModule { }

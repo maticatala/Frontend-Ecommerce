@@ -42,13 +42,13 @@ export class RegisterPageComponent {
     const { email, password, firstName, lastName } = this.myForm.value;
     const name = firstName + ' ' + lastName;
 
-    
+
     if (this.myForm.invalid) return;
 
     this.authService.register(email, password, name)
     .subscribe({
       next: () => {
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/auth/login');
       }
     });
 

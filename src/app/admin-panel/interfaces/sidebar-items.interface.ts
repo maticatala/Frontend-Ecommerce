@@ -1,8 +1,9 @@
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 export interface SideBarItems {
 
   title: string;
-  icon?: string;
+  icon?: IconDefinition;
   route?: string;
   submenu?: boolean;
   dropState?: boolean;

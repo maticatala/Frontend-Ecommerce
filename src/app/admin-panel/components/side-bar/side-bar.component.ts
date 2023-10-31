@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { SideBarItems } from '../../interfaces/sidebar-items.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { faUser, faBoxOpen, faCodeBranch, faWaveSquare, faChevronDown, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'admin-side-bar',
@@ -14,12 +15,15 @@ export class SideBarComponent {
 
   public state = signal<boolean>(false);
 
+  faArrowRightFromBracket = faArrowRightFromBracket;
+  faChevronDown = faChevronDown;
+
   public sidebarItems = signal<SideBarItems[]>([
-    {title: 'Inicio', icon: 'fa-solid fa-wave-square', route: 'dashboard'},
-    {title: 'Usuarios', icon: 'fa-solid fa-user', route: 'users'},
+    {title: 'Inicio', icon: faWaveSquare, route: 'dashboard'},
+    {title: 'Usuarios', icon: faUser, route: 'users'},
     {
       title: 'Productos',
-      icon: 'fa-solid fa-box-open',
+      icon: faBoxOpen,
       submenu: true,
       dropState: false,
       submenuItems: [
@@ -27,7 +31,7 @@ export class SideBarComponent {
         { title: 'Añadir producto', route: 'users'}
       ]
     },
-    {title: 'Categorias', icon: 'fa-solid fa-code-branch', route: 'users'},
+    {title: 'Categorias', icon: faCodeBranch, route: 'users'},
   ]);
 
   get user() {
