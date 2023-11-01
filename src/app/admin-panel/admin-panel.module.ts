@@ -9,6 +9,7 @@ import { UserImagePipe } from './pipes/user-image.pipe';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatTableModule } from '@angular/material/table'
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MatTableModule } from '@angular/material/table'
     CommonModule,
     AdminPanelRoutingModule,
     FontAwesomeModule,
-    MatTableModule
+    MatTableModule,
+    AngularMaterialModule
   ]
 })
 export class AdminPanelModule { }

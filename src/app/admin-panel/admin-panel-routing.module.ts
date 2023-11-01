@@ -8,7 +8,7 @@ import { UsersPageComponent } from './pages/users-page/users-page.component';
 const routes: Routes = [{
   path: '',
   component: LayoutPageComponent,
-  canActivate: [isAdminGuard, isAuthenticatedGuard],
+  canActivate: [],
   children: [
     {path: 'dashboard',component: DashboardPageComponent},
     {path: 'users', component: UsersPageComponent},

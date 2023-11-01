@@ -1,5 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { Component } from '@angular/core';
+
 
 @Component({
   templateUrl: './dashboard-page.component.html',
@@ -8,9 +8,5 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class DashboardPageComponent {
 
-  private authService = inject(AuthService)
-
-
-  constructor() { }
 
 }
