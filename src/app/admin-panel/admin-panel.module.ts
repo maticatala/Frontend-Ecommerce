@@ -10,6 +10,7 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatTableModule } from '@angular/material/table'
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
     AdminPanelRoutingModule,
     FontAwesomeModule,
     MatTableModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    SharedModule
   ]
 })
 export class AdminPanelModule { }
