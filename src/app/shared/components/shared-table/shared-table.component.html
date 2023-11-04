@@ -22,7 +22,7 @@
       </ng-container>
       <!-- Toggle Button End -->
 
-      <ng-container class="sm:!overflow-scroll" [matColumnDef]="column.id" *ngFor="let column of visibleColumns"  >
+      <ng-container [matColumnDef]="column.id" *ngFor="let column of visibleColumns"  >
         <!-- Header cell -->
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ column.label}}
@@ -68,13 +68,12 @@
         class="matRowVisible visible-row-{{ row.recId }}"></mat-row>
 
       <!-- Body row definition for hidden columns -->
-      <mat-row *matRowDef="let row; let i = dataIndex; columns: ['hidden']" [@detailExpand]="
-          expandedElement.length && expandedElement[row.recId]
-            ? 'expanded'
-            : 'collapsed'
-        " style="overflow: hidden" class="matRowHidden hidden-row-{{ row.recId }} hidColLength-{{
-          hiddenColumns?.length
-        }}" [ngClass]="expandedElement[row.recId] ? 'expanded' : 'collapsed'"></mat-row>
+      <mat-row *matRowDef="let row; let i = dataIndex; columns: ['hidden']" [@detailExpand]="expandedElement[row.recId]
+        ? 'expanded'
+        : 'collapsed'" class="hidColLength-{{hiddenColumns?.length}}"
+      >
+    </mat-row>
+
     </mat-table>
   </section>
 

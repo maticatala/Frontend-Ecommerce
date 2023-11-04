@@ -16,13 +16,19 @@ import { Column, SpecialKeys } from "../../interfaces";
   styleUrls: ['./shared-table.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0', visibility: 'hidden'})),
-      state('expanded', style({height: '*', visibility: 'visible'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+  trigger('detailExpand', [
+    state(
+      'collapsed',
+      style({ height: '0', minHeight: '0', visibility: 'hidden' })
+    ),
+    state('expanded', style({ maxHeight: 'min-content', visibility: 'visible' })),
+    transition('expanded <=> collapsed', [
+      animate('250ms ease-in-out'),
     ]),
-  ],
+  ]),
+],
 })
+
 export class SharedTableComponent implements AfterContentInit  {
 
   private debounceTimer?: NodeJS.Timeout; //* Sirve para esperar hasta que el usuario termine de ingresar texto en el input y asi no sobrecargarlo
