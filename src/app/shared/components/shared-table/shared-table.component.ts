@@ -1,19 +1,19 @@
-import { Component, Input, ChangeDetectionStrategy, AfterContentInit, OnDestroy, ViewChild, ChangeDetectorRef, NgZone, OnInit } from "@angular/core";
-import { ViewportRuler } from "@angular/cdk/scrolling";
+import { Component, Input, ChangeDetectionStrategy, AfterContentInit, OnDestroy, ViewChild, ChangeDetectorRef, NgZone, OnInit, HostListener } from "@angular/core";
 import { FormControl } from '@angular/forms';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { Subscription } from "rxjs";
 
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
-import { MatTable, MatTableDataSource } from "@angular/material/table";
-import { MatSort } from "@angular/material/sort";
-import { Column } from "../../interfaces";
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTable } from '@angular/material/table';
+
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Column, SpecialKeys } from "../../interfaces";
 
 
 @Component({
   selector: 'shared-table',
   templateUrl: './shared-table.component.html',
-  styleUrls: ['./xd.scss'],
+  styleUrls: ['./shared-table.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('detailExpand', [
@@ -23,17 +23,17 @@ import { Column } from "../../interfaces";
     ]),
   ],
 })
-export class SharedTableComponent implements AfterContentInit, OnDestroy, OnInit  {
+export class SharedTableComponent implements AfterContentInit  {
 
-  public MIN_COLUMN_WIDTH:number = 200;
+  private debounceTimer?: NodeJS.Timeout; //* Sirve para esperar hasta que el usuario termine de ingresar texto en el input y asi no sobrecargarlo
 
   // Filter Fields
   generalFilter = new FormControl
 
   // Visible Hidden Columns
-  visibleColumns!: Column[];
-  hiddenColumns!: Column[];
-  expandedElement: any = {}
+  visibleColumns?: Column[];
+  hiddenColumns?: Column[];
+  expandedElement:any = {}
 
   // MatPaginator Inputs
   length = 100;
@@ -41,7 +41,7 @@ export class SharedTableComponent implements AfterContentInit, OnDestroy, OnInit
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
   // MatPaginator Output
-  pageEvent!: PageEvent;
+  pageEvent?: PageEvent;
 
   // Shared Variables
   @Input() dataSource!: MatTableDataSource<any>;
@@ -49,42 +49,29 @@ export class SharedTableComponent implements AfterContentInit, OnDestroy, OnInit
 
   // MatTable
   @ViewChild(MatTable, { static: true })  dataTable!: MatTable<Element>;
-  @ViewChild(MatSort, {static:true}) sort!: MatSort;
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator,{static:true}) paginator!: MatPaginator;
-
-  private rulerSubscription: Subscription;
 
 
   get visibleColumnsIds() {
+    if (!this.visibleColumns) return;
+
     const visibleColumnsIds = this.visibleColumns.map(column => column.id)
 
-    return this.hiddenColumns.length ? ['trigger', ...visibleColumnsIds] : visibleColumnsIds
+    return this.hiddenColumns!.length ? ['trigger', ...visibleColumnsIds] : visibleColumnsIds
   }
 
   get hiddenColumnsIds() {
+    if (!this.hiddenColumns) return
     return this.hiddenColumns.map(column => column.id)
   }
 
-  isExpansionDetailRow = (index: any, item:any) => item.hasOwnProperty('detailRow');
+  // isExpansionDetailRow = (index: any, item: any) => item.hasOwnProperty('detailRow');
 
+  constructor(private _changeDetectorRef: ChangeDetectorRef){}
 
-  constructor(private ruler: ViewportRuler, private _changeDetectorRef: ChangeDetectorRef, private zone: NgZone) {
-    this.rulerSubscription = this.ruler.change(100).subscribe(data => {
-      // accesing clientWidth cause browser layout, cache it!
-      // const tableWidth = this.table.nativeElement.clientWidth;
-      this.toggleColumns(this.dataTable['_elementRef'].nativeElement.clientWidth);
-    });
-  }
-
-  /**
-   * Lifecycle Hook Start
-   */
-
-  ngOnInit(){
-  }
   ngAfterContentInit() {
-    // console.log(this.dataTable['_elementRef'].nativeElement.clientWidth)
-    this.toggleColumns(this.dataTable['_elementRef'].nativeElement.clientWidth);
+    this.toggleColumns();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
 
@@ -95,48 +82,55 @@ export class SharedTableComponent implements AfterContentInit, OnDestroy, OnInit
 
   }
 
-  ngOnDestroy() {
-    this.rulerSubscription.unsubscribe();
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.toggleColumns();
   }
 
-  /**
-   * Lifecycle Hook End
-   */
+  toggleColumns() {
+    const tableWidth = window.innerWidth; // Obtén el ancho de la ventana
+    const breakpoints = {
+      static: 0,
+      sm: 640, // Define tus breakpoints de acuerdo a Tailwind
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+    };
 
-  applyFilter(e: KeyboardEvent) {
-    const value = (e.target as HTMLInputElement).value
+    this.columnsdef.forEach((column) => {
+      const breakpoint = column.breakpoint; // Supongamos que cada columna tiene una propiedad "breakpoint"
 
-    this.dataSource.filter = value;
-  }
-
-
-  toggleColumns(tableWidth: number){
-    //console.log('tableWidth',tableWidth)
-    this.zone.runOutsideAngular(() => {
-      const sortedColumns = this.columnsdef.slice()
-        .map((column, index) => ({ ...column, order: index }))
-        .sort((a, b) => a.hideOrder - b.hideOrder);
-
-      for (const column of sortedColumns) {
-        const columnWidth = column.width ? column.width : this.MIN_COLUMN_WIDTH;
-        //console.log('columnWidth',columnWidth)
-
-        if (column.hideOrder && tableWidth < columnWidth) {
-          column.visible = false;
-
-          continue;
-        }
-
-        tableWidth -= columnWidth;
+      if (breakpoints[breakpoint] && tableWidth < breakpoints[breakpoint]) {
+        column.visible = false;
+      } else {
         column.visible = true;
       }
+    });
 
-      this.columnsdef = sortedColumns.sort((a, b) => a.order - b.order);
-      this.visibleColumns = this.columnsdef.filter(column => column.visible);
-      this.hiddenColumns = this.columnsdef.filter(column => !column.visible)
-    })
+    this.visibleColumns = this.columnsdef.filter((column) => column.visible);
+    this.hiddenColumns = this.columnsdef.filter((column) => !column.visible);
 
     this._changeDetectorRef.detectChanges();
   }
 
+
+  FilterChange(e: KeyboardEvent): void {
+
+    if (this.isSpecialKey(e)) return;
+
+    if (this.debounceTimer) clearTimeout(this.debounceTimer)
+
+    const value = (e.target as HTMLInputElement).value;
+
+    this.debounceTimer = setTimeout(() => {
+      this.dataSource.filter = value;
+    }, 350);
+  }
+
+  isSpecialKey(event: KeyboardEvent): boolean {
+    // Define una función para determinar si una tecla es especial
+    let specialKeys: SpecialKeys[] = Object.values(SpecialKeys);
+
+    return specialKeys.includes(event.key as SpecialKeys);
+  }
 }

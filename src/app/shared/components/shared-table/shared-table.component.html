@@ -1,90 +1,83 @@
 <div class="shredTable">
   <div class="filterHeader">
     <mat-form-field>
-      <input
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Filter"
-      />
+      <input matInput (keyup)="FilterChange($event)" placeholder="Filter" />
     </mat-form-field>
   </div>
 
-  <mat-table #dataTable [dataSource]="dataSource" matSort multiTemplateDataRows>
-    <!-- Toggle Button Start -->
-    <ng-container matColumnDef="trigger">
-      <mat-header-cell *matHeaderCellDef class="w-[70px]">
-        <mat-icon>menu</mat-icon>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row; let i = dataIndex" class="w-[70px]">
-        <span
-          (click)="expandedElement[row.recId] = !expandedElement[row.recId]"
-          [ngClass]="[expandedElement[row.recId] ? 'active' : 'inActive']"
-          class="btnToggleExpand"
-        ></span>
-      </mat-cell>
-    </ng-container>
-    <!-- Toggle Button End -->
+  <section class="container-example">
+    <mat-table #dataTable [dataSource]="dataSource" matSort multiTemplateDataRows>
+      <!-- Toggle Button Start -->
+      <ng-container matColumnDef="trigger">
+        <mat-header-cell *matHeaderCellDef class="flex justify-center">
+          <mat-icon>menu</mat-icon>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="flex justify-center">
+          <button mat-icon-button aria-label="expand row"
+            (click)="expandedElement[row.recId] = !expandedElement[row.recId]" >
+            <mat-icon *ngIf="!expandedElement[row.recId]">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="expandedElement[row.recId]">keyboard_arrow_up</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <!-- Toggle Button End -->
 
-    <ng-container
-      [matColumnDef]="column.id"
-      *ngFor="let column of visibleColumns"
-    >
-      <!-- Header cell -->
-      <mat-header-cell *matHeaderCellDef mat-sort-header>{{
-        column.label
-      }}</mat-header-cell>
+      <ng-container class="sm:!overflow-scroll" [matColumnDef]="column.id" *ngFor="let column of visibleColumns"  >
+        <!-- Header cell -->
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column.label}}
+        </mat-header-cell>
 
-      <mat-cell *matCellDef="let row">
-        <ng-container *ngIf="column.id !== 'action'">
-          {{ row[column.id] }}
-        </ng-container>
-        <ng-container *ngIf="column.id == 'action'">
-          <p>a</p>
-        </ng-container>
-      </mat-cell>
-    </ng-container>
+        <mat-cell *matCellDef="let row">
+          <ng-container *ngIf="column.id !== 'action'" >
+            {{ row[column.id] }}
+          </ng-container>
+          <ng-container *ngIf="column.id == 'action'">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span>Editar</span>
+              </button>
+            </mat-menu>
 
-    <ng-container matColumnDef="hidden">
-      <mat-cell *matCellDef="let row; let i = dataIndex" class="matCell">
-        <p *ngFor="let hiddenColumn of hiddenColumns" class="m8">
-          <strong> {{ hiddenColumn.label }}: </strong>
-          <span>
-            {{ row[hiddenColumn.id] }}
-          </span>
-        </p>
-      </mat-cell>
-    </ng-container>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
 
-    <mat-header-row
-      *matHeaderRowDef="visibleColumnsIds"
-      class="matHeaderRow"
-    ></mat-header-row>
+      <ng-container matColumnDef="hidden">
+        <mat-cell *matCellDef="let row; let i = dataIndex" class="flex flex-col items-start">
+          <p *ngFor="let hiddenColumn of hiddenColumns" class="m-2">
+            <strong> {{ hiddenColumn.label }}: </strong>
+            <span>
+              {{ row[hiddenColumn.id] }}
+            </span>
+          </p>
+        </mat-cell>
+      </ng-container>
 
-    <mat-row
-      *matRowDef="let row; let i = dataIndex; columns: visibleColumnsIds"
-      class="matRowVisible visible-row-{{ row.recId }}"
-    ></mat-row>
+      <mat-header-row *matHeaderRowDef="visibleColumnsIds; sticky: true" class=""></mat-header-row>
 
-    <!-- Body row definition for hidden columns -->
-    <mat-row
-      *matRowDef="let row; let i = dataIndex; columns: ['hidden']"
-      [@detailExpand]="
-        expandedElement.length && expandedElement[row.recId]
-          ? 'expanded'
-          : 'collapsed'
-      "
-      style="overflow: hidden"
-      class="matRowHidden hidden-row-{{ row.recId }} hidColLength-{{
-        hiddenColumns.length
-      }}"
-      [ngClass]="expandedElement[row.recId] ? 'expanded' : 'collapsed'"
-    ></mat-row>
-  </mat-table>
+      <mat-row *matRowDef="let row; let i = dataIndex; columns: visibleColumnsIds"
+        class="matRowVisible visible-row-{{ row.recId }}"></mat-row>
 
-  <mat-paginator
-    [length]="length"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="pageSizeOptions"
-    (page)="pageEvent = $event"
-  ></mat-paginator>
+      <!-- Body row definition for hidden columns -->
+      <mat-row *matRowDef="let row; let i = dataIndex; columns: ['hidden']" [@detailExpand]="
+          expandedElement.length && expandedElement[row.recId]
+            ? 'expanded'
+            : 'collapsed'
+        " style="overflow: hidden" class="matRowHidden hidden-row-{{ row.recId }} hidColLength-{{
+          hiddenColumns?.length
+        }}" [ngClass]="expandedElement[row.recId] ? 'expanded' : 'collapsed'"></mat-row>
+    </mat-table>
+  </section>
+
+  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+    (page)="pageEvent = $event"></mat-paginator>
 </div>
