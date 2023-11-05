@@ -1,0 +1,37 @@
+.cus-snackbar{
+  display: flex;
+  align-items: center;
+  color: #2d3436;
+}
+
+.cus-snackbar .mat-icon{
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+  margin-right: .5rem;
+}
+
+.cus-snackbar > button {
+  color: #2d3436;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+::ng-deep .success-snackbar{
+  --mdc-snackbar-container-color: #02be6e;
+}
+
+::ng-deep .danger-snackbar{
+  --mdc-snackbar-container-color: #dc3545;
+}
+
+::ng-deep .warning-snackbar{
+  --mdc-snackbar-container-color: #ffc107;
+}
+
+::ng-deep .info-snackbar{
+  --mdc-snackbar-container-color: #17a2b8;
+}
+

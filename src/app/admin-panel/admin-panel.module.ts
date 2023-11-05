@@ -11,6 +11,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatTableModule } from '@angular/material/table'
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { SharedModule } from '../shared/shared.module';
+import { UserAddEditComponent } from './components/user-add-edit/user-add-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -20,6 +23,7 @@ import { SharedModule } from '../shared/shared.module';
     UsersPageComponent,
     UserImagePipe,
     SideBarComponent,
+    UserAddEditComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,8 @@ import { SharedModule } from '../shared/shared.module';
     FontAwesomeModule,
     MatTableModule,
     AngularMaterialModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
   ]
 })
 export class AdminPanelModule { }

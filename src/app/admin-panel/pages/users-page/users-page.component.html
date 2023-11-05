@@ -1,1 +1,7 @@
-<shared-table [dataSource]="dataSource" [columnsdef]="columns"></shared-table>
+<shared-table [dataSource]="dataSource"
+  [columnsdef]="columns"
+  (elementoEditado)="onElementoEditado($event)"
+  (elementoEliminado)="onElementoEliminado($event)"
+  (elementoAgregado)="onAddElement($event)"
+>
+</shared-table>

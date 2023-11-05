@@ -1,11 +1,14 @@
-<div class="shredTable">
-  <div class="filterHeader">
-    <mat-form-field>
+<mat-card>
+  <mat-card-header>
+    <mat-form-field appearance="outline" class="mr-auto">
       <input matInput (keyup)="FilterChange($event)" placeholder="Filter" />
     </mat-form-field>
-  </div>
-
-  <section class="container-example">
+    <button type="button" mat-fab extended color="primary" (click)="agregarElemento($event)">
+      <mat-icon>add</mat-icon>
+      Add new
+    </button>
+  </mat-card-header>
+  <mat-card-content>
     <mat-table #dataTable [dataSource]="dataSource" matSort multiTemplateDataRows>
       <!-- Toggle Button Start -->
       <ng-container matColumnDef="trigger">
@@ -14,7 +17,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row" class="flex justify-center">
           <button mat-icon-button aria-label="expand row"
-            (click)="expandedElement[row.recId] = !expandedElement[row.recId]" >
+            (click)="expandedElement[row.recId] = !expandedElement[row.recId]">
             <mat-icon *ngIf="!expandedElement[row.recId]">keyboard_arrow_down</mat-icon>
             <mat-icon *ngIf="expandedElement[row.recId]">keyboard_arrow_up</mat-icon>
           </button>
@@ -22,14 +25,14 @@
       </ng-container>
       <!-- Toggle Button End -->
 
-      <ng-container [matColumnDef]="column.id" *ngFor="let column of visibleColumns"  >
+      <ng-container [matColumnDef]="column.id" *ngFor="let column of visibleColumns">
         <!-- Header cell -->
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ column.label}}
         </mat-header-cell>
 
         <mat-cell *matCellDef="let row">
-          <ng-container *ngIf="column.id !== 'action'" >
+          <ng-container *ngIf="column.id !== 'action'">
             {{ row[column.id] }}
           </ng-container>
           <ng-container *ngIf="column.id == 'action'">
@@ -37,11 +40,11 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>
+              <button mat-menu-item (click)="eliminarElemento(row)">
                 <mat-icon>delete</mat-icon>
                 <span>Delete</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="editarElemento(row)">
                 <mat-icon>edit</mat-icon>
                 <span>Editar</span>
               </button>
@@ -69,14 +72,14 @@
 
       <!-- Body row definition for hidden columns -->
       <mat-row *matRowDef="let row; let i = dataIndex; columns: ['hidden']" [@detailExpand]="expandedElement[row.recId]
-        ? 'expanded'
-        : 'collapsed'" class="hidColLength-{{hiddenColumns?.length}}"
-      >
-    </mat-row>
+            ? 'expanded'
+            : 'collapsed'" class="hidColLength-{{hiddenColumns?.length}}">
+      </mat-row>
 
     </mat-table>
-  </section>
-
-  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-    (page)="pageEvent = $event"></mat-paginator>
-</div>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      (page)="pageEvent = $event"></mat-paginator>
+  </mat-card-actions>
+</mat-card>

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, AfterContentInit, OnDestroy, ViewChild, ChangeDetectorRef, NgZone, OnInit, HostListener } from "@angular/core";
+import { Component, Input, ChangeDetectionStrategy, AfterContentInit, OnDestroy, ViewChild, ChangeDetectorRef, NgZone, OnInit, HostListener, Output, EventEmitter } from "@angular/core";
 import { FormControl } from '@angular/forms';
 
 import { MatTableDataSource } from '@angular/material/table';
@@ -138,5 +138,24 @@ export class SharedTableComponent implements AfterContentInit  {
     let specialKeys: SpecialKeys[] = Object.values(SpecialKeys);
 
     return specialKeys.includes(event.key as SpecialKeys);
+  }
+
+  @Output() elementoEditado = new EventEmitter<any>();
+  @Output() elementoEliminado = new EventEmitter<any>();
+  @Output() elementoAgregado = new EventEmitter<any>();
+
+  // Lógica para editar y eliminar elementos
+  editarElemento(elemento: any) {
+    // Realiza la edición
+    this.elementoEditado.emit(elemento);
+  }
+
+  eliminarElemento(elemento: any) {
+    // Realiza la eliminación
+    this.elementoEliminado.emit(elemento);
+  }
+
+  agregarElemento(evento: any) {
+    this.elementoAgregado.emit(evento);
   }
 }

@@ -57,10 +57,9 @@ export class AuthService {
       );
   }
 
-  register(email: string, password: string, name: string): Observable<boolean> {
+  register(body:User): Observable<boolean> {
 
     const url = `${this.baseUrl}/auth/register`;
-    const body = { email, password, name };
 
     return this.http.post<RegisterResponse>(url, body)
       .pipe(
