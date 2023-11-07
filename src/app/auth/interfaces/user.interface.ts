@@ -7,3 +7,4 @@ export interface User {
   createdAt: Date;
   rol:    string;
 }
+

@@ -7,7 +7,6 @@ import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { UsersService } from '../../services/users.service';
 import { EmailValidator } from 'src/app/shared/validators/email-validator.service';
-import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-user-add-edit',
@@ -33,7 +32,7 @@ export class UserAddEditComponent implements OnInit {
   public data = inject(MAT_DIALOG_DATA);
 
   public myForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)], [ ]],
+    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     password: ['', [Validators.minLength(6)], []],
@@ -44,6 +43,7 @@ export class UserAddEditComponent implements OnInit {
       this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2'),
     ]
   });
+
 
   ngOnInit(): void {
     if (this.data) {

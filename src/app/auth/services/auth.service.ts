@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 import { environment } from 'src/app/environments/environments';
 import { AuthStatus, CheckTokenResponse, LoginResponse, User, RegisterResponse } from '../interfaces';
@@ -21,18 +22,21 @@ export class AuthService {
 
   //! Al mundo exterior
   public currentUser = computed( () => this._currentUser() );
-  public authStatus = computed( () => this._authStatus() );
+  public authStatus = computed(() => this._authStatus());
+
 
   constructor() {
     //Apenas se llama al servicio se ejecuta el metodo checkAuthStatus para validar el estado de authenticacion del usuario
     this.checkAuthStatus().subscribe();
    }
 
-  private setAuthentication( user: User, token: string ): boolean {
+
+  private setAuthentication(user: User, token: string): boolean {
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
     //Almacenamos el token en el localStorage para poder recuperar los datos del usuario frente a un reload del navegador
     localStorage.setItem('token', token);
+
     return true;
   }
 

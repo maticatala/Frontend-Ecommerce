@@ -1,24 +1,29 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { AuthStatus } from '../interfaces';
-
-//PublicGuard - PrivateGuard
-
+import { map } from 'rxjs';
 
 export const isNotAuthenticatedGuard: CanActivateFn = (route, state) => {
 
   const authService = inject(AuthService);
   const router = inject(Router);
-  let response: boolean = false;;
 
-  authService.checkAuthStatus().subscribe(() => {
-    if (authService.authStatus() === AuthStatus.authenticated) {
-      router.navigateByUrl('/dashboard');
-    }
-    response = true;
-  });
 
-  return response;
+  // authService.checkAuthStatus().subscribe(() => {
+  //   if (authService.authStatus() === AuthStatus.authenticated) {
+  //     router.navigateByUrl('/dashboard');
+  //   }
+
+  // });
+
+  return authService.checkAuthStatus()
+    .pipe(
+      map((res) => {
+        console.log('is not authenticated guard', res);
+        return !res || router.createUrlTree(['/dashboard']);
+      })
+  );
+
+
 };
 

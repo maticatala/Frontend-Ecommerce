@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { isNotAuthenticatedGuard } from './auth/guards';
+import { isNotAuthenticatedGuard, isAdminGuard } from './auth/guards';
 
 const routes: Routes = [
   {
@@ -10,7 +10,12 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
+    canActivate: [isAdminGuard],
     loadChildren: () => import('./admin-panel/admin-panel.module').then( m => m.AdminPanelModule ),
+  },
+  {
+    path: '',
+    loadChildren: () => import('./public-panel/public-panel.module').then( m => m.PublicPanelModule),
   },
   {
     path: '**',
