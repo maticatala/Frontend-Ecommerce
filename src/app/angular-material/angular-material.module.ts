@@ -18,6 +18,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { MatChipsModule } from '@angular/material/chips';
+
 
 
 
@@ -41,7 +44,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatExpansionModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    CdkTreeModule,
+    MatChipsModule,
   ]
 })
 export class AngularMaterialModule { }

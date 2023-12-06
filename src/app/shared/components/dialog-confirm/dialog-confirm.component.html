@@ -3,7 +3,7 @@
 <div mat-dialog-content>
   Would you like to delete {{data.object}}?
 </div>
-<div mat-dialog-actions>
-  <button mat-button type="button" [mat-dialog-close]="false" >No</button>
-  <button mat-raised-button  type="button" [mat-dialog-close]="true" >Ok</button>
+<div mat-dialog-actions style="float: right;">
+  <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false">No</button>
+  <button mat-raised-button color="primary" type="button" [mat-dialog-close]="true">Ok</button>
 </div>

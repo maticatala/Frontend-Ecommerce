@@ -1,7 +1,16 @@
-@media (max-width: 1023px) {
+/* @media (max-width: 1023px) {
   .content {
     flex: 0 0 100%
   }
-}
+} */
 
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 

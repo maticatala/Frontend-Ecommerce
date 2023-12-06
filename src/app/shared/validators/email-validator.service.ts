@@ -8,11 +8,15 @@ export class EmailValidator {
 
   constructor(private authService: AuthService) {}
 
-  validate(): AsyncValidatorFn {
+  validate(lastEmail: string | null): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       const email = control.value;
 
       if (!email) return of(null);
+
+      if (lastEmail) {
+        if (email === lastEmail) return of(null);
+      }
 
       return this.authService.findByEmail(email).pipe(
         map((emailTaken) => (emailTaken ? { emailTaken: true } : null)),

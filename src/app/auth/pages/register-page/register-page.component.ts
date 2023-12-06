@@ -17,11 +17,11 @@ export class RegisterPageComponent {
   private emailValidator = inject(EmailValidator);
 
   public myForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)], [ this.emailValidator.validate() ]],
+    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)], [ this.emailValidator.validate(null) ]],
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(4)], []],
-    password2: ['', [Validators.required], []]
+    password: ['', [Validators.required, Validators.minLength(4)]],
+    password2: ['', [Validators.required]]
   }, {
     validators: [
       this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2'),
@@ -40,12 +40,12 @@ export class RegisterPageComponent {
 
 
   onSubmit(): void {
-    const { password2, ...user } = this.myForm.value;
-
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
     };
+
+    const { password2, ...user } = this.myForm.value;
 
     this.authService.register( user )
     .subscribe({

@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from './layouts/layout-page/admin-layout-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
+import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
+import { ListProductsPageComponent } from './pages/list-products-page/list-products-page.component';
+import { AddEditProductComponent } from './pages/add-edit-product/add-edit-product.component';
 
 const routes: Routes = [{
   path: '',
@@ -10,6 +13,9 @@ const routes: Routes = [{
   children: [
     {path: 'dashboard',component: DashboardPageComponent},
     {path: 'users', component: UsersPageComponent},
+    {path: 'categories', component: CategoriesPageComponent},
+    {path: 'products', component: ListProductsPageComponent},
+    {path: 'product', component: AddEditProductComponent},
     {path: '**', redirectTo: 'dashboard'},
   ],
 }];

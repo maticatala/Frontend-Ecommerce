@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, Input } from '@angular/core';
-import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
 
 @Directive({
   selector: '[customLabel]'
@@ -64,6 +64,11 @@ export class CustomLabelDirective implements OnInit {
 
     if (errors.includes('notEqual')) {
       element.innerHTML = 'Las contraseñas deben ser iguales';
+      return;
+    }
+
+    if (errors.includes('invalidMimeType')) {
+      element.innerHTML = 'El formato de imagen debe ser png o jpeg';
       return;
     }
 

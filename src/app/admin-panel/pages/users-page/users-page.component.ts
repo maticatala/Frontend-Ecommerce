@@ -21,10 +21,10 @@ export class UsersPageComponent implements OnInit{
   public dataSource = new MatTableDataSource();
 
   columns: Column[] = [
-    {id:'id',        label:'ID',       breakpoint: 'md', width: 10},
+    {id:'id',        label:'ID',       breakpoint: 'md'},
     {id:'email',     label:'Email',    breakpoint: 'static'},
-    {id:'firstName', label:'Nombre',   breakpoint: 'md'},
-    {id:'lastName',  label:'Apellido', breakpoint: 'md'},
+    {id:'firstName', label:'Nombre',   breakpoint: 'lg'},
+    {id:'lastName',  label:'Apellido', breakpoint: 'lg'},
     {id:'createdAt', label:'Creado',   breakpoint: 'lg'},
     {id:'rol',       label:'Rol',      breakpoint: 'sm'},
     {id:'action',    label:'Acciones', breakpoint: 'static'},
@@ -66,11 +66,11 @@ export class UsersPageComponent implements OnInit{
     })
   }
 
-  onElementoEliminado(elemento: any) {
+  onElementoEliminado(user: User) {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       data: {
         type: 'Usuario',
-        object: elemento.email,
+        object: user.email,
       }
     });
 
@@ -80,7 +80,7 @@ export class UsersPageComponent implements OnInit{
       next: (val) => {
         if (!val) return;
 
-        this.usersService.deleteUser(elemento.id).subscribe({
+        this.usersService.deleteUser(user.id).subscribe({
           next: (res) => {
             this.setUserList();
             this._cusSnackbar.openCustomSnackbar("done", "Delete Successfuly!", "Okay", 3000, 'success');

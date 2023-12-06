@@ -1,0 +1,5 @@
+@import '../side-nav/side-nav.component.css';
+
+.app-tree-node .app-tree-node {
+  padding-left: 0px;
+}

@@ -32,10 +32,13 @@
         </mat-header-cell>
 
         <mat-cell *matCellDef="let row">
-          <ng-container *ngIf="column.id !== 'action'">
+          <ng-container *ngIf="column.id !== 'action' && column.id !== 'imagen'">
             {{ row[column.id] }}
           </ng-container>
-          <ng-container *ngIf="column.id == 'action'">
+          <ng-container *ngIf="column.id === 'imagen'">
+            <img src="http://localhost:3000/{{row[column.id]}}" alt="imagen">
+          </ng-container>
+          <ng-container *ngIf="column.id === 'action'">
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
               <mat-icon>more_vert</mat-icon>
             </button>

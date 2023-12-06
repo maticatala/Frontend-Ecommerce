@@ -1,3 +1,5 @@
+
+
   .container-example {
     max-height: 70vh;
     overflow: auto;
@@ -5,13 +7,13 @@
 
   .mat-column-trigger {
     max-width: 58px;
-    word-wrap: break-word;
+    /* word-wrap: break-word; */
     padding: 0px;
   }
 
   .mat-column-action {
     max-width: 78.05px;
-    word-wrap: break-word;
+    /* word-wrap: break-word; */
     padding: 0;
   }
 
@@ -29,4 +31,18 @@
 
   mat-card {
     position: inherit;
+  }
+
+  .mat-column-id {
+    max-width: 100px;
+    word-wrap: break-word;
+  }
+
+  .mat-column-imagen {
+    /* object-fit: cover; */
+    max-width: 200px;
+  }
+
+  .mat-mdc-cell {
+    word-break: break-all;
   }

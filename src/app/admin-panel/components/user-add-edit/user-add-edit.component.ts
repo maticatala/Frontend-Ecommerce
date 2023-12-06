@@ -1,12 +1,12 @@
-import { DialogRef } from '@angular/cdk/dialog';
 import { Component, OnInit, inject } from '@angular/core';
-import { AsyncValidatorFn, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { UsersService } from '../../services/users.service';
 import { EmailValidator } from 'src/app/shared/validators/email-validator.service';
+import { Roles } from 'src/app/auth/interfaces';
 
 @Component({
   selector: 'app-user-add-edit',
@@ -14,13 +14,6 @@ import { EmailValidator } from 'src/app/shared/validators/email-validator.servic
   styleUrls: ['./user-add-edit.component.css']
 })
 export class UserAddEditComponent implements OnInit {
-
-  hide = true;
-
-  roles: string[] = [
-    'admin',
-    'user'
-  ]
 
   private fb = inject(FormBuilder);
   private _dialogRef = inject(MatDialogRef<UserAddEditComponent>);
@@ -30,9 +23,11 @@ export class UserAddEditComponent implements OnInit {
   private emailValidator = inject(EmailValidator);
 
   public data = inject(MAT_DIALOG_DATA);
+  public roles = Object.values(Roles);
+  public hide = true;
 
   public myForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)], [this.emailValidator.validate(this.data ? this.data.email : null)]],
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     password: ['', [Validators.minLength(6)], []],
@@ -49,32 +44,25 @@ export class UserAddEditComponent implements OnInit {
     if (this.data) {
       this.myForm.get('password')?.clearValidators();
       this.myForm.get('password')?.updateValueAndValidity();
-      this.myForm.get('email')?.clearAsyncValidators()
+      // this.myForm.get('email')?.setAsyncValidators(this.emailValidator.validate())
     } else {
       this.myForm.get('password')?.setValidators([Validators.required, Validators.minLength(4)]);
-      this.myForm.get('email')?.setAsyncValidators(this.emailValidator.validate())
+      // this.myForm.get('email')?.setAsyncValidators(this.emailValidator.validate())
     }
     this.myForm.patchValue(this.data);
   }
 
   onFormSubmit(): void {
+
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
     };
 
     if (this.data) {
-      const { password, password2, email, ...body } = this.myForm.value;
+      const { password, password2, ...body } = this.myForm.value;
 
       if (password) body['password'] = password;
-
-      if (email !== this.data.email) {
-        this.myForm.get('email')?.setAsyncValidators(this.emailValidator.validate())
-      } else {
-        this.myForm.get('email')?.clearAsyncValidators()
-      };
-
-      body['email'] = email;
 
       this.updateUser(this.data.id, body);
     } else {

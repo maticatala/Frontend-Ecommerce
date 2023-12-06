@@ -1,0 +1,26 @@
+.mat-nav-list {
+  width: 100%;
+}
+
+.mat-list-item.active {
+  color: red;
+}
+
+.app-tree-invisible {
+  display: none;
+}
+
+.app-tree ul,
+.app-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+.app-tree-node {
+  display: block;
+}
+
+.app-tree-node .app-tree-node {
+  padding-left: 20px;
+}
