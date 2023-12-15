@@ -1,8 +1,7 @@
-<!-- <div *ngFor="let product of products">
-  <img src="http://localhost:3000/{{product.imagen}}" alt="">
-</div> -->
-
 <shared-table
   [dataSource]="dataSource"
-  [columnsdef]="columns" >
+  [columnsdef]="columns"
+  (elementoEditado)="onElementoEditado($event)"
+  (elementoEliminado)="onElementoEliminado($event)"
+  (elementoAgregado)="onAddElement($event)">
 </shared-table>

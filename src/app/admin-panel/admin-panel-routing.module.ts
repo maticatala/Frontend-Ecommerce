@@ -15,6 +15,7 @@ const routes: Routes = [{
     {path: 'users', component: UsersPageComponent},
     {path: 'categories', component: CategoriesPageComponent},
     {path: 'products', component: ListProductsPageComponent},
+    {path: 'product/:id', component: AddEditProductComponent},
     {path: 'product', component: AddEditProductComponent},
     {path: '**', redirectTo: 'dashboard'},
   ],

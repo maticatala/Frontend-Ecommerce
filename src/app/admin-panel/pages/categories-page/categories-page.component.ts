@@ -16,6 +16,7 @@ export class CategoriesPageComponent {
   private categoriesService = inject(CategoriesService)
   private _cusSnackbar = inject(CustomSnackbarService);
   public dataSource = new MatTableDataSource();
+  private dialog = inject(MatDialog);
 
   columns: Column[] = [
     {id:'id',            label:'ID',       breakpoint: 'static'},
@@ -23,12 +24,10 @@ export class CategoriesPageComponent {
     {id:'action',        label:'Acciones', breakpoint: 'static'}
   ]
 
-  constructor(private dialog: MatDialog){}
+  constructor(){}
 
   ngOnInit(){
-
     this.setCategoriesList();
-
   }
 
   private setCategoriesList(): void {

@@ -8,6 +8,7 @@ import { MatTable } from '@angular/material/table';
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Column, SpecialKeys } from "../../interfaces";
+import { environment } from "src/app/environments/environments";
 
 
 @Component({
@@ -56,7 +57,9 @@ export class SharedTableComponent implements AfterContentInit  {
   // MatTable
   @ViewChild(MatTable, { static: true })  dataTable!: MatTable<Element>;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
-  @ViewChild(MatPaginator,{static:true}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
+  public readonly baseUrl: string = environment.baseUrl;
 
 
   get visibleColumnsIds() {

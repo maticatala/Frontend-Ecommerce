@@ -1,19 +1,22 @@
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER, Z } from '@angular/cdk/keycodes';
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../interfaces/category.interface';
-import { Observable } from 'rxjs';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ValidatorsService } from 'src/app/shared/services/validators.service';
+import { ProductsService } from '../../services/products.service';
+import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/app/environments/environments';
 
 @Component({
   templateUrl: './add-edit-product.component.html',
   styleUrls: ['./add-edit-product.component.css']
 })
 export class AddEditProductComponent implements OnInit {
+  isEditing: boolean = false;
+  productId: number | null = null;
 
   //*Image
   file: any;
@@ -22,24 +25,53 @@ export class AddEditProductComponent implements OnInit {
   //*Categories
   categories: Category[] = [];
   filteredCategories: Category[] = [];
-  categoriesChips: string[] = [];
+  categoriesChips: Category[] = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
+
   announcer = inject(LiveAnnouncer);
   @ViewChild('categoryInput') categoryInput?: ElementRef<HTMLInputElement>;
 
   //*injects
+  private _cusSnackbar = inject(CustomSnackbarService);
   private categoriesService = inject(CategoriesService);
+  private productsService = inject(ProductsService);
   private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private readonly baseUrl: string = environment.baseUrl;
+
 
   public myForm: FormGroup = this.fb.group({
-    image: [null, [Validators.required]],
-    name: ['', [Validators.required]],
-    description: ['', [Validators.required]],
+    image:          [null, [Validators.required]],
+    name:           ['', [Validators.required]],
+    description:    ['', [Validators.required]],
+    price:          ['', [Validators.required]],
     categoriesCtrl: [''],
   });
 
   ngOnInit(): void {
     this.getCategories();
+
+    this.route.params.subscribe(params => {
+      this.productId = params['id'];
+      this.isEditing = !!this.productId;
+      if (!this.isEditing) return;
+
+      this.productsService.getProductById(this.productId!).subscribe(product => {
+        // Llena el formulario con los datos del producto obtenidos
+        this.myForm.patchValue({
+          name: product.name,
+          description: product.description,
+          price: product.price
+        });
+
+        this.myForm.get('image')?.setErrors(null);
+        this.myForm.get('image')?.removeValidators;
+
+        this.imagen = `${this.baseUrl}/${product.imagen}`;
+        this.categoriesChips = product.categories;
+      });
+    });
   }
 
   getFile(e: any) {
@@ -54,6 +86,7 @@ export class AddEditProductComponent implements OnInit {
 
   clearFile() {
     this.file = undefined;
+    this.imagen = undefined;
     this.myForm.get('image')?.setValue(undefined);
   }
 
@@ -76,20 +109,15 @@ export class AddEditProductComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent) {
 
-    if (!this.notRepeatCategory(event.option.viewValue)) this.categoriesChips.push(event.option.viewValue);
+    if (!this.categoriesChips.includes(event.option.value)) {
+
+      this.categoriesChips.push(event.option.value);
+    }
 
     this.categoryInput!.nativeElement.value = '';
   }
 
-  notRepeatCategory(value: string) {
-    let exists = false;
-    this.categoriesChips.forEach(cat => {
-      if (cat === value) exists = true;
-    })
-    return exists;
-  }
-
-  remove(categoryChip: string): void {
+  remove(categoryChip: Category): void {
     const index = this.categoriesChips.indexOf(categoryChip);
 
     if (index >= 0) {
@@ -100,13 +128,68 @@ export class AddEditProductComponent implements OnInit {
   }
 
   onFormSubmit() {
+    this.setCategoriesErrors();
+
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
     }
 
-    let formData = new FormData();
-    formData.set("file", this.file);
+    const { categoriesCtrl, image, ...data } = this.myForm.value;
+
+    data.categoriesIds = this.categoriesChips.map(category => category.id);
+
+    if (this.isEditing) {
+      this.productsService.updateProduct(this.productId!, data, this.file).subscribe({
+        next: (res: any) => {
+          this.router.navigate(['/dashboard/products']);
+
+          this._cusSnackbar.openCustomSnackbar("done", "Modified Successfuly!", "Okay", 3000, 'success');
+        },
+        error: (e: any) => {
+            let message = e.message;
+            if (e.error.message) message = e.error.message
+
+            this._cusSnackbar.openCustomSnackbar("error", message, "Okay", 3000, 'danger');
+        }
+      });
+    } else {
+      this.productsService.createProduct(data, this.file).subscribe({
+        next: (res: any) => {
+          this.resetForm();
+
+          this._cusSnackbar.openCustomSnackbar("done", "Added Successfuly!", "Okay", 3000, 'success');
+        },
+        error: (e: any) => {
+            let message = e.message;
+            if (e.error.message) message = e.error.message
+
+            this._cusSnackbar.openCustomSnackbar("error", message, "Okay", 3000, 'danger');
+        }
+      });
+    }
+  }
+
+  resetForm() {
+    this.myForm.reset();
+    this.categoriesChips = [];
+    this.clearFile();
+
+    Object.keys(this.myForm.controls).forEach((key) => {
+      const control = this.myForm.controls[key];
+      control.setErrors(null);
+    });
+  }
+
+  setCategoriesErrors() {
+    const categoriesCtrl = this.myForm.get('categoriesCtrl');
+
+    if (this.categoriesChips.length === 0) {
+      categoriesCtrl?.setErrors({ required: true });
+      return;
+    }
+
+    categoriesCtrl?.setErrors(null);
   }
 
 }

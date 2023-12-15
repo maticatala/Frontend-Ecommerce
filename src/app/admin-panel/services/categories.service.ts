@@ -32,7 +32,7 @@ export class CategoriesService {
     return this.http.delete(`${this.baseUrl}/categories/${id}`);
   }
 
-  createCategory(body: any) {
+  createCategory(body: any): Observable<Category> {
     return this.http.post<Category>(`${this.baseUrl}/categories`, body)
   }
 

@@ -7,6 +7,7 @@ export interface Product {
   name:        string;
   createdAt:   string;
   description: string;
+  price:       number;
   imagen:      string;
   categories:  Category[];
 }

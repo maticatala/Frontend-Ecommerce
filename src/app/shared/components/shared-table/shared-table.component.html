@@ -32,11 +32,14 @@
         </mat-header-cell>
 
         <mat-cell *matCellDef="let row">
-          <ng-container *ngIf="column.id !== 'action' && column.id !== 'imagen'">
+          <ng-container *ngIf="column.id !== 'action' && column.id !== 'imagen' && column.id != 'price'">
             {{ row[column.id] }}
           </ng-container>
+          <ng-container *ngIf="column.id === 'price'">
+            {{ row[column.id] | currency}}
+          </ng-container>
           <ng-container *ngIf="column.id === 'imagen'">
-            <img src="http://localhost:3000/{{row[column.id]}}" alt="imagen">
+            <img src="{{baseUrl}}/{{row[column.id]}}" alt="imagen">
           </ng-container>
           <ng-container *ngIf="column.id === 'action'">
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -61,8 +64,11 @@
         <mat-cell *matCellDef="let row; let i = dataIndex" class="flex flex-col items-start">
           <p *ngFor="let hiddenColumn of hiddenColumns" class="m-2">
             <strong> {{ hiddenColumn.label }}: </strong>
-            <span>
+            <span *ngIf="hiddenColumn.id != 'price'">
               {{ row[hiddenColumn.id] }}
+            </span>
+            <span *ngIf="hiddenColumn.id == 'price'">
+              {{ row[hiddenColumn.id] | currency }}
             </span>
           </p>
         </mat-cell>
