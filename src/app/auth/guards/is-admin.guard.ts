@@ -8,9 +8,6 @@ export const isAdminGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-
-  console.log("test");
-
   return authService.checkAuthStatus()
     .pipe(
       map((res) => {

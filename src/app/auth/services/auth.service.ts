@@ -73,6 +73,7 @@ export class AuthService {
   }
 
   checkAuthStatus(): Observable<boolean> {
+
     const url   = `${this.baseUrl}/auth/check-token`
     const token = localStorage.getItem('token');
 
