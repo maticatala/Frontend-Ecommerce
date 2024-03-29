@@ -11,6 +11,7 @@ import { ProductsComponent } from './pages/products/products.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
     ProductsComponent,
     CategoryComponent,
     ShoppingCartComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    ProductCardComponent
   ],
   imports: [
     CommonModule,

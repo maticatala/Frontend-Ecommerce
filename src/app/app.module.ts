@@ -6,13 +6,11 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
-import { NavBarComponent } from './src/app/public-panel/components/nav-bar/nav-bar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent,
   ],
   imports: [
     BrowserModule,
