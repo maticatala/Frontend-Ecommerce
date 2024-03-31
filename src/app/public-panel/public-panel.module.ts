@@ -6,6 +6,8 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { MatCardModule } from '@angular/material/card';
 import { LayoutPageComponent } from './layouts/layout-page/layout-page.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CategoryComponent } from './pages/category/category.component';
@@ -29,7 +31,9 @@ import { ProductCardComponent } from './components/product-card/product-card.com
   ],
   imports: [
     CommonModule,
-    PublicPanelRoutingModule
+    PublicPanelRoutingModule,
+    AngularMaterialModule,
+    MatCardModule
   ]
 })
 export class PublicPanelModule { }
