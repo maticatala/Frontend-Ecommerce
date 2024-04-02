@@ -1,1 +1,57 @@
-<p>header works!</p>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+</head>
+<body class="font-[Poppins] bg-white h-screen">
+  <header class="bg-white mat-elevation-z8">
+    <nav class="flex justify-between items-center w-[92%] mx-auto">
+        <div>
+          <a href="http://localhost:4200/home">
+          <img class ="w-16"src="../../../assets/images/logo2.png" style="cursor: pointer" alt="...">
+          </a>
+        </div>
+        <div class="nav-links md:static absolute md:min-h-fit min-h-[6vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
+          <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 font-bold font-roboto font-size:20px">
+              <li>
+                <a class="text-white px-5 py-2 rounded-full hover:bg-[#dd994b]" style="cursor: pointer" href="#">Inicio</a>
+              </li>
+              <li>
+                <a class="text-white px-5 py-2 rounded-full hover:bg-[#dd994b]" style="cursor: pointer" href="#">Productos
+                </a>
+              </li>
+              <li>
+                <a class="text-white px-5 py-2 rounded-full hover:bg-[#dd994b]" style="cursor: pointer" href="#">Sobre Nosotros</a>
+              </li>
+              <li>
+                <a class="text-white px-5 py-2 rounded-full hover:bg-[#dd994b]" style="cursor: pointer" href="#">Contacto</a>
+              </li>
+              <li>
+                <a class="text-white px-5 py-2 rounded-full hover:bg-[#dd994b]" style="cursor: pointer" href="#">
+                  <mat-icon>shopping_cart</mat-icon>
+                </a>
+              </li>
+          </ul>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href= "http://localhost:4200/auth/login" class="bg-[#e63434] text-white px-5 py-2 rounded-full hover:bg-[#dd994b]" style="cursor: pointer">Ingresar</a>
+          <mat-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl cursor-pointer md:hidden">menu</mat-icon>
+
+
+        </div>
+    </nav>
+  </header>
+  <script>
+        const navLinks = document.querySelector('.nav-links')
+        function onToggleMenu(e){
+        e.name= e.name === 'menu' ? 'close' : 'menu'
+         navLinks.classList.toggle('top-[9%]')
+      }
+
+  </script>
+</body>
+</html>
