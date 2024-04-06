@@ -12,6 +12,8 @@ import { CategoryComponent } from './pages/category/category.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
 
 
 @NgModule({
@@ -25,11 +27,13 @@ import { ProductCardComponent } from './components/product-card/product-card.com
     CategoryComponent,
     ShoppingCartComponent,
     AboutUsComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    CarouselComponent
   ],
   imports: [
     CommonModule,
-    PublicPanelRoutingModule
+    PublicPanelRoutingModule,
+    AngularMaterialModule,
   ]
 })
 export class PublicPanelModule { }
