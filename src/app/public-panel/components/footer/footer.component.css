@@ -1,0 +1,9 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #374070; /* Color de fondo del footer */
+  color: white; /* Color de texto del footer */
+  text-align: center;
+  padding: 10px; /* Espaciado interno del footer */
+}

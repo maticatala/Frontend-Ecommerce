@@ -17,7 +17,16 @@ module.exports = {
       'desktop': '1280px',
       // => @media (min-width: 1280px) { ... }
     },
+    sm: '576px',
+    md:'768px',
+    lg:'992px',
+    xl:'1200px',
   },
+  container: {
+    center:true,
+    padding: '1rem'
+  },
+
   plugins: [],
 }
 

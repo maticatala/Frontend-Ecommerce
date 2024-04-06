@@ -3,7 +3,7 @@ import { ProductsService } from '../../services/products.service';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 
 @Component({
-  selector: 'app-products',
+  selector: 'public-panel-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
