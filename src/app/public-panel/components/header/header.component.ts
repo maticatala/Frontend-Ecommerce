@@ -7,12 +7,20 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  isSearchOpen: boolean = false;
 
+  toggleSearch() {
+    this.isSearchOpen = !this.isSearchOpen;
+  }
 
-  menuVariable:boolean =false;
-  menu_icon_variable: boolean = false;
-  openMenu(){
-    this.menuVariable =! this.menuVariable;
-    this.menu_icon_variable =! this.menu_icon_variable;
+  isCartOpen: boolean = false;
+
+  toggleCart() {
+    this.isCartOpen = !this.isCartOpen;
+  }
+  isMenuOpen: boolean = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }

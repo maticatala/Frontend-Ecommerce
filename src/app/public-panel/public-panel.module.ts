@@ -12,7 +12,8 @@ import { CategoryComponent } from './pages/category/category.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
-import { MatIconModule } from '@angular/material/icon';
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { ContactComponent } from '../public-panel/pages/contact/contact.component';
 
 
 @NgModule({
@@ -26,12 +27,13 @@ import { MatIconModule } from '@angular/material/icon';
     CategoryComponent,
     ShoppingCartComponent,
     AboutUsComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ContactComponent
   ],
   imports: [
     CommonModule,
     PublicPanelRoutingModule,
-    MatIconModule,
+    AngularMaterialModule,
   ]
 })
 export class PublicPanelModule { }
