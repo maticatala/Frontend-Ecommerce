@@ -1,0 +1,8 @@
+.badge {
+  @apply px-3 py-1 rounded-full text-xs bg-gray-100;
+}
+
+.img {
+  width: 250px;
+  height: 250px;
+}

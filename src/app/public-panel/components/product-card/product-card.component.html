@@ -1,1 +1,74 @@
-<p>product-card works!</p>
+<mat-card>
+  <mat-card-header class="place-content-center flex justify-center">
+    <div class="img">
+      <img
+        class="w-full h-full"
+        mat-card-image
+        src="{{ baseUrl }}/{{ product.imagen }}"
+        [alt]="product.name"
+      />
+    </div>
+  </mat-card-header>
+  <mat-card-content class="m-2">
+    <mat-card-title class="py-4">{{ product.name }}</mat-card-title>
+    <div class="flex">
+      <mat-card-subtitle>
+        <div class="mb-1 badge" *ngFor="let category of product.categories">
+          {{ category.categoryName }}
+        </div>
+      </mat-card-subtitle>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button class="w-full" color="primary" mat-flat-button>
+      <mat-icon>add_shopping_cart</mat-icon>Añadir al carrito
+    </button>
+  </mat-card-actions>
+  <mat-card-actions>
+    <button class="w-full rounded-2xl" color="primary" mat-flat-button>
+      <mat-icon>shop</mat-icon>Comprar
+    </button>
+  </mat-card-actions>
+  <!-- <mat-card-actions>
+    <div class="grid-rows-4">
+      <div class="flex justify-center">
+        <div class="m-1">
+          <button
+            mat-button
+            color="primary"
+            aria-label="Example icon button with a delete icon"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <div class="m-1">
+          <button
+            mat-fab
+            color="accent"
+            aria-label="Example icon button with a bookmark icon"
+          >
+            <mat-icon>bookmark</mat-icon>
+          </button>
+        </div>
+        <div class="m-1">
+          <button
+            mat-fab
+            color="warn"
+            aria-label="Example icon button with a home icon"
+          >
+            <mat-icon>home</mat-icon>
+          </button>
+        </div>
+        <div class="m-1">
+          <button
+            mat-fab
+            disabled
+            aria-label="Example icon button with a heart icon"
+          >
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card-actions> -->
+</mat-card>
