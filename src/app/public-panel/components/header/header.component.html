@@ -1,1 +1,69 @@
-<p>header works!</p>
+<header >
+  <nav class="flex justify-between items-center w-[92%] mx-auto">
+      <!-- logo -->
+      <div>
+          <a href="http://localhost:4200/home">
+              <img class="w-16" src="../../../assets/images/logo2.png" style="cursor: pointer" alt="...">
+          </a>
+      </div>
+      <!-- textos -->
+        <div  class="nav-links md:static absolute md:min-h-fit min-h-[6vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
+            <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 font-bold font-roboto text-20px">
+                <li>
+                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer" routerLink="/home">Inicio</a>
+                </li>
+                <li>
+                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer"  routerLink="/products">Productos</a>
+                </li>
+                <li>
+                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer"  routerLink="/about-us">Sobre Nosotros</a>
+                </li>
+                <li>
+                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer"  routerLink="/contact">Contacto</a>
+                </li>
+                <li>
+                  <div class="flex relative">
+                    <div class="flex items-center cursor-pointer" (click)="toggleSearch()">
+                      <mat-icon class="font-semibold flex items-center px-10 hover:text-blue-700">search</mat-icon>
+                    </div>
+                    <input #searchInput type="text" [ngClass]="{'w-full': isSearchOpen, 'w-0': !isSearchOpen, 'opacity-100': isSearchOpen, 'opacity-0': !isSearchOpen}" class="h-10 pl-10 pr-4 rounded-full border-2 border-black focus:outline-none focus:border-blue-500 transition-width duration-300 opacity-0" placeholder="Buscar">
+                  </div>
+
+
+                </li>
+
+
+            </ul>
+        </div>
+      <!-- login  -->
+      <div class="flex items-center gap-6">
+        <div class="relative">
+          <mat-icon class="text-black cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
+          <div *ngIf="isCartOpen" class="cart-overlay" (click)="toggleCart()"></div>
+          <div *ngIf="isCartOpen" class="cart-container rounded-lg">
+            <button class="absolute top-0 right-0 m-2 items-center flex text-black hover:text-gray-800" (click)="toggleCart()">
+              <mat-icon class="">close</mat-icon>
+
+            </button>
+            <!-- Contenido del carrito de compras aquí -->
+            <h1 class="text-lg font-bold mb-2">Carrito de compras</h1>
+            <!-- Aquí puedes mostrar la lista de productos en el carrito -->
+          </div>
+        </div>
+          <div class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer">
+              <a href="http://localhost:4200/auth/login" class="px-5 py-2 text-black hover:text-blue-700  flex font-bold font-roboto text-20px" style="cursor: pointer">
+                  <span class="mr-2">
+                      <mat-icon class="text-black rounded-full hover:text-blue-700" style="cursor:pointer">account_circle</mat-icon>
+                  </span>
+                  Ingresar
+              </a>
+              <div id="cartBox" class="hidden bg-white shadow-md p-4 rounded-md absolute right-0 mt-8 mr-4 z-10">
+                <!-- Contenido del carrito de compras aquí -->
+                <p>Contenido del carrito de compras...</p>
+              </div>
+          </div>
+
+          <mat-icon class="text-black cursor-pointer md:hidden" (click)="toggleMenu()">menu</mat-icon>
+      </div>
+  </nav>
+</header>

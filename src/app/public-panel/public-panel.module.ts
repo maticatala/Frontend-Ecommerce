@@ -12,6 +12,8 @@ import { CategoryComponent } from './pages/category/category.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { ContactComponent } from '../public-panel/pages/contact/contact.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 
@@ -28,7 +30,8 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
     ShoppingCartComponent,
     AboutUsComponent,
     ProductCardComponent,
-    CarouselComponent
+    ContactComponent,
+    CarouselComponent,
   ],
   imports: [
     CommonModule,
