@@ -14,6 +14,7 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ContactComponent } from '../public-panel/pages/contact/contact.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
 
 
 @NgModule({
