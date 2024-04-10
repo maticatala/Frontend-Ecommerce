@@ -67,7 +67,7 @@ export class AuthService {
     return this.http.post<RegisterResponse>(url, body)
       .pipe(
         map(({ user, token }) => this.setAuthentication(user, token)),
-        catchError( err => throwError( () => err.error.message ) )
+        catchError( err => throwError( () => err.error.message ))
      )
 
   }

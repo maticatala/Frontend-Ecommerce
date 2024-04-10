@@ -15,7 +15,7 @@ export class LoginPageComponent {
   private validatorsService = inject(ValidatorsService);
 
   public myForm: FormGroup = this.fb.group({
-    email: ['root@root.com', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)], []],
+    email: ['root@root.com', [Validators.required], []],
     password: ['123456', [Validators.required, Validators.minLength(4)], []],
   });
 
