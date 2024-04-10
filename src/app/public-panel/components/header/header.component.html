@@ -38,7 +38,7 @@
       <!-- login  -->
       <div class="flex items-center gap-6">
         <div class="relative">
-          <mat-icon class="text-black cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
+          <mat-icon class="text-black cursor-pointer hover:text-blue-700">shopping_cart</mat-icon>
           <div *ngIf="isCartOpen" class="cart-overlay" (click)="toggleCart()"></div>
           <div *ngIf="isCartOpen" class="cart-container rounded-lg">
             <button class="absolute top-0 right-0 m-2 items-center flex text-black hover:text-gray-800" (click)="toggleCart()">
