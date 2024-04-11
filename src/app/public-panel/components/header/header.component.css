@@ -12,6 +12,7 @@ header {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
   transition: opacity 0.3s ease;
+  display: none; /* Inicialmente oculto */
 }
 
 .cart-container {
@@ -24,13 +25,16 @@ header {
   padding: 20px;
   z-index: 1000;
   transition: transform 0.5s ease, opacity 0.3s ease;
-  transform: translateX(0);
+  transform: translateX(100%); /* Inicialmente fuera de la pantalla */
 }
 
 .cart-container.show {
   transform: translateX(0);
 }
 
+.cart-overlay.show {
+  display: block;
+}
 
 /*
 .menu{
