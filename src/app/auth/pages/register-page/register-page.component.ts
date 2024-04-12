@@ -19,7 +19,7 @@ export class RegisterPageComponent {
     email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(4)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required]]
   }, {
     validators: [
@@ -49,7 +49,7 @@ export class RegisterPageComponent {
     this.authService.register( user )
     .subscribe({
       next: () => {
-        this.router.navigateByUrl('/auth/login');
+        this.router.navigateByUrl('/dashboard');
       },
       error: (e: any) => {
         if (!Array.isArray(e)) {

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/app/environments/environments';
@@ -25,15 +25,30 @@ export class CategoriesService {
   }
 
   updateCategory(id:number, body: any): Observable<Category> {
-    return this.http.patch<Category>(`${this.baseUrl}/categories/${id}`, body);
+
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    return this.http.patch<Category>(`${this.baseUrl}/categories/${id}`, body, {headers});
   }
 
   deleteCategory(id: number) {
-    return this.http.delete(`${this.baseUrl}/categories/${id}`);
+
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    return this.http.delete(`${this.baseUrl}/categories/${id}`, {headers});
   }
 
   createCategory(body: any): Observable<Category> {
-    return this.http.post<Category>(`${this.baseUrl}/categories`, body)
+
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    return this.http.post<Category>(`${this.baseUrl}/categories`, body, {headers})
   }
 
 }

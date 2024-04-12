@@ -11,12 +11,8 @@ export const isAdminGuard: CanActivateFn = (route, state) => {
   return authService.checkAuthStatus()
     .pipe(
       map((res) => {
-        return authService.currentUser()?.rol === 'admin' ? true : router.createUrlTree([''])
+        return authService.currentUser()?.rol === 'admin' ? true : router.createUrlTree(['']);
       })
-    );
+  );
 
-  // if (authService.currentUser()?.rol === 'admin') return true;
-
-  // router.navigateByUrl('');
-  // return false;
 };

@@ -25,7 +25,7 @@ export class UserAddEditComponent implements OnInit {
   public hide = true;
 
   public myForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+    email: [{value: '', disabled: true}, [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     password: ['', [Validators.minLength(6)], []],
@@ -82,8 +82,6 @@ export class UserAddEditComponent implements OnInit {
         }
       })
   }
-
-//! REVISAR ESTAS CONSULTAS HTTP, DEBERIA HACERLO CON EL AUTH SERVICE Y NO CON EL usersServie
 
   private createUser(body:any): void {
     this.usersService.createUser(body).subscribe({
