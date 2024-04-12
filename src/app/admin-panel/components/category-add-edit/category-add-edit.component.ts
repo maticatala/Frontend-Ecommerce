@@ -34,7 +34,10 @@ export class CategoryAddEditComponent {
     };
 
     if (this.data) {
-      this.updateCategory(this.data.id, this.myForm.value);
+      if (this.myForm.get('categoryName')?.value === this.data.categoryName)
+        this._dialogRef.close(true);
+      else
+        this.updateCategory(this.data.id, this.myForm.value);
     } else {
       this.createCategory(this.myForm.value);
     }
@@ -60,7 +63,6 @@ export class CategoryAddEditComponent {
           this._dialogRef.close(true); //Permite recargar la lista de categorias una vez creada una categoria
         },
         error: (e: any) => {
-          console.log(e.error.message);
           this._cusSnackbar.openCustomSnackbar("error", e.error.message, "Okay", 3000, 'danger');
         }
       })

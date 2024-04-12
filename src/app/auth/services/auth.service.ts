@@ -26,9 +26,8 @@ export class AuthService {
 
   constructor() {
     //Apenas se llama al servicio se ejecuta el metodo checkAuthStatus para validar el estado de authenticacion del usuario
-    this.checkAuthStatus().subscribe();
+    // this.checkAuthStatus().subscribe();
   }
-
 
   private setAuthentication(user: User, token: string): boolean {
     this._currentUser.set(user);
@@ -45,13 +44,14 @@ export class AuthService {
     return this.http.get<boolean>(url);
   }
 
-  login(email: string, password: string): Observable<boolean> {
+  login(email: string, password: string, keepLogged: boolean): Observable<boolean> {
 
     //URL para realizar el metodo POST
     const url = `${this.baseUrl}/auth/login`;
 
     //BODY con la informacion que mandaremos en el POST. El body de la peticion unicamente debido a como se construyo el backend solo puede recibir el email y el password
-    const body = { email, password };
+    const body = { email, password, keepLogged };
+
     return this.http.post<LoginResponse>(url, body)
       .pipe(
         //Disparamos un efecto secundario de la peticion para almacenar los datos de la repuesta
@@ -67,7 +67,7 @@ export class AuthService {
     return this.http.post<RegisterResponse>(url, body)
       .pipe(
         map(({ user, token }) => this.setAuthentication(user, token)),
-        catchError( err => throwError( () => err.error.message ) )
+        catchError( err => throwError( () => err.error.message ))
      )
 
   }
@@ -90,7 +90,7 @@ export class AuthService {
         map(({ user, token }) => this.setAuthentication(user, token)),
         //Error
         catchError(() => {
-          this._authStatus.set(AuthStatus.notAuthenticated);
+          this.logout();
           return of(false);
         })
       )

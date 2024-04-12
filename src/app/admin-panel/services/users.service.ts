@@ -29,6 +29,15 @@ export class UsersService {
       );
   }
 
+  createUser(body: any) {
+
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.post<User>(`${this.baseUrl}/auth`, body, { headers })
+  }
+
   updateUser(id:number, body: any): Observable<User> {
 
     const headers = new HttpHeaders({
@@ -49,13 +58,5 @@ export class UsersService {
 
   }
 
-  createUser(body: any) {
-
-    const headers = new HttpHeaders({
-      'authorization': `Bearer ${localStorage.getItem('token')}`
-    });
-
-    return this.http.post<User>(`${this.baseUrl}/auth`, body, { headers })
-  }
 
 }

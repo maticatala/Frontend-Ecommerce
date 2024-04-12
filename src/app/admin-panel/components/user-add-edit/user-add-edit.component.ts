@@ -5,7 +5,6 @@ import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar
 
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { UsersService } from '../../services/users.service';
-import { EmailValidator } from 'src/app/shared/validators/email-validator.service';
 import { Roles } from 'src/app/auth/interfaces';
 
 @Component({
@@ -20,14 +19,13 @@ export class UserAddEditComponent implements OnInit {
   private validatorsService = inject(ValidatorsService);
   private _cusSnackbar = inject(CustomSnackbarService);
   private usersService = inject(UsersService);
-  private emailValidator = inject(EmailValidator);
 
   public data = inject(MAT_DIALOG_DATA);
   public roles = Object.values(Roles);
   public hide = true;
 
   public myForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)], [this.emailValidator.validate(this.data ? this.data.email : null)]],
+    email: [{value: '', disabled: true}, [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     password: ['', [Validators.minLength(6)], []],
@@ -92,7 +90,6 @@ export class UserAddEditComponent implements OnInit {
           this._dialogRef.close(true); //Permite recargar la lista de usuarios una vez creado un usuario
         },
         error: (e: any) => {
-          console.log(e.error.message);
           this._cusSnackbar.openCustomSnackbar("error", e.error.message, "Okay", 3000, 'danger');
         }
       })

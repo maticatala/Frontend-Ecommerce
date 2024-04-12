@@ -25,19 +25,31 @@ export class CategoriesService {
   }
 
   updateCategory(id:number, body: any): Observable<Category> {
-    return this.http.patch<Category>(`${this.baseUrl}/categories/${id}`, body);
+
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    return this.http.patch<Category>(`${this.baseUrl}/categories/${id}`, body, {headers});
   }
 
   deleteCategory(id: number) {
-    return this.http.delete(`${this.baseUrl}/categories/${id}`);
+
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    return this.http.delete(`${this.baseUrl}/categories/${id}`, {headers});
   }
 
   createCategory(body: any): Observable<Category> {
-    const token = localStorage.getItem('token');
 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
 
-    return this.http.post<Category>(`${this.baseUrl}/categories`, body, { headers })
+    return this.http.post<Category>(`${this.baseUrl}/categories`, body, {headers})
+
   }
 
 }

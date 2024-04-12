@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    canActivate: [isAdminGuard],
+    // canActivate: [isAdminGuard],
     loadChildren: () => import('./admin-panel/admin-panel.module').then( m => m.AdminPanelModule ),
   },
   {
