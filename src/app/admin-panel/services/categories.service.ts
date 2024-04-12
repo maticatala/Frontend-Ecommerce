@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/app/environments/environments';
@@ -33,7 +33,11 @@ export class CategoriesService {
   }
 
   createCategory(body: any): Observable<Category> {
-    return this.http.post<Category>(`${this.baseUrl}/categories`, body)
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post<Category>(`${this.baseUrl}/categories`, body, { headers })
   }
 
 }

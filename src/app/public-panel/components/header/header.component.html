@@ -26,7 +26,7 @@
                     <div class="flex items-center cursor-pointer" (click)="toggleSearch()">
                       <mat-icon class="font-semibold flex items-center px-10 hover:text-blue-700">search</mat-icon>
                     </div>
-                    <input #searchInput type="text" [ngClass]="{'w-full': isSearchOpen, 'w-0': !isSearchOpen, 'opacity-100': isSearchOpen, 'opacity-0': !isSearchOpen}" class="h-10 pl-10 pr-4 rounded-full border-2 border-black focus:outline-none focus:border-blue-500 transition-width duration-300 opacity-0" placeholder="Buscar">
+                    <input #searchInput type="text" [ngClass]="{'w-full': isSearchOpen, 'w-0': !isSearchOpen, 'opacity-100': isSearchOpen, 'opacity-0': !isSearchOpen}" class="h-10 pl-10 pr-4 rounded-full border-2 border-black focus:outline-none focus:border-blue-500 transition-width duration-300 opacity-0" placeholder="">
                   </div>
 
 
@@ -39,11 +39,10 @@
       <div class="flex items-center gap-6">
         <div class="relative">
           <mat-icon class="text-black cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
-          <div *ngIf="isCartOpen" class="cart-overlay" (click)="toggleCart()"></div>
-          <div *ngIf="isCartOpen" class="cart-container rounded-lg">
+          <div class="cart-overlay" [class.show]="isCartOpen" (click)="toggleCart()"></div>
+          <div class="cart-container rounded-lg" [class.show]="isCartOpen">
             <button class="absolute top-0 right-0 m-2 items-center flex text-black hover:text-gray-800" (click)="toggleCart()">
               <mat-icon class="">close</mat-icon>
-
             </button>
             <!-- Contenido del carrito de compras aquí -->
             <h1 class="text-lg font-bold mb-2">Carrito de compras</h1>
@@ -63,7 +62,8 @@
               </div>
           </div>
 
-          <mat-icon class="text-black cursor-pointer md:hidden" (click)="toggleMenu()">menu</mat-icon>
+          <mat-icon class="text-black menu cursor-pointer md:hidden" [class.menu-open]="isMenuOpen" (click)="toggleMenu()">menu</mat-icon>
+
       </div>
   </nav>
 </header>

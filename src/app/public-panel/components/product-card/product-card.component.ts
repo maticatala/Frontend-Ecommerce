@@ -15,5 +15,14 @@ export class ProductCardComponent {
 
   public readonly baseUrl : string = environment.baseUrl;
 
+  contadorCarrito: number = 0;
+
+  constructor() { }
+
+  // Función para agregar un artículo al carrito
+  agregarAlCarrito() {
+    // Incrementa el contador de carrito cada vez que se agrega un artículo
+    this.contadorCarrito++;
+  }
 
 }

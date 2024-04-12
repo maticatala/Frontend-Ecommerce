@@ -43,7 +43,7 @@
             <li>
               <h4><strong>Contactanos!</strong></h4>
               <br />
-              <mat-icon>sm</mat-icon> <br />
+              <mat-icon>phone</mat-icon> <br />
               <mat-icon>message</mat-icon> <br />
               <mat-icon>email</mat-icon> <br />
             </li>
@@ -57,24 +57,16 @@
         </div>
       </div>
     </div>
-    <div
-      class="md:col-span-2 lg:col-span-1 flex flex-col justify-end items-center"
-    >
-      <!-- Botón de regreso arriba -->
-      <button
-        id="scrollToTopBtn"
-        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none mb-2"
-      >
-        Ir arriba
-      </button>
+    <div class="md:col-span-2 lg:col-span-1 flex flex-col justify-end items-center">
+
+      <div class="">
+        <button (click)="openWhatsApp()" class=" bg-[#25d366] hover:bg-[#5ab17a] text-white px-4 py-4 rounded-full focus:outline-none fixed bottom-4 left-4 text-lg ">
+
+          <mat-icon class="">phone</mat-icon>
+          WhatsApp
+        </button>
+      </div>
+
     </div>
   </div>
 </footer>
-
-<script>
-  document
-    .getElementById("scrollToTopBtn")
-    .addEventListener("click", function () {
-      window.scrollTo(0, 0);
-    });
-</script>

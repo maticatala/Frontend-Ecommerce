@@ -6,9 +6,11 @@ import { CategoryComponent } from './pages/category/category.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { LayoutPageComponent } from './layouts/layout-page/layout-page.component';
 
 const routes: Routes = [{
   path: '',
+  component: LayoutPageComponent,
   children: [
     {path: 'home', component: MainPageComponent},
     {path: 'about-us', component: AboutUsComponent},
