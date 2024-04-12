@@ -49,6 +49,7 @@ export class CategoriesService {
     })
 
     return this.http.post<Category>(`${this.baseUrl}/categories`, body, {headers})
+
   }
 
 }

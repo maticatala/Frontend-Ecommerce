@@ -1,0 +1,80 @@
+header {
+  padding: 35px 0;
+  /* background: #3f51b5 */
+}
+
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  transition: opacity 0.3s ease;
+  display: none; /* Inicialmente oculto */
+}
+
+.cart-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px; /* ajusta el ancho según tu diseño */
+  height: 100%;
+  background-color: white;
+  padding: 20px;
+  z-index: 1000;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  transform: translateX(100%); /* Inicialmente fuera de la pantalla */
+}
+
+.cart-container.show {
+  transform: translateX(0);
+}
+
+.cart-overlay.show {
+  display: block;
+}
+
+/*
+.menu{
+  margin-top:10px;
+  display: inline;
+  text-align: center;
+  align-items: center;
+}
+
+.menu ul{
+  padding:0;
+  margin: 0;
+}
+
+.menu ul li{
+  color: white;
+  font-size: 30px;
+  margin-left: 100px;
+  display: inline-block;
+  transform: translate(-50%, -50%);
+  font-family: 'Roboto', sans-serif;
+
+}
+
+.menu ul li:hover {
+  color: #0ce2d7;
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+} */
+
+@media only screen and (min-width: 999px) {
+  .menu-open {
+    position: fixed;
+    right: -280px;
+    top: 64px;
+    width: 280px;
+    height: 100%;
+    background: #222;
+
+  }
+}
+
+
