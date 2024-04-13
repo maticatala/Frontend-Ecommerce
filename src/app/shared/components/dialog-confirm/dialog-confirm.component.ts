@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -7,17 +7,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./dialog-confirm.component.css']
 })
 export class DialogConfirmComponent {
-
   // private _dialogRef = inject(MatDialogRef<UserAddEditComponent>);
 
   public data = inject(MAT_DIALOG_DATA);
   private _dialogRef = inject(MatDialogRef<DialogConfirmComponent>)
 
-  // onFalse() {
-  //   this._dialogRef.close(false);
-  // }
-
   onTrue() {
     return this._dialogRef.close(true);
-  }
+  };
+
 }

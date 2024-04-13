@@ -39,7 +39,7 @@
             {{ row[column.id] | currency}}
           </ng-container>
           <ng-container *ngIf="column.id === 'imagen'">
-            <img src="{{baseUrl}}/{{row[column.id]}}" alt="imagen">
+            <img src="{{baseUrl}}/products/getFile?fileName={{row[column.id]}}" alt="imagen">
           </ng-container>
           <ng-container *ngIf="column.id === 'action'">
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">

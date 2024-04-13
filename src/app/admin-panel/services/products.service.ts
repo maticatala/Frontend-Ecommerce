@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/app/environments/environments';
 import { Product } from '../interfaces/product.interface';
@@ -23,16 +23,32 @@ export class ProductsService {
 
   createProduct(data: any, file: File): Observable<Product>  {
 
-    return this.http.post<Product>(`${this.baseUrl}/products`, this.createFormData(data, file));
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    const body = this.createFormData(data, file);
+
+    return this.http.post<Product>(`${this.baseUrl}/products`, body, { headers });
 
   }
 
   updateProduct(id:number, data: any, file?: File): Observable<Product> {
-    return this.http.patch<Product>(`${this.baseUrl}/products/${id}`, this.createFormData(data, file));
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    const body = this.createFormData(data, file);
+
+    return this.http.patch<Product>(`${this.baseUrl}/products/${id}`, body, {headers});
   }
 
   deleteProduct(id: number) {
-    return this.http.patch(`${this.baseUrl}/products/delete/${id}`, {});
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    return this.http.patch(`${this.baseUrl}/products/delete/${id}`, {}, {headers});
   }
 
   createFormData(data: any, file?: File) {
