@@ -65,15 +65,9 @@ header {
   transition: 0.4s ease-in-out;
 } */
 
-@media only screen and (min-width: 999px) {
-  .menu-open {
-    position: fixed;
-    right: -280px;
-    top: 64px;
-    width: 280px;
-    height: 100%;
-    background: #222;
-
+@media (min-width: 630px) {
+  #menu-icon {
+    display: none;
   }
 }
 

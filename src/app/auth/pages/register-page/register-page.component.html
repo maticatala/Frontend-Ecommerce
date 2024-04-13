@@ -3,16 +3,16 @@
   (ngSubmit)="onSubmit()"
 >
 
-  <h1 class="text-5xl font-semibold">Register</h1>
-  <p class="font-medium text-lg text-gray-500 mt-4">Create your account. it's free and only take a minute</p>
+  <h1 class="text-5xl font-semibold">Registro</h1>
+  <p class="font-medium text-lg text-gray-500 mt-4">Crearse una cuenta es gratis y le tomará un minuto!</p>
 
   <div class="mt-8">
 
     <div class="w-full flex gap-2">
       <div>
-        <label class="text-lg font-medium" for="firstName">First Name</label>
+        <label class="text-lg font-medium" for="firstName">Nombre</label>
         <input class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
-          placeholder="First Name"
+          placeholder="Nombre"
           name="firstName"
           id="firstName"
           formControlName="firstName"
@@ -21,9 +21,9 @@
         <p customLabel [isTouched]="myForm.get('firstName')?.touched" [errors]="myForm.get('firstName')?.errors"></p>
       </div>
       <div>
-        <label class="text-lg font-medium" for="lastName">Last Name</label>
+        <label class="text-lg font-medium" for="lastName">Apellido</label>
         <input class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
-          placeholder="Last Name"
+          placeholder="Apellido"
           name="lastName"
           id="lastName"
           formControlName="lastName"
@@ -36,7 +36,7 @@
     <div class="mt-2">
       <label class="text-lg font-medium" for="email">Email</label>
       <input class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
-        placeholder="Enter your email"
+        placeholder="Email"
         name="email"
         id="email"
         autocomplete="email"
@@ -47,10 +47,10 @@
     </div>
 
     <div class="mt-2">
-      <label class="text-lg font-medium" for="password">Password</label>
+      <label class="text-lg font-medium" for="password">Contraseña</label>
       <div class="relative">
         <input class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
-          placeholder="Enter your Password"
+          placeholder="Contraseña"
           name="password"
           id="password"
           formControlName="password"
@@ -76,7 +76,7 @@
         <p customLabel [isTouched]="myForm.get('password')?.touched" [errors]="myForm.get('password')?.errors"></p>
       </div>
       <input [type]="password()" class="w-full border-2 border-gray-100 rounded-xl p-4 mt-2 bg-transparent"
-        placeholder="Confirm your Password" name="password2" formControlName="password2">
+        placeholder="Confirme la contraseña" name="password2" formControlName="password2">
       <p customLabel [isTouched]="myForm.get('password2')?.touched" [errors]="myForm.get('password2')?.errors"></p>
     </div>
     <div class="mt-8 flex flex-col">
@@ -84,12 +84,12 @@
         type="submit"
         class="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out py-3 rounded-xl bg-teal-500 text-white text-lg font-bold"
       >
-        Register
+        Registrarse
       </button>
     </div>
     <div class="mt-8 flex justify-center items-center">
-      <p class="font-medium text-base">You have an account?</p>
-      <button type="button" class="text-teal-500 text-base font-medium ml-2" routerLink="/auth/login">log in</button>
+      <p class="font-medium text-base">Ya tienes una cuenta?</p>
+      <button type="button" class="text-teal-500 text-base font-medium ml-2" routerLink="/auth/login">Iniciar Sesión</button>
     </div>
   </div>
 
