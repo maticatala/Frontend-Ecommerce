@@ -7,7 +7,6 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { UserImagePipe } from './pipes/user-image.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatTableModule } from '@angular/material/table'
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserAddEditComponent } from './components/user-add-edit/user-add-edit.component';
@@ -39,7 +38,6 @@ import { AddEditProductComponent } from './pages/add-edit-product/add-edit-produ
     CommonModule,
     AdminPanelRoutingModule,
     FontAwesomeModule,
-    MatTableModule,
     AngularMaterialModule,
     SharedModule,
     ReactiveFormsModule,

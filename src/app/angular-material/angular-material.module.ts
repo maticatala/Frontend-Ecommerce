@@ -20,8 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { MatChipsModule } from '@angular/material/chips';
-
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -47,6 +46,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSnackBarModule,
     CdkTreeModule,
     MatChipsModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class AngularMaterialModule { }

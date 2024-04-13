@@ -26,7 +26,7 @@ export class AuthService {
 
   constructor() {
     //Apenas se llama al servicio se ejecuta el metodo checkAuthStatus para validar el estado de authenticacion del usuario
-    // this.checkAuthStatus().subscribe();
+    this.checkAuthStatus().subscribe();
   }
 
   private setAuthentication(user: User, token: string): boolean {

@@ -24,44 +24,48 @@
             </ul>
         </div>
       <!-- login  -->
-      <div class="flex items-center">
-        <div class="flex items-center">
-          <div class="flex items-center cursor-pointer" (click)="toggleSearch()">
-            <mat-icon class="font-semibold hover:text-blue-700">search</mat-icon>
-          </div>
-          <input #searchInput type="text" [ngClass]="{'w-full': isSearchOpen, 'w-0': !isSearchOpen, 'opacity-100': isSearchOpen, 'opacity-0': !isSearchOpen}" class="h-10 pl-6 pr-4 rounded-full border-2 border-black focus:outline-none focus:border-blue-500 transition-width duration-300 opacity-0" placeholder="">
-        </div>
-        <div class="flex items-center">
-          <!-- Primer conjunto de elementos -->
-          <div class="flex items-center">
-            <mat-icon class="text-black cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
-            <div class="cart-overlay" [class.show]="isCartOpen" (click)="toggleCart()"></div>
-            <div class="cart-container rounded-lg" [class.show]="isCartOpen">
-              <!-- Contenido del carrito de compras aquí -->
-              <div id="cartBox" class=" p-4 items-center text-center">
-                <p>Carrito</p>
-                <button class="absolute top-6 right-0 m-2 items-center flex text-black hover:text-gray-800 " (click)="toggleCart()">
-                  <mat-icon class="">close</mat-icon>
-                </button>
-              </div>
-              <div>
+      <div class="flex items-center gap-3">
+        <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleSearch()">search</mat-icon>
+        <!-- Primer conjunto de elementos -->
+        <div class="flex items-center ">
+          <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
+          <div class="cart-overlay" [class.show]="isCartOpen" (click)="toggleCart()"></div>
+          <div class="cart-container rounded-lg" [class.show]="isCartOpen">
+            <!-- Contenido del carrito de compras aquí -->
+            <div id="cartBox" class=" p-4 items-center text-center">
+              <p>Carrito</p>
+              <button class="absolute top-6 right-0 m-2 items-center flex text-black hover:text-gray-800 " (click)="toggleCart()">
+                <mat-icon class="">close</mat-icon>
+              </button>
+            </div>
+            <div>
 
-              </div>
-              <div id="cartBox" class="fixed bottom-5 inset-x-5 bg-orange-300 shadow-md p-4 rounded-md mt-3 z-5 flex items-center justify-center">
-                <a routerLink="/products">Ver Productos</a>
-              </div>
+            </div>
+            <div id="cartBox" class="fixed bottom-5 inset-x-5 bg-orange-300 shadow-md p-4 rounded-md mt-3 z-5 flex items-center justify-center">
+              <a routerLink="/products">Ver Productos</a>
             </div>
           </div>
-          <!-- Segundo conjunto de elementos -->
-          <div class="flex items-center px-5 text-black hover:text-blue-700" style="cursor: pointer">
-            <a href="http://localhost:4200/auth/login" class="px-5 text-black flex font-bold font-roboto text-20px" style="cursor: pointer">
-              <span class="flex">
-                <mat-icon class="text-black rounded-full hover:text-blue-700 " style="cursor:pointer">account_circle</mat-icon>
-              </span>
-            </a>
-          </div>
         </div>
-          <mat-icon id="menu-icon" class="text-black cursor-pointer md:hidden" [class.menu-open]="isMenuOpen" (click)="toggleMenu()">menu</mat-icon>
+        <!-- Segundo conjunto de elementos -->
+        <button *ngIf="finishedUserCheck()" mat-button [matMenuTriggerFor]="menu" class="flex items-center p-1">
+          <mat-icon class="scale-[1.5]">person</mat-icon>
+          <span class="flex flex-col items-start text-xs ml-2">
+            <div>{{currentUser?.firstName || 'no name' | titlecase}}</div>
+          </span>
+          <mat-icon iconPositionEnd>expand_more</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="Logout()" routerLink="/">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+          <button *ngIf="currentUser?.rol === 'admin'" mat-menu-item routerLink="/dashboard">
+            <mat-icon>home</mat-icon>
+            <span>Admin Panel</span>
+          </button>
+        </mat-menu>
+        <mat-icon *ngIf="!finishedUserCheck()" class="cursor-pointer hover:text-blue-700" routerLink="auth/login">person</mat-icon>
+        <mat-icon id="menu-icon" class="md:hidden" [class.menu-open]="isMenuOpen" (click)="toggleMenu()">menu</mat-icon>
       </div>
   </nav>
 </header>
