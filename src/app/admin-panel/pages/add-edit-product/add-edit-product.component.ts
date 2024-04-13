@@ -68,7 +68,7 @@ export class AddEditProductComponent implements OnInit {
         this.myForm.get('image')?.setErrors(null);
         this.myForm.get('image')?.removeValidators;
 
-        this.imagen = `${this.baseUrl}/${product.imagen}`;
+        this.imagen = `${this.baseUrl}/products/getFile?fileName=${product.imagen}`;
         this.categoriesChips = product.categories;
       });
     });
@@ -184,10 +184,11 @@ export class AddEditProductComponent implements OnInit {
   setCategoriesErrors() {
     const categoriesCtrl = this.myForm.get('categoriesCtrl');
 
-    if (this.categoriesChips.length === 0) {
-      categoriesCtrl?.setErrors({ required: true });
-      return;
-    }
+    //REGLA DE NEGOCIO -> LOS PRODUCTOS DEBEN TENER AL MENOS UNA CATEGORIA PARA SER CREADOS
+    // if (this.categoriesChips.length === 0) {
+    //   categoriesCtrl?.setErrors({ required: true });
+    //   return;
+    // }
 
     categoriesCtrl?.setErrors(null);
   }
