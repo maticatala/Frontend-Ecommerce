@@ -1,26 +1,8 @@
-<div class="m-5">
-  <!-- Header -->
-  <!-- <div class="container mx-auto flex items-center justify-between p-4">
-    <public-panel-header></public-panel-header>
-  </div> -->
-  <!-- SideNav categorias -->
-  <div class="grid grid-cols-12">
-    <!-- <div class="col-span-2">
-      <public-panel-side-nav></public-panel-side-nav>
-    </div> -->
-    <div class="col-span-10">
-      <div
-        class="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 content-item-center sm:grid-cols-1"
-      >
-        <div *ngFor="let product of products" class="border">
-          <!-- place-content-center flex justify-center -->
-          <!-- flex items-center justify-center -->
-          <public-panel-product-card
-            class="w-full h-full"
-            [product]="product"
-          ></public-panel-product-card>
-        </div>
-      </div>
-    </div>
-  </div>
+<div
+    class="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1"
+  >
+    <public-panel-product-card
+    *ngFor="let product of products"
+      [product]="product"
+    ></public-panel-product-card>
 </div>
