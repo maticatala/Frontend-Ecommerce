@@ -21,5 +21,8 @@ export class FooterComponent {
     // Abrir la ventana de WhatsApp
     window.open(whatsappLink, '_blank');
   }
+  goToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
 }

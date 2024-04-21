@@ -1,12 +1,12 @@
 <div class="grid grid-cols-1 gap-x-4 lg:grid-cols-2">
-  <div class="pt-6">
+  <div class="pt-24">
     <h1 class="font-bold text-5xl mb-4">Contacto</h1>
-    <p>
+    <p class="w-3/4">
       Ingresá tus datos para realizar una consulta o solicitar información. Te
       responderemos a la mayor brevedad posible.
     </p>
   </div>
-  <form class="pt-6 pb-8 flex flex-col gap-3">
+  <form class="pt-6 pb-8 flex flex-col gap-3" id="myForm">
     <div>
       <label
         class="block text-gray-700 text-sm font-semibold mb-2"
@@ -48,10 +48,11 @@
         placeholder=""
       ></textarea>
     </div>
+    <div id="errorMessage" class="text-red-500 hidden">Todos los campos son obligatorios.</div>
     <div>
       <button
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded focus:outline-none focus:shadow-outline"
-        type="button"
+        type="submit"
       >
         Enviar
       </button>
