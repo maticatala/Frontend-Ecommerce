@@ -1,7 +1,7 @@
 import { COMMA, ENTER, Z } from '@angular/cdk/keycodes';
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CategoriesService } from '../../services/categories.service';
+import { CategoriesService } from '../../../shared/services/categories.service';
 import { Category } from '../../interfaces/category.interface';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { LiveAnnouncer } from '@angular/cdk/a11y';

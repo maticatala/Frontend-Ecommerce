@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/app/environments/environments';
-import { Category } from '../interfaces/category.interface';
+import { Category } from '../../admin-panel/interfaces/category.interface';
 
 @Injectable({
   providedIn: 'root'

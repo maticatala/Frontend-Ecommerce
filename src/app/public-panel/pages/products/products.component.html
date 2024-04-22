@@ -1,8 +1,22 @@
-<div
-    class="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1"
+<div class="flex gap-14">
+  <div class="">
+    <ul class="border-r border-gray-300">
+      <li
+        *ngFor="let category of categories"
+        class="py-2 px-4 cursor-pointer hover:bg-gray-500"
+      >
+        <button>
+          {{ category.categoryName }}
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div
+    class="grid grid-cols-9 gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1"
   >
     <public-panel-product-card
-    *ngFor="let product of products"
+      *ngFor="let product of products"
       [product]="product"
     ></public-panel-product-card>
+  </div>
 </div>

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
-import { CategoriesService } from '../../services/categories.service';
+import { CategoriesService } from '../../../shared/services/categories.service';
 
 @Component({
   selector: 'app-category-add-edit',

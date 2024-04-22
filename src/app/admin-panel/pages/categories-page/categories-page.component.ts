@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CategoriesService } from '../../services/categories.service';
+import { CategoriesService } from '../../../shared/services/categories.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 import { Column } from 'src/app/shared/interfaces';

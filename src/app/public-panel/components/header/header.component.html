@@ -1,78 +1,201 @@
-<header >
+<header>
   <nav class="flex justify-between items-center w-[92%] mx-auto">
-      <!-- logo -->
-      <div class=" ">
-          <a href="http://localhost:4200/home">
-              <img class="w-14" src="../../../assets/images/logo2.png" style="cursor: pointer" alt="...">
-          </a>
-      </div>
-      <!-- textos -->
-        <div  class="nav-links md:static absolute md:min-h-fit min-h-[6vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
-            <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 font-bold font-roboto text-20px">
-                <li>
-                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer" routerLink="/home">Inicio</a>
-                </li>
-                <li>
-                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer"  routerLink="/products">Productos</a>
-                </li>
-                <li>
-                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer"  routerLink="/about-us">Nosotros</a>
-                </li>
-                <li>
-                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer"  routerLink="/contact">Contacto</a>
-                </li>
-            </ul>
-        </div>
-      <!-- login  -->
-      <div class="flex items-center gap-3 ">
-        <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleSearch()">search</mat-icon>
-        <div *ngIf="isSearchOpen" class="absolute inset-0 bg-gray-900 bg-opacity-50 z-0 "></div>
-          <div *ngIf="isSearchOpen" class="absolute top-0 left-0 flex justify-center items-center w-full z-10  ">
-            <div class="bg-[#f1f1f1] w-full items-center justify-center flex py-8 ">
-              <mat-icon class="font-semibold pr-10">search</mat-icon>
-              <input #searchInput type="text" class="h-16 w-7/12 pl-5 z-20 bg-[#f1f1f1] opacity-100 focus:outline-none" placeholder="¿Qué es lo que estás buscando?">
-              <mat-icon class="hover:text-black pr-10" (click)="toggleSearch()">close</mat-icon>
-            </div>
+    <!-- logo -->
+    <div class=" ">
+      <a href="http://localhost:4200/home">
+        <img
+          class="w-14"
+          src="../../../assets/images/logo2.png"
+          style="cursor: pointer"
+          alt="..."
+        />
+      </a>
+    </div>
+    <!-- textos -->
+    <div
+      class="nav-links md:static absolute md:min-h-fit min-h-[6vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5"
+    >
+      <ul
+        class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 font-bold font-roboto text-20px"
+      >
+        <li>
+          <a
+            class="px-5 py-2 text-black hover:text-blue-700"
+            style="cursor: pointer"
+            routerLink="/home"
+            >Inicio</a
+          >
+        </li>
+        <li>
+          <a
+            class="px-5 py-2 text-black hover:text-blue-700"
+            style="cursor: pointer"
+            routerLink="/products"
+            >Productos</a
+          >
+        </li>
+        <li>
+          <a
+            class="px-5 py-2 text-black hover:text-blue-700"
+            style="cursor: pointer"
+            routerLink="/about-us"
+            >Nosotros</a
+          >
+        </li>
+        <li>
+          <a
+            class="px-5 py-2 text-black hover:text-blue-700"
+            style="cursor: pointer"
+            routerLink="/contact"
+            >Contacto</a
+          >
+        </li>
+      </ul>
+    </div>
+    <!-- login  -->
+    <div class="flex items-center gap-3">
+      <mat-icon
+        class="cursor-pointer hover:text-blue-700"
+        (click)="toggleSearch()"
+        >search</mat-icon
+      >
+      <div
+        *ngIf="isSearchOpen"
+        class="absolute inset-0 bg-gray-900 bg-opacity-50 z-0"
+      ></div>
+      <div
+        *ngIf="isSearchOpen"
+        class="fixed top-0 left-0 justify-center items-center bg-white w-full z-10"
+      >
+        <div class="w-full max-w-screen-lg mx-auto bg-white">
+          <div class="flex items-center justify-between bg-white px-5 py-8">
+            <mat-icon class="font-semibold cursor-pointer">search</mat-icon>
+            <input
+              #searchInput
+              type="text"
+              class="flex-grow px-2 py-1 bg-white outline-none"
+              placeholder="¿Qué estás buscando?"
+              (keyup.enter)="searchTag()"
+              (keyup.enter)="toggleSearch()"
+            />
+            <mat-icon class="cursor-pointer" (click)="toggleSearch()"
+              >close</mat-icon
+            >
           </div>
-        <div class="flex items-center ">
-          <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
-          <div class="cart-overlay" [class.show]="isCartOpen" (click)="toggleCart()"></div>
-          <div class="cart-container rounded-lg" [class.show]="isCartOpen">
-            <!-- Contenido del carrito de compras aquí -->
-            <div id="cartBox" class=" p-4 items-center text-center">
-              <p>Carrito</p>
-              <button class="absolute top-6 right-0 m-2 items-center flex text-black hover:text-gray-800 " (click)="toggleCart()">
-                <mat-icon class="">close</mat-icon>
-              </button>
-            </div>
-            <div>
+          <div class="flex flex-col items-center">
+            <button
+              *ngFor="let tag of tags"
+              (click)="clickedTag(tag); isSearchOpen = false"
+              class="hover:bg-gray-200 px-4 py-2 m-1 text-center w-full flex items-center"
+            >
+              <mat-icon>history</mat-icon>
+              <span class="mx-auto">{{ tag | titlecase }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- <div
+        *ngIf="isSearchOpen"
+        class="fixed top-0 left-0 w-full bg-white bg-opacity-70"
+      >
+        <div class="w-full max-w-screen-lg mx-auto bg-white">
+          <div class="flex items-center justify-between bg-white px-5 py-8">
+            <mat-icon class="font-semibold cursor-pointer">search</mat-icon>
+            <input
+              #searchInput
+              type="text"
+              class="flex-grow px-2 py-1 bg-white outline-none"
+              placeholder="¿Qué estás buscando?"
+              (keyup.enter)="searchTag()"
+              (keyup.enter)="toggleSearch()"
+            />
+            <mat-icon class="cursor-pointer" (click)="toggleSearch()"
+              >close</mat-icon
+            >
+          </div>
+          <div class="flex flex-col items-center">
+            <button
+              *ngFor="let tag of tags"
+              (click)="clickedTag(tag); isSearchOpen = false"
+              class="hover:bg-gray-200 px-4 py-2 m-1 text-center w-full"
+            >
+              {{ tag | titlecase }}
+            </button>
+          </div>
+        </div>
+      </div> -->
 
-            </div>
-            <div id="cartBox" class="fixed bottom-5 inset-x-5 bg-orange-300 shadow-md p-4 rounded-md mt-3 z-5 flex items-center justify-center">
-              <a routerLink="/products">Ver Productos</a>
-            </div>
+      <div class="flex items-center">
+        <mat-icon
+          class="cursor-pointer hover:text-blue-700"
+          (click)="toggleCart()"
+          >shopping_cart</mat-icon
+        >
+        <div
+          class="cart-overlay"
+          [class.show]="isCartOpen"
+          (click)="toggleCart()"
+        ></div>
+        <div class="cart-container rounded-lg" [class.show]="isCartOpen">
+          <!-- Contenido del carrito de compras aquí -->
+          <div id="cartBox" class="p-4 items-center text-center">
+            <p>Carrito</p>
+            <button
+              class="absolute top-6 right-0 m-2 items-center flex text-black hover:text-gray-800"
+              (click)="toggleCart()"
+            >
+              <mat-icon class="">close</mat-icon>
+            </button>
+          </div>
+          <div></div>
+          <div
+            id="cartBox"
+            class="fixed bottom-5 inset-x-5 bg-orange-300 shadow-md p-4 rounded-md mt-3 z-5 flex items-center justify-center"
+          >
+            <a routerLink="/products">Ver Productos</a>
           </div>
         </div>
-        <!-- Segundo conjunto de elementos -->
-        <button *ngIf="finishedUserCheck()" mat-button [matMenuTriggerFor]="menu" class="flex items-center p-1">
-          <mat-icon class="scale-[1.5]">person</mat-icon>
-          <span class="flex flex-col items-start text-xs ml-2">
-            <div>{{currentUser?.firstName || 'no name' | titlecase}}</div>
-          </span>
-          <mat-icon iconPositionEnd>expand_more</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="Logout()" routerLink="/">
-            <mat-icon>logout</mat-icon>
-            <span>Logout</span>
-          </button>
-          <button *ngIf="currentUser?.rol === 'admin'" mat-menu-item routerLink="/dashboard">
-            <mat-icon>home</mat-icon>
-            <span>Admin Panel</span>
-          </button>
-        </mat-menu>
-        <mat-icon *ngIf="!finishedUserCheck()" class="cursor-pointer hover:text-blue-700" routerLink="auth/login">person</mat-icon>
-        <mat-icon id="menu-icon" class="md:hidden" [class.menu-open]="isMenuOpen" (click)="toggleMenu()">menu</mat-icon>
       </div>
+      <!-- Segundo conjunto de elementos -->
+      <button
+        *ngIf="finishedUserCheck()"
+        mat-button
+        [matMenuTriggerFor]="menu"
+        class="flex items-center p-1"
+      >
+        <mat-icon class="scale-[1.5]">person</mat-icon>
+        <span class="flex flex-col items-start text-xs ml-2">
+          <div>{{ currentUser?.firstName || "no name" | titlecase }}</div>
+        </span>
+        <mat-icon iconPositionEnd>expand_more</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="Logout()" routerLink="/">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+        <button
+          *ngIf="currentUser?.rol === 'admin'"
+          mat-menu-item
+          routerLink="/dashboard"
+        >
+          <mat-icon>home</mat-icon>
+          <span>Admin Panel</span>
+        </button>
+      </mat-menu>
+      <mat-icon
+        *ngIf="!finishedUserCheck()"
+        class="cursor-pointer hover:text-blue-700"
+        routerLink="auth/login"
+        >person</mat-icon
+      >
+      <mat-icon
+        id="menu-icon"
+        class="md:hidden"
+        [class.menu-open]="isMenuOpen"
+        (click)="toggleMenu()"
+        >menu</mat-icon
+      >
+    </div>
   </nav>
 </header>
