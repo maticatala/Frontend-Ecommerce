@@ -174,6 +174,8 @@ export class SharedTableComponent implements AfterContentInit  {
         return this.datePipe.transform(text, 'd/M/yy, h:mm a')!;
       case 'currency':
         return this.currencyPipe.transform(text, 'USD', 'symbol')!;
+      case 'userEmail':
+        return text.email;
       default:
         return text;
     }

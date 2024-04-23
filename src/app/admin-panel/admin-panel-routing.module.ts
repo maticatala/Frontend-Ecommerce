@@ -7,6 +7,7 @@ import { CategoriesPageComponent } from './pages/categories-page/categories-page
 import { ListProductsPageComponent } from './pages/list-products-page/list-products-page.component';
 import { AddEditProductComponent } from './pages/add-edit-product/add-edit-product.component';
 import { isAdminGuard } from '../auth/guards/is-admin.guard';
+import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 
 const routes: Routes = [{
   path: '',
@@ -19,6 +20,7 @@ const routes: Routes = [{
     {path: 'products', component: ListProductsPageComponent},
     {path: 'product/:id', component: AddEditProductComponent},
     {path: 'product', component: AddEditProductComponent},
+    {path: 'orders', component: OrdersPageComponent},
     {path: '**', redirectTo: 'dashboard'},
   ],
 }];
