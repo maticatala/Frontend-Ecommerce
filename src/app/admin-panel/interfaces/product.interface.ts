@@ -5,7 +5,7 @@ import { Category } from "./category.interface";
 export interface Product {
   id:          number;
   name:        string;
-  createdAt:   string;
+  createdAt:   Date;
   description: string;
   price:       number;
   imagen:      string;

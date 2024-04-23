@@ -25,14 +25,14 @@
       </ng-container>
       <!-- Toggle Button End -->
 
+      <!-- Columnas visibles -->
       <ng-container [matColumnDef]="column.id" *ngFor="let column of visibleColumns">
         <!-- Header cell -->
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ column.label}}
         </mat-header-cell>
-
         <mat-cell *matCellDef="let row">
-          <ng-container *ngIf="column.id !== 'action' && column.id !== 'imagen' && column.id != 'price'">
+          <ng-container *ngIf="column.id !== 'action' && column.id !== 'imagen' && column.id != 'price' && column.id != 'createdAt'">
             {{ row[column.id] }}
           </ng-container>
           <ng-container *ngIf="column.id === 'price'">
@@ -40,6 +40,9 @@
           </ng-container>
           <ng-container *ngIf="column.id === 'imagen'">
             <img src="{{baseUrl}}/products/getFile?fileName={{row[column.id]}}" alt="imagen">
+          </ng-container>
+          <ng-container *ngIf="column.id === 'createdAt'">
+            {{ row[column.id] | date:'d/M/yy, h:mm a'}}
           </ng-container>
           <ng-container *ngIf="column.id === 'action'">
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -55,20 +58,23 @@
                 <span>Editar</span>
               </button>
             </mat-menu>
-
           </ng-container>
         </mat-cell>
       </ng-container>
 
+      <!-- Columnas escondidas -->
       <ng-container matColumnDef="hidden">
         <mat-cell *matCellDef="let row; let i = dataIndex" class="flex flex-col items-start">
           <p *ngFor="let hiddenColumn of hiddenColumns" class="m-2">
             <strong> {{ hiddenColumn.label }}: </strong>
-            <span *ngIf="hiddenColumn.id != 'price'">
+            <span *ngIf="hiddenColumn.id != 'price' && hiddenColumn.id != 'createdAt'">
               {{ row[hiddenColumn.id] }}
             </span>
             <span *ngIf="hiddenColumn.id == 'price'">
               {{ row[hiddenColumn.id] | currency }}
+            </span>
+            <span *ngIf="hiddenColumn.id == 'createdAt'">
+              {{ row[hiddenColumn.id] | date:'d/M/yy, h:mm a' }}
             </span>
           </p>
         </mat-cell>

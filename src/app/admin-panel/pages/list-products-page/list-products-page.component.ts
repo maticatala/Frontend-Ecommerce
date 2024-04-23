@@ -26,7 +26,8 @@ export class ListProductsPageComponent implements OnInit{
     {id:'description',    label: 'Description', breakpoint: 'sm' },
     {id:'price',          label: 'Price',       breakpoint: 'sm' },
     {id:'categoriesName', label: 'Categories',  breakpoint: 'md' },
-    {id:'action',         label:'Acciones',     breakpoint: 'static'}
+    {id:'createdAt',      label: 'Creado',      breakpoint: 'md' },
+    {id:'action',         label: 'Acciones',    breakpoint: 'static'}
   ]
 
   constructor() { };
