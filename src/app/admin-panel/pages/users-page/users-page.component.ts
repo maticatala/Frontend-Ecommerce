@@ -21,13 +21,13 @@ export class UsersPageComponent implements OnInit{
   public dataSource = new MatTableDataSource();
 
   columns: Column[] = [
-    {id:'id',        label:'ID',       breakpoint: 'md'},
-    {id:'email',     label:'Email',    breakpoint: 'static'},
-    {id:'firstName', label:'Nombre',   breakpoint: 'lg'},
-    {id:'lastName',  label:'Apellido', breakpoint: 'lg'},
-    {id:'createdAt', label:'Creado',   breakpoint: 'lg'},
-    {id:'rol',       label:'Rol',      breakpoint: 'sm'},
-    {id:'action',    label:'Acciones', breakpoint: 'static'},
+    {id:'id',        label:'ID',       breakpoint: 'md'                  },
+    {id:'email',     label:'Email',    breakpoint: 'static'              },
+    {id:'firstName', label:'Nombre',   breakpoint: 'lg'                  },
+    {id:'lastName',  label:'Apellido', breakpoint: 'lg'                  },
+    {id:'createdAt', label:'Creado',   breakpoint: 'lg',    pipe: 'date' },
+    {id:'rol',       label:'Rol',      breakpoint: 'sm'                  },
+    {id:'action',    label:'Acciones', breakpoint: 'static'              },
   ]
 
   constructor(private dialog: MatDialog){}

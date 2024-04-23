@@ -19,9 +19,9 @@ export class CategoriesPageComponent {
   private dialog = inject(MatDialog);
 
   columns: Column[] = [
-    {id:'id',            label:'ID',       breakpoint: 'static'},
-    {id: 'categoryName', label: 'Name',    breakpoint: 'static' },
-    {id:'action',        label:'Acciones', breakpoint: 'static'}
+    {id: 'id',            label:'ID',       breakpoint: 'static'},
+    {id: 'categoryName',  label: 'Name',    breakpoint: 'static'},
+    {id: 'action',        label:'Acciones', breakpoint: 'static'}
   ]
 
   constructor(){}
