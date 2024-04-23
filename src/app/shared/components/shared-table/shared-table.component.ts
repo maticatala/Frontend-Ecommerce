@@ -9,6 +9,7 @@ import { MatTable } from '@angular/material/table';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Column, SpecialKeys } from "../../interfaces";
 import { environment } from "src/app/environments/environments";
+import { CurrencyPipe, DatePipe, UpperCasePipe } from "@angular/common";
 
 
 @Component({
@@ -32,50 +33,42 @@ import { environment } from "src/app/environments/environments";
 
 export class SharedTableComponent implements AfterContentInit  {
 
+  public readonly baseUrl: string = environment.baseUrl;
+  private uppercasePipe = new UpperCasePipe();
+  private datePipe = new DatePipe('en-US');
+  private currencyPipe = new CurrencyPipe('en-US');
   private debounceTimer?: NodeJS.Timeout; //* Sirve para esperar hasta que el usuario termine de ingresar texto en el input y asi no sobrecargarlo
 
   // Filter Fields
-  generalFilter = new FormControl
+  private generalFilter = new FormControl
 
   // Visible Hidden Columns
-  visibleColumns?: Column[];
-  hiddenColumns?: Column[];
-  expandedElement:any = {}
+  public visibleColumns?: Column[];
+  public hiddenColumns?: Column[];
+  public expandedElement:any = {}
 
   // MatPaginator Inputs
-  length = 100;
-  pageSize = 5;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+  public length = 100;
+  public pageSize = 5;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
 
   // MatPaginator Output
-  pageEvent?: PageEvent;
+  public  pageEvent?: PageEvent;
 
   // Shared Variables
   @Input() dataSource!: MatTableDataSource<any>;
   @Input() columnsdef!: Column[];
+  @Input() addNew: boolean = true;
 
   // MatTable
   @ViewChild(MatTable, { static: true })  dataTable!: MatTable<Element>;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-  public readonly baseUrl: string = environment.baseUrl;
-
-
-  get visibleColumnsIds() {
-    if (!this.visibleColumns) return;
-
-    const visibleColumnsIds = this.visibleColumns.map(column => column.id)
-
-    return this.hiddenColumns!.length ? ['trigger', ...visibleColumnsIds] : visibleColumnsIds
-  }
-
-  get hiddenColumnsIds() {
-    if (!this.hiddenColumns) return
-    return this.hiddenColumns.map(column => column.id)
-  }
-
-  // isExpansionDetailRow = (index: any, item: any) => item.hasOwnProperty('detailRow');
+  // Output Events
+  @Output() elementoEditado = new EventEmitter<any>();
+  @Output() elementoEliminado = new EventEmitter<any>();
+  @Output() elementoAgregado = new EventEmitter<any>();
 
   constructor(private _changeDetectorRef: ChangeDetectorRef){}
 
@@ -89,6 +82,19 @@ export class SharedTableComponent implements AfterContentInit  {
       return typeof value === "string" ? value.toLowerCase() : value;
     };
 
+  }
+
+  get visibleColumnsIds() {
+    if (!this.visibleColumns) return;
+
+    const visibleColumnsIds = this.visibleColumns.map(column => column.id)
+
+    return this.hiddenColumns!.length ? ['trigger', ...visibleColumnsIds] : visibleColumnsIds
+  }
+
+  get hiddenColumnsIds() {
+    if (!this.hiddenColumns) return
+    return this.hiddenColumns.map(column => column.id)
   }
 
   @HostListener('window:resize', ['$event'])
@@ -123,6 +129,8 @@ export class SharedTableComponent implements AfterContentInit  {
   }
 
 
+  // Barra de búsqueda
+
   FilterChange(e: KeyboardEvent): void {
 
     if (this.isSpecialKey(e)) return;
@@ -143,10 +151,6 @@ export class SharedTableComponent implements AfterContentInit  {
     return specialKeys.includes(event.key as SpecialKeys);
   }
 
-  @Output() elementoEditado = new EventEmitter<any>();
-  @Output() elementoEliminado = new EventEmitter<any>();
-  @Output() elementoAgregado = new EventEmitter<any>();
-
   // Lógica para editar y eliminar elementos
   editarElemento(elemento: any) {
     // Realiza la edición
@@ -161,4 +165,18 @@ export class SharedTableComponent implements AfterContentInit  {
   agregarElemento(evento: any) {
     this.elementoAgregado.emit(evento);
   }
+
+  transformText(text: any, pipe?: string): string {
+    switch (pipe) {
+      case 'upperCase':
+        return this.uppercasePipe.transform(text);
+      case 'date':
+        return this.datePipe.transform(text, 'd/M/yy, h:mm a')!;
+      case 'currency':
+        return this.currencyPipe.transform(text, 'USD', 'symbol')!;
+      default:
+        return text;
+    }
+  }
+
 }

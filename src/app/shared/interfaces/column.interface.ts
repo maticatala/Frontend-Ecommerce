@@ -1,5 +1,6 @@
 export interface Column {
   id: string;
+  pipe?: string;
   visible?: boolean;
   label: string;
   breakpoint: Breakpoint;

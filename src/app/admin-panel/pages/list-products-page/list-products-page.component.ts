@@ -21,12 +21,12 @@ export class ListProductsPageComponent implements OnInit{
   public dataSource = new MatTableDataSource();
 
   columns: Column[] = [
-    {id:'imagen',         label: 'Imagen',      breakpoint: 'static' },
+    {id:'imagen',         label: 'Imagen',      breakpoint: 'static'},
     {id:'name',           label: 'Name',        breakpoint: 'static' },
     {id:'description',    label: 'Description', breakpoint: 'sm' },
-    {id:'price',          label: 'Price',       breakpoint: 'sm' },
+    {id:'price',          label: 'Price',       breakpoint: 'sm', pipe: 'currency' },
     {id:'categoriesName', label: 'Categories',  breakpoint: 'md' },
-    {id:'createdAt',      label: 'Creado',      breakpoint: 'md' },
+    {id:'createdAt',      label: 'Creado',      breakpoint: 'md', pipe: 'date'},
     {id:'action',         label: 'Acciones',    breakpoint: 'static'}
   ]
 
