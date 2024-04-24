@@ -17,6 +17,12 @@
     padding: 0;
   }
 
+  .mat-column-more {
+    max-width: 78.05px;
+    /* word-wrap: break-word; */
+    padding: 0;
+  }
+
   /* SIRVE PARA ESCONDER LA FILA DE ATRIBUTOS ESCONDIDOS CUANDO SE VUELVE A UNA PANTALLA GRANDE */
   .hidColLength-0 {
     height: 0px !important;

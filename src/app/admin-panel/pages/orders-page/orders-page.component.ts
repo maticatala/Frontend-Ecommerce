@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { OrdersService } from '../../services/orders.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Column } from 'src/app/shared/interfaces';
+import { Order } from '../../interfaces/order.interface';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './orders-page.component.html',
@@ -9,15 +11,17 @@ import { Column } from 'src/app/shared/interfaces';
 })
 export class OrdersPageComponent {
   private ordesrsService = inject(OrdersService);
-  // private router = inject(Router);
+  private router = inject(Router);
   // private _cusSnackbar = inject(CustomSnackbarService);
   // private dialog = inject(MatDialog);
   public dataSource = new MatTableDataSource();
 
   columns: Column[] = [
-    {id:'id',         label: 'Numero',      breakpoint: 'static'},
-    {id:'user',       label: 'Cliente',        breakpoint: 'static', pipe: 'userEmail'},
-    {id:'status',     label: 'Estado', breakpoint: 'static' },
+    {id:'id',         label: 'Numero',     breakpoint: 'static'},
+    {id:'user',       label: 'Cliente',    breakpoint: 'static', pipe: 'userEmail'},
+    {id:'orderAt',    label: 'Pedido el',  breakpoint: 'md', pipe: 'date'},
+    {id:'status',     label: 'Estado',     breakpoint: 'static' },
+    {id:'more',       label: 'Ver mas',    breakpoint: 'static' },
   ]
 
   ngOnInit(): void {
@@ -40,6 +44,12 @@ export class OrdersPageComponent {
         this.dataSource.data = [];
       }
     })
+  }
+
+  onVerMas(order: Order){
+    const { id } = order
+
+    this.router.navigate(['/dashboard/order', id]);
   }
 
 }

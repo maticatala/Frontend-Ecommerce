@@ -23,4 +23,35 @@ export class OrdersService {
     return this.http.get<Order[]>(`${this.baseUrl}/orders`, {headers});
   }
 
+  getOrderById(id: number): Observable<Order> {
+
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.get<Order>(`${this.baseUrl}/orders/${id}`, {headers});
+
+  }
+
+  cancelOrder(id: number): Observable<Order> {
+
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    return this.http.put<Order>(`${this.baseUrl}/orders/cancel/${id}`, null, {headers})
+
+  }
+
+  //! La data tiene que tener el formato status: orderStatus en una interface
+  updateStatus(id:number, data: any): Observable<Order> {
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    console.log(data);
+
+    return this.http.put<Order>(`${this.baseUrl}/orders/${id}`, data, {headers})
+  }
+
 }

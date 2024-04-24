@@ -34,7 +34,7 @@
 
         <mat-cell *matCellDef="let row">
 
-          <ng-container *ngIf="column.id !== 'action' && column.id !== 'imagen'">
+          <ng-container *ngIf="column.id !== 'action' && column.id !== 'more' && column.id !== 'imagen'">
             {{ transformText(row[column.id], column.pipe ) }}
           </ng-container>
           <ng-container *ngIf="column.id === 'imagen'">
@@ -43,7 +43,7 @@
 
           <!-- Action btn -->
           <ng-container *ngIf="column.id === 'action'">
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
@@ -56,6 +56,12 @@
                 <span>Editar</span>
               </button>
             </mat-menu>
+          </ng-container>
+
+          <ng-container *ngIf="column.id === 'more' ">
+            <button mat-icon-button  aria-label="icon-button" (click)="editarElemento(row)">
+              <mat-icon>visibility</mat-icon>
+            </button>
           </ng-container>
           <!-- Action btn -->
 

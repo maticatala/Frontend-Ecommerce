@@ -19,6 +19,7 @@ import { CategoryAddEditComponent } from './components/category-add-edit/categor
 import { ListProductsPageComponent } from './pages/list-products-page/list-products-page.component';
 import { AddEditProductComponent } from './pages/add-edit-product/add-edit-product.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
     ListProductsPageComponent,
     AddEditProductComponent,
     OrdersPageComponent,
+    OrderPageComponent,
   ],
   imports: [
     CommonModule,
