@@ -12,13 +12,13 @@
           <mat-card-content>
             <div class="flex items-center gap-2">
               <div class="w-40 bg-gray-200 p-2 rounded-sm">
-                <mat-select *ngIf="order" [(value)]="order.status">
+                <mat-select *ngIf="status" [(value)]="status">
                   <mat-option *ngFor="let status of orderStatus | keyvalue" [value]="status.value" >
                     {{ status.key }}
                   </mat-option>
                 </mat-select>
               </div>
-              <button mat-raised-button color="primary" (click)="updateOrderStatus()">
+              <button mat-raised-button color="primary" (click)="updateOrderStatus()" [disabled]="status === order?.status">
                 Actualizar estado
               </button>
             </div>

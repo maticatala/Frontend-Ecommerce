@@ -18,7 +18,7 @@ export class OrdersPageComponent {
 
   columns: Column[] = [
     {id:'id',         label: 'Numero',     breakpoint: 'static'},
-    {id:'user',       label: 'Cliente',    breakpoint: 'static', pipe: 'userEmail'},
+    {id:'user',       label: 'Cliente',    breakpoint: 'md', pipe: 'userEmail'},
     {id:'orderAt',    label: 'Pedido el',  breakpoint: 'md', pipe: 'date'},
     {id:'status',     label: 'Estado',     breakpoint: 'static' },
     {id:'more',       label: 'Ver mas',    breakpoint: 'static' },

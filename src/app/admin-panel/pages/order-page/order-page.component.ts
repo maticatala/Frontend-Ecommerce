@@ -8,7 +8,7 @@ import { ShippingAddress } from '../../interfaces/shippingAddress.interface';
 import { OrderStatus } from '../../interfaces/order-status.enum';
 import { Column } from 'src/app/shared/interfaces';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 
 @Component({
   templateUrl: './order-page.component.html',
@@ -18,21 +18,22 @@ export class OrderPageComponent {
 
   private route = inject(ActivatedRoute);
   private ordersService = inject(OrdersService);
-  private fb = inject(FormBuilder);
+  private _cusSnackbar = inject(CustomSnackbarService);
 
   public order?: Order;
   public customer?: User;
   public shippingAddress?: ShippingAddress;
   public orderStatus = OrderStatus;
+  public status?: string;
   public total: number = 0;
 
   public dataSource = new MatTableDataSource();
   public columns: Column[] = [
-    {id:'imagen',             label: 'Imagen',      breakpoint: 'static'},
-    {id:'productName',             label: 'Producto',      breakpoint: 'static'},
-    {id:'product_unit_price', label: 'precio unitario', breakpoint: 'sm', pipe: 'currency'},
-    {id:'product_quantity', label: 'cantidad', breakpoint: 'sm' },
-    {id:'subTotal', label: 'subtotal', breakpoint: 'sm', pipe: 'currency'},
+    {id:'imagen',             label: 'Imagen',          breakpoint: 'static'                  },
+    {id:'productName',        label: 'Producto',        breakpoint: 'static'                  },
+    {id:'product_unit_price', label: 'precio unitario', breakpoint: 'sm',     pipe: 'currency'},
+    {id:'product_quantity',   label: 'cantidad',        breakpoint: 'sm'                      },
+    {id:'subTotal',           label: 'subtotal',        breakpoint: 'sm',     pipe: 'currency'},
   ]
 
   ngOnInit(): void {
@@ -46,8 +47,7 @@ export class OrderPageComponent {
       this.order = order;
       this.customer = order.user;
       this.shippingAddress = order.shippingAddress;
-
-      console.log(this.orderStatus);
+      this.status = order.status;
 
       const rows: any = [];
 
@@ -60,7 +60,6 @@ export class OrderPageComponent {
         rows.push(element);
       });
 
-
       this.dataSource.data = order.products;
       return
     });
@@ -72,28 +71,31 @@ export class OrderPageComponent {
   }
 
   updateOrderStatus() {
-
     if (!this.order) return;
 
-    if (this.order.status !== OrderStatus.CANCELLED){
+    if (this.status !== OrderStatus.CANCELLED){
       const data = {
-        'status': this.order.status
+        'status': this.status
       }
       this.ordersService.updateStatus(this.order.id, data).subscribe({
-        next: (res: any) => {
-          console.log('Actualizado con exito',res)
+        next: (order: Order) => {
+          this.order = order;
+          this._cusSnackbar.openCustomSnackbar("done", `${this.status} Successfuly!`, "Okay", 3000, 'success');
         },
         error: (e:any) => {
-          console.log(e.error.message);
+          const message = e.error.message;
+          this._cusSnackbar.openCustomSnackbar("error", message, "Okay", 3000, 'danger');
         }
       })
     } else {
       this.ordersService.cancelOrder(this.order.id).subscribe({
-        next: (res: any) => {
-          console.log('Cancelado con exito',res)
+        next: (order: Order) => {
+          this.order = order;
+          this._cusSnackbar.openCustomSnackbar("done", `${this.status} Successfuly!`, "Okay", 3000, 'success');
         },
         error: (e:any) => {
-          console.log(e.error.message);
+          const message = e.error.message;
+          this._cusSnackbar.openCustomSnackbar("error", message, "Okay", 3000, 'danger');
         }
       });
     }
