@@ -8,6 +8,7 @@ import { ShippingAddress } from '../../interfaces/shippingAddress.interface';
 import { OrderStatus } from '../../interfaces/order-status.enum';
 import { Column } from 'src/app/shared/interfaces';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   templateUrl: './order-page.component.html',
@@ -17,15 +18,16 @@ export class OrderPageComponent {
 
   private route = inject(ActivatedRoute);
   private ordersService = inject(OrdersService);
+  private fb = inject(FormBuilder);
 
   public order?: Order;
   public customer?: User;
   public shippingAddress?: ShippingAddress;
   public orderStatus = OrderStatus;
-  public dataSource = new MatTableDataSource();
   public total: number = 0;
 
-  columns: Column[] = [
+  public dataSource = new MatTableDataSource();
+  public columns: Column[] = [
     {id:'imagen',             label: 'Imagen',      breakpoint: 'static'},
     {id:'productName',             label: 'Producto',      breakpoint: 'static'},
     {id:'product_unit_price', label: 'precio unitario', breakpoint: 'sm', pipe: 'currency'},
@@ -44,6 +46,8 @@ export class OrderPageComponent {
       this.order = order;
       this.customer = order.user;
       this.shippingAddress = order.shippingAddress;
+
+      console.log(this.orderStatus);
 
       const rows: any = [];
 
