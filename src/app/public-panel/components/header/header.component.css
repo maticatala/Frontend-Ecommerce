@@ -36,6 +36,18 @@ header {
   display: block;
 }
 
+.cart-value {
+  position: absolute;
+  top: 42px;
+  right: 103px;
+  /* background-color: rgba(255, 0, 0, 0.685); */
+  background-color: #ff0000a8;
+  border-radius: 50%;
+  padding: 1px 7px; /* Ajusta el padding para hacer el círculo más pequeño */
+  font-size: 12px; /* Ajusta el tamaño de la fuente */
+}
+
+
 /*
 .menu{
   margin-top:10px;

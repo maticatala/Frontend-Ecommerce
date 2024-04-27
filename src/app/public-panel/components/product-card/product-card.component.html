@@ -17,13 +17,9 @@
   </mat-card-content>
   <div class="flex flex-col mt-auto gap-2 m-2">
     <p class="font-bold text-lg mx-auto">${{ product.price }}</p>
-    <button color="primary" mat-button>
+    <button color="primary" mat-raised-button (click)="addCart(product)">
       <mat-icon>add_shopping_cart</mat-icon>
       <p>Añadir al carrito</p>
-    </button>
-    <button color="primary" mat-raised-button>
-      <mat-icon>shop</mat-icon>
-      <p>Comprar</p>
     </button>
   </div>
 </mat-card>

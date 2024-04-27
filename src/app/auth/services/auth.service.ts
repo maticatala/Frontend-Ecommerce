@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { Observable, Subject, catchError, map, of, throwError } from 'rxjs';
 
 import { environment } from 'src/app/environments/environments';
 import { AuthStatus, CheckTokenResponse, LoginResponse, User, RegisterResponse } from '../interfaces';
@@ -101,5 +101,8 @@ export class AuthService {
     this._authStatus.set(AuthStatus.notAuthenticated);
     localStorage.removeItem('token');
   }
+
+
+  cartSubject = new Subject<any>();
 
 }

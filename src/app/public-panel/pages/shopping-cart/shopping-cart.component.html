@@ -1,2 +1,58 @@
-<public-panel-header></public-panel-header>
-<public-panel-footer></public-panel-footer>
+<section>
+  <div>
+    <h2>Carrito</h2>
+    <table>
+      <tr>
+          <th>
+            Imagen
+          </th>
+          <th>
+            Precio
+          </th>
+          <th>
+            Cantidad
+          </th>
+          <th>
+            Sub Total
+          </th>
+          <th>
+            Eliminar
+          </th>
+      </tr>
+      <tr *ngFor="let getCartDetail of getCartDetails; let i = index">
+        <td>
+          <img src="{{getCartDetail.imagen}}" alt="">
+        </td>
+        <td>
+          {{getCartDetail.price}}
+        </td>
+        <td>
+          <div>
+            <button>
+              <mat-icon>add</mat-icon>
+              <span>
+                {{getCartDetail.qnt}}
+              </span>
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+        </td>
+        <td></td>
+        <td>
+          <button class="flex items-center text-red-500 hover:text-red-700" (click)="eliminarFila(i)">
+            <mat-icon class="mr-1">delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Total</h3>
+      </div>
+      <div class="col-md-6 text-right">
+        <button></button>
+      </div>
+    </div>
+  </div>
+
+</section>

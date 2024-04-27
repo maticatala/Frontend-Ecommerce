@@ -8,6 +8,9 @@ import { environment } from 'src/app/environments/environments';
   providedIn: 'root'
 })
 export class ProductsService {
+  addToCart(product: any) {
+    console.log('Agregando producto al carrito:', product);
+  }
 
   private readonly baseUrl: string = environment.baseUrl;
   private http = inject(HttpClient);

@@ -28,7 +28,10 @@
         <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleSearch()">search</mat-icon>
         <!-- Primer conjunto de elementos -->
         <div class="flex items-center ">
-          <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
+            <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
+            <div class="cart-value">
+              {{cartItem}}
+            </div>
           <div class="cart-overlay" [class.show]="isCartOpen" (click)="toggleCart()"></div>
           <div class="cart-container rounded-lg" [class.show]="isCartOpen">
             <!-- Contenido del carrito de compras aquí -->
@@ -39,16 +42,75 @@
               </button>
             </div>
             <div>
+              <table>
+                <tr class="col-md-6" >
+                    <th>
+                      Imagen
+                    </th>
+                    <th>
+                      Precio
+                    </th>
+                    <th>
+                      Cantidad
+                    </th>
+                    <th>
+                      Sub Total
+                    </th>
+                    <th>
+                      Eliminar
+                    </th>
+                </tr>
+                <tr *ngFor="let getCartDetail of getCartDetails; let i = index">
+                  <td>
+                    <img src="{{getCartDetail.imagen}}" alt="">
+                  </td>
+                  <td>
+                    {{getCartDetail.price}}
+                  </td>
+                  <td>
+                    <div>
+                      <button>
+                        <mat-icon>add</mat-icon>
+                        <span>
+                          {{getCartDetail.qnt}}
+                        </span>
+                        <mat-icon>remove</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                  <td></td>
+                  <td>
+                    <button class="flex items-center text-red-500 hover:text-red-700" (click)="eliminarFila(i)">
+                      <mat-icon class="mr-1">delete</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+              <div class="row">
+                <div class="col-md-6">
+                  <br>
+                  <hr>
 
+                </div>
+                <div class="col-md-6 text-right">
+                  <button></button>
+                </div>
+              </div>
             </div>
-            <div id="cartBox" class="fixed bottom-5 inset-x-5 bg-orange-300 shadow-md p-4 rounded-md mt-3 z-5 flex items-center justify-center">
-              <a routerLink="/products">Ver Productos</a>
+            <div class="flex justify-between items-end space-x-4">
+              <div id="cartBox1" class="bg-orange-300 shadow-md p-4 rounded-lg">
+                <a routerLink="/shopping-cart">Ver Carrito</a>
+              </div>
+              <div id="cartBox2" class="bg-green-300 shadow-md p-4 rounded-lg">
+                <a routerLink="/shopping-cart">Finalizar Compra</a>
+              </div>
             </div>
+
           </div>
         </div>
         <!-- Segundo conjunto de elementos -->
         <button *ngIf="finishedUserCheck()" mat-button [matMenuTriggerFor]="menu" class="flex items-center p-1">
-          <mat-icon class="scale-[1.5]">person</mat-icon>
+          <mat-icon class="scale-[1.5] ">person</mat-icon>
           <span class="flex flex-col items-start text-xs ml-2">
             <div>{{currentUser?.firstName || 'no name' | titlecase}}</div>
           </span>
