@@ -75,7 +75,7 @@
               type="text"
               class="flex-grow px-2 py-1 bg-white outline-none"
               placeholder="¿Qué estás buscando?"
-              (keyup.enter)="searchTag()"
+              (keyup.enter)="searchTag($event)"
               (keyup.enter)="toggleSearch()"
             />
             <mat-icon class="cursor-pointer" (click)="toggleSearch()"

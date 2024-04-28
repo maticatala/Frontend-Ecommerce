@@ -1,5 +1,5 @@
 import { Product } from './../../../shared/interfaces/product.interface';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, effect, inject } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { Category } from 'src/app/shared/interfaces/category.interface';
@@ -11,17 +11,14 @@ import { Category } from 'src/app/shared/interfaces/category.interface';
 })
 export class ProductsComponent implements OnInit{
 
-  // public products : Product[] = [];
+  public products?: Product[] | null;
   public categories : Category[] = [];
 
   private productService  = inject(ProductsService);
   private categoryService  = inject(CategoriesService);
 
   ngOnInit(): void {
-    // this.productService.getProducts()
-    //   .subscribe( products => {
-    //     this.products = products
-    //   });
+    this.productService.getProducts().subscribe();
 
     this.categoryService.getCategories()
       .subscribe( categories => {
@@ -29,8 +26,13 @@ export class ProductsComponent implements OnInit{
       });
   }
 
-  get products() : Product[]{
-    return this.productService.productList;
-  }
+  public productListChangeEffect = effect (()=>{
 
+    this.products = this.productService.productList();
+
+  })
+
+  // setProductList() {
+  //   return this.productService.productList;
+  // }
 }

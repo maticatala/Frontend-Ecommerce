@@ -3,7 +3,7 @@ import { User } from 'src/app/auth/interfaces';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ProductsService } from '../../services/products.service';
 import { Product } from 'src/app/shared/interfaces/product.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/app/environments/environments';
 
 @Component({
@@ -59,11 +59,21 @@ export class HeaderComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  // searchTag(tag : string){
-  searchTag() {
-    const newTag = this.tagInput.nativeElement.value;
-    this.productService.searchTag(newTag);
-    this.tagInput.nativeElement.value = '';
+  searchTag(event: any) {
+    const newTag = event.target.value;
+
+    console.log("searchTag event")
+
+    //Validamos que newTag contenga algun valor
+    if ( newTag.length === 0 ) return;
+
+
+    const params = new HttpParams()
+      .set('name', newTag)
+
+    this.productService.getProductsByParams(params).subscribe();
+
+    event.target.value = '';
   }
 
   get tags(){
@@ -71,7 +81,11 @@ export class HeaderComponent {
   }
 
   clickedTag( tag : string ) : void {
-    this.productService.searchTag( tag );
+
+    const params = new HttpParams()
+    .set('name', tag)
+
+    this.productService.getProductsByParams(params).subscribe();
   }
 
 }

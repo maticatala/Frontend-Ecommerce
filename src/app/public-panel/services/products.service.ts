@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, computed, inject, signal} from '@angular/core';
+import { Observable, map, tap } from 'rxjs';
 import { Product } from '../../shared/interfaces/product.interface';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/app/environments/environments';
@@ -9,12 +9,13 @@ import { environment } from 'src/app/environments/environments';
 })
 export class ProductsService {
 
-  public productList : Product[] = [];
-
   private readonly baseUrl: string = environment.baseUrl;
   private http = inject(HttpClient);
   private _tagHistory : string[] = [];
+  private _productList = signal<Product[] | null>(null);
 
+  //! Al mundo exterior
+  public productList = computed( () => this._productList() );
 
   constructor() { }
 
@@ -22,19 +23,22 @@ export class ProductsService {
     return [...this._tagHistory];
   }
 
-  getProducts(): Observable<Product[]>  {
-    return this.http.get<Product[]>(`${this.baseUrl}/products`);
+  getProducts()  {
+    console.log("ejecutando get Products")
+    return this.http.get<Product[]>(`${this.baseUrl}/products`)
+    .pipe(
+      map(products => {
+        this._productList.set(products);
+        return true;
+      }),
+    )
   }
-
-  // getProductsByName(name : string) : Observable<Product[]> {
-  //   return this.http.get<Product[]>(`${this.baseUrl}/products/search?&name=${name}`)
-  // }
 
   private organizeHistory( tag: string ){
 
     tag = tag.toLowerCase();
 
-    if( this._tagHistory.includes(tag)){
+    if( this._tagHistory.includes(tag) ){
       this._tagHistory = this._tagHistory.filter( (oldTag) => oldTag != tag )
     }
 
@@ -44,39 +48,23 @@ export class ProductsService {
 
   }
 
-  searchTag( tag : string ) : void {
+  getProductsByParams( params: HttpParams ) {
 
-    if (tag.length === 0) return;
+    const tag = params.get('name');
+
+    if (tag)
     this.organizeHistory(tag);
 
-    const params = new HttpParams()
-      .set('limit', 2)
-      .set('name', tag)
+    return this.http.get<Product[]>(`${this.baseUrl}/products`,{ params })
+      .pipe(
+        map(products => {
+          this._productList.set(products);
+          console.log("products en getProductsByParams: ",products)
+          return true;
+        }),
+      )
 
-    this.http.get<Product[]>(`${this.baseUrl}/products/search`,{ params })
-      .subscribe( resp => {
-        this.productList = resp
-
-        console.log({prodcuts : this.productList})
-
-      })
   }
-
-  searchProductByCategory( tag : string ) : void {
-
-    const params = new HttpParams()
-      .set('limit', 2)
-      .set('categoryName', tag)
-
-    this.http.get<Product[]>(`${this.baseUrl}/products/category`,{ params })
-      .subscribe( resp => {
-        this.productList = resp
-
-        console.log({prodcuts : this.productList})
-
-      })
-  }
-
 
 
 }
