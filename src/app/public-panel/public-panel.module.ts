@@ -15,6 +15,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { ContactComponent } from '../public-panel/pages/contact/contact.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
     ProductCardComponent,
     ContactComponent,
     CarouselComponent,
+    SearchBarComponent,
   ],
   imports: [
     CommonModule,

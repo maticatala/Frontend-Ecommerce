@@ -1,10 +1,8 @@
 <header class="header" >
   <nav class="flex justify-between items-center w-[92%] mx-auto">
       <!-- logo -->
-      <div class=" ">
-          <a href="http://localhost:4200/home">
-              <img class="w-14" src="../../../assets/images/logo2.png" style="cursor: pointer" alt="...">
-          </a>
+      <div>
+        <img routerLink="/home" class="w-14" src="../../../assets/images/logo2.png" style="cursor: pointer" alt="...">
       </div>
       <!-- textos -->
         <div  class="nav-links md:static absolute md:min-h-fit min-h-[6vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
@@ -25,15 +23,9 @@
         </div>
       <!-- login  -->
       <div class="flex items-center gap-3 ">
-        <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleSearch() "(click)="togglePageScroll()">search</mat-icon>
-        <div *ngIf="isSearchOpen" class="absolute inset-0 bg-gray-900 bg-opacity-50 z-10" (click)="toggleSearch()"></div>
-        <div *ngIf="isSearchOpen" class="absolute top-0 left-0 flex justify-center items-center w-full z-10 slide-in-from-top " (click)="closeSearch($event)">
-          <div class="bg-[#f1f1f1] w-full items-center justify-center flex py-8 rounded-lg">
-            <mat-icon class="font-semibold pr-10">search</mat-icon>
-            <input #searchInput type="text" class="h-16 w-7/12 pl-5 z-20 bg-[#f1f1f1] opacity-100 focus:outline-none" placeholder="¿Qué es lo que estás buscando?">
-            <mat-icon class="hover:text-black pr-10 cursor-pointer" (click)="toggleSearch()" (click)="closeSearch1()">close</mat-icon>
-          </div>
-        </div>
+        <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleSearch()">search</mat-icon>
+        <public-search-bar [isExpanded]="isSearchOpen" (closeEvent)="receiveEvent($event)"></public-search-bar>
+
         <div class="flex items-center ">
           <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
           <div class="cart-overlay" [class.show]="isCartOpen" (click)="toggleCart()"></div>
@@ -53,6 +45,7 @@
             </div>
           </div>
         </div>
+
         <!-- Segundo conjunto de elementos -->
         <button *ngIf="finishedUserCheck()" mat-button [matMenuTriggerFor]="menu" class=" flex items-center p-1">
           <mat-icon class="scale-[1.5]">person</mat-icon>

@@ -1,33 +1,31 @@
 <mat-nav-list>
+  <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="app-tree-node"  routerLinkActive="bg-slate-100">
+      <a mat-list-item  [routerLink]="['./', node.path]" (click)="OnButtonClick()">
+        <mat-icon matListItemIcon>{{ node.data.icon }}</mat-icon>
+        <span class="h-[21px] self-end">
+          {{ node.data.text }}
+        </span>
+    </a>
+  </cdk-nested-tree-node>
 
 
-<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
- <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="app-tree-node"  routerLinkActive="bg-slate-100">
-    <a mat-list-item  [routerLink]="['./', node.path]" (click)="OnButtonClick()">
-      <mat-icon matListItemIcon>{{ node.data.icon }}</mat-icon>
+  <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild" class="app-tree-node">
+    <a mat-list-item [attr.aria-label]="'Toggle ' + node.data.text" cdkTreeNodeToggle>
+      <mat-icon matListItemIcon class="duration-150"
+        [ngClass]="treeControl.isExpanded(node) ? 'rotate-90' : ''">
+        chevron_right
+      </mat-icon>
       <span class="h-[21px] self-end">
-        {{ node.data.text }}
+        {{node.data.text}}
       </span>
-   </a>
- </cdk-nested-tree-node>
+    </a>
 
 
- <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild" class="app-tree-node">
-  <a mat-list-item [attr.aria-label]="'Toggle ' + node.data.text" cdkTreeNodeToggle>
-    <mat-icon matListItemIcon class="duration-150"
-      [ngClass]="treeControl.isExpanded(node) ? 'rotate-90' : ''">
-      chevron_right
-    </mat-icon>
-    <span class="h-[21px] self-end">
-      {{node.data.text}}
-    </span>
-  </a>
+    <div [class.app-tree-invisible]="!treeControl.isExpanded(node)">
+      <ng-container cdkTreeNodeOutlet></ng-container>
+    </div>
 
-
-  <div [class.app-tree-invisible]="!treeControl.isExpanded(node)">
-    <ng-container cdkTreeNodeOutlet></ng-container>
-  </div>
-
- </cdk-nested-tree-node>
-</cdk-tree>
+  </cdk-nested-tree-node>
+  </cdk-tree>
 </mat-nav-list>

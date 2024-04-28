@@ -1,0 +1,11 @@
+<div class="contenedor" [ngClass]="isExpanded ? 'visible' : 'hiddenContenedor'">
+  <div class="bg-gray-800 w-full flex justify-center p-[20px] searchBox" [ngClass]="isExpanded ? null : 'hiddenSearchBox'">
+    <div class="bg-gray-800 w-11/12 flex items-center">
+      <mat-icon class="text-white">search</mat-icon>
+      <input #searchInput class="searchInput sm: text-sm md:text-lg" type="text" placeholder="¿Qué es lo que estás buscando?">
+      <mat-icon class="text-white hover:text-gray-200 cursor-pointer" (click)="close()">close</mat-icon>
+    </div>
+  </div>
+  <div class="fixed w-full h-full" (click)="close()">
+  </div>
+</div>

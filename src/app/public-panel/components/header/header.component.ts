@@ -10,10 +10,10 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class HeaderComponent {
 
   private authService = inject(AuthService);
+  public isSearchOpen: boolean = false;
+  public currentUser?: User | null;
 
-  currentUser?: User | null;
-
-
+  constructor() {}
 
   public finishedUserCheck = computed<boolean>(() => {
 
@@ -34,19 +34,15 @@ export class HeaderComponent {
     this.authService.logout();
   }
 
-  isSearchOpen: boolean = false;
-
-  constructor(private elRef: ElementRef) {}
-
+  // search
   toggleSearch() {
-    this.isSearchOpen = !this.isSearchOpen;
+    this.isSearchOpen = true;
   }
 
-  closeSearch(event: MouseEvent) {
-    if (!this.elRef.nativeElement.contains(event.target)) {
-      this.isSearchOpen = false;
-    }
+  receiveEvent($event:boolean){
+    this.isSearchOpen = $event;
   }
+  //
 
   isCartOpen: boolean = false;
 
@@ -76,17 +72,17 @@ export class HeaderComponent {
 
   searchActive: boolean = false;
 
-  togglePageScroll() {
-    if (!this.searchActive) {
-      // Deshabilita temporalmente el desplazamiento de la página
-      document.body.style.overflow = 'hidden';
-      this.searchActive = true;
-    } else {
-      // Activa el desplazamiento de la página
-      document.body.style.overflow = '';
-      this.searchActive = false;
-    }
-  }
+  // togglePageScroll() {
+  //   if (!this.searchActive) {
+  //     // Deshabilita temporalmente el desplazamiento de la página
+  //     document.body.style.overflow = 'hidden';
+  //     this.searchActive = true;
+  //   } else {
+  //     // Activa el desplazamiento de la página
+  //     document.body.style.overflow = '';
+  //     this.searchActive = false;
+  //   }
+  // }
 
   closeSearch1() {
     // Activa el desplazamiento de la página al cerrar la búsqueda
