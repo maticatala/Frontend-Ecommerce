@@ -1,0 +1,87 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-subtitle>Pedidos</mat-card-subtitle>
+    <mat-card-title>Pedido #{{order?.id}} de {{customer?.firstName | titlecase}} {{customer?.lastName | titlecase}} {{total | currency}} {{order?.orderAt | date:'d/M/yy, h:mm a'}}</mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content class="bg-gray-200">
+    <div class="contenedor">
+
+      <div class="estado">
+        <mat-card>
+          <mat-card-content>
+            <div class="flex items-center gap-2">
+              <div class="w-40 bg-gray-200 p-2 rounded-sm">
+                <mat-select *ngIf="status" [(value)]="status">
+                  <mat-option *ngFor="let status of orderStatus | keyvalue" [value]="status.value" >
+                    {{ status.key }}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <button mat-raised-button color="primary" (click)="updateOrderStatus()" [disabled]="status === order?.status">
+                Actualizar estado
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="cliente">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-subtitle>Cliente</mat-card-subtitle>
+            <mat-card-title>
+              <div class="flex items-center gap-2">
+                <mat-icon>account_box</mat-icon>
+                <p>{{customer?.firstName | titlecase}} {{customer?.lastName | titlecase}}</p>
+                <p>#{{customer?.id}}</p>
+              </div>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <div class="client-data-container">
+              <div>
+                <b>Email:</b>
+                <div>{{customer?.email}}</div>
+              </div>
+              <div>
+                <b>Cuenta Registrada:</b>
+                <div>{{customer?.createdAt | date:'d/M/yy, h:mm a'}}</div>
+              </div>
+              <div *ngIf="shippingAddress">
+                <b>Dirección de Envío:</b>
+                <p>{{ shippingAddress.phone }}</p>
+                <p>{{ shippingAddress.country }}</p>
+                <p>{{ shippingAddress.state }}</p>
+                <p>{{ shippingAddress.postCode }}, {{ shippingAddress.city | titlecase}}</p>
+                <p>{{ shippingAddress.address }}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="productos">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-subtitle>Productos ({{order?.products?.length}})</mat-card-subtitle>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <shared-table
+              [addNew]="false"
+              [dataSource]="dataSource"
+              [columnsdef]="columns"
+              class="m-1"
+            ></shared-table>
+            <div class="text-md font-semibold flex justify-end">
+              <div>Total: {{total | currency}}</div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+  </mat-card-content>
+</mat-card>

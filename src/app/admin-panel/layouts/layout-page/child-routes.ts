@@ -32,7 +32,7 @@ export const childRoutes: AppRoute[] = [
    ]
  },
  {
-   path: 'form',
-   data: { icon: 'bar_chart', text: 'Form' }
+   path: 'orders',
+   data: { icon: 'inventory_2', text: 'Orders' }
  },
 ];

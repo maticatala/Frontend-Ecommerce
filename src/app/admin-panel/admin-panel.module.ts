@@ -18,6 +18,8 @@ import { CategoriesPageComponent } from './pages/categories-page/categories-page
 import { CategoryAddEditComponent } from './components/category-add-edit/category-add-edit.component';
 import { ListProductsPageComponent } from './pages/list-products-page/list-products-page.component';
 import { AddEditProductComponent } from './pages/add-edit-product/add-edit-product.component';
+import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { AddEditProductComponent } from './pages/add-edit-product/add-edit-produ
     CategoryAddEditComponent,
     ListProductsPageComponent,
     AddEditProductComponent,
+    OrdersPageComponent,
+    OrderPageComponent,
   ],
   imports: [
     CommonModule,
