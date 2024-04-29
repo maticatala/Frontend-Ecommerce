@@ -11,24 +11,12 @@ export class HeaderComponent {
 
   private authService = inject(AuthService);
   public isSearchOpen: boolean = false;
-  public currentUser?: User | null;
 
   constructor() {}
 
-  public finishedUserCheck = computed<boolean>(() => {
-
-    if (this.authService.currentUser()) {
-      return true;
-    }
-
-    return false;
-  });
-
-  public currentUserChangeEffect = effect (()=>{
-
-    this.currentUser = this.authService.currentUser();
-
-  })
+  get currentUser() {
+    return this.authService.currentUser();
+  }
 
   Logout(): void {
     this.authService.logout();
@@ -56,19 +44,19 @@ export class HeaderComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  prevScrollpos = window.pageYOffset;
-  visible = true;
+  // prevScrollpos = window.pageYOffset;
+  // visible = true;
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    const currentScrollPos = window.pageYOffset;
-    if (this.prevScrollpos > currentScrollPos) {
-      this.visible = true; // Desplazamiento hacia arriba, muestra el encabezado
-    } else {
-      this.visible = false; // Desplazamiento hacia abajo, oculta el encabezado
-    }
-    this.prevScrollpos = currentScrollPos;
-  }
+  // @HostListener('window:scroll', ['$event'])
+  // onWindowScroll() {
+  //   const currentScrollPos = window.pageYOffset;
+  //   if (this.prevScrollpos > currentScrollPos) {
+  //     this.visible = true; // Desplazamiento hacia arriba, muestra el encabezado
+  //   } else {
+  //     this.visible = false; // Desplazamiento hacia abajo, oculta el encabezado
+  //   }
+  //   this.prevScrollpos = currentScrollPos;
+  // }
 
   searchActive: boolean = false;
 
@@ -83,11 +71,5 @@ export class HeaderComponent {
   //     this.searchActive = false;
   //   }
   // }
-
-  closeSearch1() {
-    // Activa el desplazamiento de la página al cerrar la búsqueda
-    document.body.style.overflow = '';
-    this.searchActive = false;
-  }
 
 }

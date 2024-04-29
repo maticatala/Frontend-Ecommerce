@@ -10,7 +10,7 @@
   opacity: 1;
 }
 
-.searchBox {
+.transition {
   transform: none;
   visibility: visible;
   transition: all 0.3s ease;

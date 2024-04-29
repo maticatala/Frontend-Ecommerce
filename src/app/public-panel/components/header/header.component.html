@@ -47,10 +47,10 @@
         </div>
 
         <!-- Segundo conjunto de elementos -->
-        <button *ngIf="finishedUserCheck()" mat-button [matMenuTriggerFor]="menu" class=" flex items-center p-1">
+        <button *ngIf="currentUser" mat-button [matMenuTriggerFor]="menu" class=" flex items-center p-1">
           <mat-icon class="scale-[1.5]">person</mat-icon>
           <span class="flex flex-col items-start text-xs ml-2">
-            <div>{{currentUser?.firstName || 'no name' | titlecase}}</div>
+            <div>{{currentUser.firstName || 'no name' | titlecase}}</div>
           </span>
           <mat-icon iconPositionEnd>expand_more</mat-icon>
         </button>
@@ -64,7 +64,7 @@
             <span>Admin Panel</span>
           </button>
         </mat-menu>
-        <mat-icon *ngIf="!finishedUserCheck()" class="cursor-pointer hover:text-blue-700" routerLink="auth/login">person</mat-icon>
+        <mat-icon *ngIf="!currentUser" class="cursor-pointer hover:text-blue-700" routerLink="auth/login">person</mat-icon>
         <mat-icon id="menu-icon" class="md:hidden" [class.show]="isMenuOpen" (click)="toggleMenu()">menu</mat-icon>
         <div class="menu-overlay" [class.show]="isMenuOpen" (click)="toggleMenu()"></div>
         <div class="menu-container rounded-lg" [class.show]="isMenuOpen">
