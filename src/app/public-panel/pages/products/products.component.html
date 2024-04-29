@@ -1,38 +1,48 @@
-<section class="flex">
-  <aside class="hidden sm:block">
-    <h3>Categorias</h3>
-    <mat-nav-list role="categories">
-      <mat-list-item routerLinkActive="mdc-list-item--activated" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/products']">
+<section class="flex mx-10">
+  <aside class="hidden sm:block p-2 bg-white">
+    <h3 class="text-xl">Categorias</h3>
+    <mat-divider></mat-divider>
+    <mat-nav-list role="navigation">
+      <mat-list-item (click)="selectedCategoryName = ''" routerLinkActive="mdc-list-item--activated" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/products']">
           Todas
       </mat-list-item>
       <ng-container *ngFor="let category of categories">
-        <mat-list-item routerLinkActive="mdc-list-item--activated" [routerLink]="['/products']" [queryParams]="{ category: category.id}">
+        <mat-list-item (click)="selectedCategoryName = category.categoryName" routerLinkActive="mdc-list-item--activated" [routerLink]="['/products']" [queryParams]="{ category: category.id}">
           {{ category.categoryName }}
         </mat-list-item>
       </ng-container>
     </mat-nav-list>
   </aside>
   <mat-card class="flex-grow">
-    <header class="flex">
-      categoria
-      <mat-select>
-        <mat-option value="Precio: menor a mayor">Precio: menor a mayor</mat-option>
-      </mat-select>
+    <mat-card-header class="flex">
+      <mat-card-title>Productos</mat-card-title>
+      <mat-card-subtitle>{{selectedCategoryName}}</mat-card-subtitle>
+      <mat-form-field class="mb-[-1.25em] ml-auto">
+        <mat-label>
+          Ordenar
+        </mat-label>
+        <mat-select>
+          <mat-option value="Precio: menor a mayor">Precio: menor a mayor</mat-option>
+          <mat-option value="Precio: menor a mayor">Precio: mayor a menor</mat-option>
+        </mat-select>
+      </mat-form-field>
       <div class="sm:hidden">
         <button mat-icon-button >
           <mat-icon>tune</mat-icon>
         </button>
       </div>
-    </header>
-    <div class="productGrid">
+    </mat-card-header>
+    <mat-card-content class="productGrid mb-auto">
       <public-panel-product-card
         *ngFor="let product of products"
         [product]="product"
       ></public-panel-product-card>
       <p *ngIf="products?.length === 0">No hay productos</p>
-    </div>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons>
-    </mat-paginator>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons>
+      </mat-paginator>
+    </mat-card-footer>
   </mat-card>
 </section>

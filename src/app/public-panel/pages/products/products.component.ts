@@ -1,9 +1,8 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit, effect, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoriesService } from 'src/app/admin-panel/services/categories.service';
 import { Category } from 'src/app/shared/interfaces/category.interface';
-import { Product } from 'src/app/shared/interfaces/product.interface';
 import { ProductsService } from 'src/app/shared/services/products.service';
 
 @Component({
@@ -19,6 +18,8 @@ export class ProductsComponent implements OnInit{
   private categoryService  = inject(CategoriesService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
+  public selectedCategoryName?: string;
+
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(parameters => {
