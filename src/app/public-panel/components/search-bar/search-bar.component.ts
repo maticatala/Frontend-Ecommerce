@@ -37,7 +37,11 @@ export class SearchBarComponent implements OnChanges {
     //Validamos que newTag contenga algun valor
     if ( newTag.length === 0 ) return;
 
-    this.router.navigateByUrl(`/products?name=${newTag}`);
+    this.router.navigate(['products'], {
+      queryParams: { name: newTag },
+      queryParamsHandling: 'merge'
+    });
+
 
     event.target.value = '';
   }

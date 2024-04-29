@@ -98,7 +98,6 @@ export class ProductsService {
       .pipe(
         map(products => {
           this._productList.set(products);
-          console.log("products en getProductsByParams: ",products)
           return true;
         }),
       )

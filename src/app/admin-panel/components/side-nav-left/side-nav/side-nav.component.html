@@ -1,11 +1,11 @@
 <mat-nav-list>
   <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="app-tree-node"  routerLinkActive="bg-slate-100">
-      <a mat-list-item  [routerLink]="['./', node.path]" (click)="OnButtonClick()">
-        <mat-icon matListItemIcon>{{ node.data.icon }}</mat-icon>
-        <span class="h-[21px] self-end">
-          {{ node.data.text }}
-        </span>
+    <a mat-list-item  [routerLink]="['./', node.path]" (click)="OnButtonClick()">
+      <mat-icon matListItemIcon>{{ node.data.icon }}</mat-icon>
+      <span class="h-[21px] self-end">
+        {{ node.data.text }}
+      </span>
     </a>
   </cdk-nested-tree-node>
 

@@ -22,14 +22,8 @@ export class ProductsComponent implements OnInit{
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(parameters => {
-      if ('name' in parameters){
-
         const params = new HttpParams({ fromObject: parameters });
-
         this.productService.getProductsByParams(params).subscribe();
-      } else {
-        this.productService.getProducts().subscribe();
-      }
     })
 
     this.categoryService.getCategories()
@@ -40,6 +34,15 @@ export class ProductsComponent implements OnInit{
 
   get products() {
     return this.productService.productList();
+  }
+
+  searchCategory(id: number){
+
+    this.router.navigate(['products'], {
+      queryParams: { category: id },
+      queryParamsHandling: 'merge'
+    });
+
   }
 
 }

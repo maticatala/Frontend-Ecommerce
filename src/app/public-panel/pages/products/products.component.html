@@ -1,24 +1,38 @@
-<div class="flex gap-14">
-  <div class="">
-    <ul class="border-r border-gray-300">
-      <li
-        *ngFor="let category of categories"
-        class="py-2 px-4 cursor-pointer hover:bg-gray-500"
-      >
-        <button>
+<section class="flex">
+  <aside class="hidden sm:block">
+    <h3>Categorias</h3>
+    <mat-nav-list role="categories">
+      <mat-list-item routerLinkActive="mdc-list-item--activated" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/products']">
+          Todas
+      </mat-list-item>
+      <ng-container *ngFor="let category of categories">
+        <mat-list-item routerLinkActive="mdc-list-item--activated" [routerLink]="['/products']" [queryParams]="{ category: category.id}">
           {{ category.categoryName }}
+        </mat-list-item>
+      </ng-container>
+    </mat-nav-list>
+  </aside>
+  <mat-card class="flex-grow">
+    <header class="flex">
+      categoria
+      <mat-select>
+        <mat-option value="Precio: menor a mayor">Precio: menor a mayor</mat-option>
+      </mat-select>
+      <div class="sm:hidden">
+        <button mat-icon-button >
+          <mat-icon>tune</mat-icon>
         </button>
-      </li>
-    </ul>
-  </div>
-  <div
-    class="grid grid-cols-9 gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1"
-  >
-    <public-panel-product-card
-      *ngFor="let product of products"
-      [product]="product"
-    ></public-panel-product-card>
-
-    <p *ngIf="products?.length === 0">No hay productos</p>
-  </div>
-</div>
+      </div>
+    </header>
+    <div class="productGrid">
+      <public-panel-product-card
+        *ngFor="let product of products"
+        [product]="product"
+      ></public-panel-product-card>
+      <p *ngIf="products?.length === 0">No hay productos</p>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons>
+    </mat-paginator>
+  </mat-card>
+</section>
