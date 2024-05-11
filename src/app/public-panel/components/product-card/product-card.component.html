@@ -19,7 +19,7 @@
     <p class="font-bold text-lg mx-auto">${{ product.price }}</p>
     <button color="primary" mat-button>
       <mat-icon>add_shopping_cart</mat-icon>
-      <p>Añadir al carrito</p>
+      <p (click)="agregarAlCarrito()">Añadir al carrito</p>
     </button>
     <button color="primary" mat-raised-button>
       <mat-icon>shop</mat-icon>

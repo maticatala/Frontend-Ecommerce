@@ -16,8 +16,8 @@ export class LoginPageComponent {
   private _cusSnackbar = inject(CustomSnackbarService);
 
   public myForm: FormGroup = this.fb.group({
-    email: ['root@root.com', [Validators.required], []],
-    password: ['123456', [Validators.required], []],
+    email: ['', [Validators.required], []],
+    password: ['', [Validators.required], []],
     keepLogged: [false]
   });
 

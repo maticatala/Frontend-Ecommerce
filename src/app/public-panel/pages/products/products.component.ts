@@ -1,6 +1,9 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
-import { ProductsService } from '../../services/products.service';
-import { Product } from 'src/app/shared/interfaces/product.interface';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CategoriesService } from 'src/app/admin-panel/services/categories.service';
+import { Category } from 'src/app/shared/interfaces/category.interface';
+import { ProductsService } from 'src/app/shared/services/products.service';
 
 @Component({
   selector: 'public-panel-products',
@@ -9,18 +12,38 @@ import { Product } from 'src/app/shared/interfaces/product.interface';
 })
 export class ProductsComponent implements OnInit{
 
-  public products : Product[] = [];
+  public categories : Category[] = [];
 
   private productService  = inject(ProductsService);
+  private categoryService  = inject(CategoriesService);
+  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+  public selectedCategoryName?: string;
+
 
   ngOnInit(): void {
-    this.productService.getProducts()
-      .subscribe( products => {
-        this.products = products
-        console.log(this.products[0]);
+    this.activatedRoute.queryParams.subscribe(parameters => {
+        const params = new HttpParams({ fromObject: parameters });
+        this.productService.getProductsByParams(params).subscribe();
+    })
+
+    this.categoryService.getCategories()
+      .subscribe( categories => {
+        this.categories = categories
       });
   }
 
+  get products() {
+    return this.productService.productList();
+  }
 
+  searchCategory(id: number){
+
+    this.router.navigate(['products'], {
+      queryParams: { category: id },
+      queryParamsHandling: 'merge'
+    });
+
+  }
 
 }

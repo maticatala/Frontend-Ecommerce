@@ -1,59 +1,59 @@
-<header >
-  <nav class="flex justify-between items-center w-[92%] mx-auto">
-      <!-- logo -->
-      <div class=" ">
-          <a href="http://localhost:4200/home">
-              <img class="w-14" src="../../../assets/images/logo2.png" style="cursor: pointer" alt="...">
-          </a>
-      </div>
-      <!-- textos -->
-        <div  class="nav-links md:static absolute md:min-h-fit min-h-[6vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
-            <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 font-bold font-roboto text-20px">
-                <li>
-                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer" routerLink="/home">Inicio</a>
-                </li>
-                <li>
-                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer"  routerLink="/products">Productos</a>
-                </li>
-                <li>
-                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer"  routerLink="/about-us">Nosotros</a>
-                </li>
-                <li>
-                    <a class="px-5 py-2 text-black hover:text-blue-700" style="cursor: pointer"  routerLink="/contact">Contacto</a>
-                </li>
-            </ul>
-        </div>
-      <!-- login  -->
-      <div class="flex items-center gap-3">
-        <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleSearch()">search</mat-icon>
-        <!-- Primer conjunto de elementos -->
-        <div class="flex items-center ">
-          <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
-          <div class="cart-overlay" [class.show]="isCartOpen" (click)="toggleCart()"></div>
-          <div class="cart-container rounded-lg" [class.show]="isCartOpen">
-            <!-- Contenido del carrito de compras aquí -->
-            <div id="cartBox" class=" p-4 items-center text-center">
-              <p>Carrito</p>
-              <button class="absolute top-6 right-0 m-2 items-center flex text-black hover:text-gray-800 " (click)="toggleCart()">
-                <mat-icon class="">close</mat-icon>
-              </button>
-            </div>
-            <div>
+<header class="header" >
+  <div class="contenedor header-container">
 
-            </div>
-            <div id="cartBox" class="fixed bottom-5 inset-x-5 bg-orange-300 shadow-md p-4 rounded-md mt-3 z-5 flex items-center justify-center">
-              <a routerLink="/products">Ver Productos</a>
-            </div>
+    <a class="logo" routerLink="/home">
+      <img src="../../../assets/images/logo2.png" alt="logo">
+    </a>
+
+    <nav class="nav" id="sidebar" #navElement>
+      <div class="toggleBtn">
+        <button class="ml-auto m-8" id="toggle" (click)="toggleMenu()">
+          <mat-icon class="text-white">close</mat-icon>
+        </button>
+      </div>
+      <ul class="nav-list" (click)="toggleMenu()">
+        <li><a class="nav-link" routerLink="/home">inicio</a></li>
+        <li><a class="nav-link" routerLink="/products">Productos</a></li>
+        <li><a class="nav-link" routerLink="/about-us">Nosotros</a></li>
+        <li><a class="nav-link" routerLink="/contact">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="icons">
+      <public-search-bar class="flex justify-center"/>
+
+      <div class="flex items-center">
+        <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
+        <div class="cart-overlay" [class.show]="isCartOpen" (click)="toggleCart()"></div>
+        <div class="cart-container rounded-lg" [class.show]="isCartOpen">
+          <!-- Contenido del carrito de compras aquí -->
+          <div id="cartBox" class=" p-4 items-center text-center">
+            <p>Carrito</p>
+            <button class="absolute top-6 right-0 m-2 items-center flex text-black hover:text-gray-800 " (click)="toggleCart()">
+              <mat-icon class="">close</mat-icon>
+            </button>
+          </div>
+          <div>
+
+          </div>
+          <div id="cartBox" class="fixed bottom-5 inset-x-5 bg-orange-300 shadow-md p-4 rounded-md mt-3 z-5 flex items-center justify-center">
+            <a routerLink="/products">Ver Productos</a>
           </div>
         </div>
-        <!-- Segundo conjunto de elementos -->
-        <button *ngIf="finishedUserCheck()" mat-button [matMenuTriggerFor]="menu" class="flex items-center p-1">
-          <mat-icon class="scale-[1.5]">person</mat-icon>
-          <span class="flex flex-col items-start text-xs ml-2">
-            <div>{{currentUser?.firstName || 'no name' | titlecase}}</div>
-          </span>
-          <mat-icon iconPositionEnd>expand_more</mat-icon>
-        </button>
+      </div>
+
+      <div class="flex justify-center" *ngIf="currentUser">
+        <div class="d-none d-lg-block">
+          <button mat-button [matMenuTriggerFor]="menu" class="flex items-center p-1">
+            <mat-icon class="scale-[1.5] text-white">person</mat-icon>
+            <span class="flex flex-col items-start text-xs ml-2 text-white">
+              <div>{{currentUser.firstName || 'no name' | titlecase}}</div>
+            </span>
+          </button>
+        </div>
+
+        <mat-icon class="d-lg-none text-white" [matMenuTriggerFor]="menu">person</mat-icon>
+
         <mat-menu #menu="matMenu" xPosition="before">
           <button mat-menu-item (click)="Logout()" routerLink="/">
             <mat-icon>logout</mat-icon>
@@ -64,8 +64,12 @@
             <span>Admin Panel</span>
           </button>
         </mat-menu>
-        <mat-icon *ngIf="!finishedUserCheck()" class="cursor-pointer hover:text-blue-700" routerLink="auth/login">person</mat-icon>
-        <mat-icon id="menu-icon" class="md:hidden" [class.menu-open]="isMenuOpen" (click)="toggleMenu()">menu</mat-icon>
       </div>
-  </nav>
+
+      <mat-icon *ngIf="!currentUser" class="cursor-pointer hover:text-blue-700" routerLink="auth/login">person</mat-icon>
+
+      <mat-icon class="d-lg-none" (click)="toggleMenu()">menu</mat-icon>
+    </div>
+
+  </div>
 </header>

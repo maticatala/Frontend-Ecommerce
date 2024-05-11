@@ -12,7 +12,6 @@ export class ProductCardComponent {
   @Input()
   public product! : Product;
 
-
   public readonly baseUrl : string = environment.baseUrl;
 
   contadorCarrito: number = 0;
@@ -23,6 +22,7 @@ export class ProductCardComponent {
   agregarAlCarrito() {
     // Incrementa el contador de carrito cada vez que se agrega un artículo
     this.contadorCarrito++;
+    console.log(this.product)
   }
 
 }

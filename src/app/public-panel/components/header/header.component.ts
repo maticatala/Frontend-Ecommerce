@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, effect, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, computed, effect, inject } from '@angular/core';
 import { User } from 'src/app/auth/interfaces';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
@@ -11,31 +11,14 @@ export class HeaderComponent {
 
   private authService = inject(AuthService);
 
-  currentUser?: User | null;
+  constructor(private elementRef: ElementRef) {}
 
-  isSearchOpen: boolean = false;
-
-  public finishedUserCheck = computed<boolean>(() => {
-
-    if (this.authService.currentUser()) {
-      return true;
-    }
-
-    return false;
-  });
-
-  public currentUserChangeEffect = effect (()=>{
-
-    this.currentUser = this.authService.currentUser();
-
-  })
+  get currentUser() {
+    return this.authService.currentUser();
+  }
 
   Logout(): void {
     this.authService.logout();
-  }
-
-  toggleSearch() {
-    this.isSearchOpen = !this.isSearchOpen;
   }
 
   isCartOpen: boolean = false;
@@ -43,10 +26,23 @@ export class HeaderComponent {
   toggleCart() {
     this.isCartOpen = !this.isCartOpen;
   }
+
+
+  //Sidebar
+
   isMenuOpen: boolean = false;
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+    document.getElementById('sidebar')?.classList.toggle('active');
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: Event) {
+    if (!this.elementRef.nativeElement.contains(event.target) && this.isMenuOpen) {
+      // El clic fue fuera del nav, aquí puedes realizar la acción que desees
+      this.toggleMenu()
+    }
   }
 
 }

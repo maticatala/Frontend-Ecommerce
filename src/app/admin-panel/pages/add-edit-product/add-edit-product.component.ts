@@ -5,7 +5,7 @@ import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../interfaces/category.interface';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ProductsService } from '../../services/products.service';
+import { ProductsService } from '../../../shared/services/products.service';
 import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/app/environments/environments';
