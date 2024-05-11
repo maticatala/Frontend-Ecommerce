@@ -1,9 +1,11 @@
-<div class="contenedor" [ngClass]="isExpanded ? 'visible' : 'hiddenContenedor'">
+<div class="contenedor-search" [ngClass]="isExpanded ? 'visible' : 'hiddenContenedor'">
   <div class="bg-gray-800 w-full flex flex-col transition" [ngClass]="isExpanded ? null : 'hiddenSearchBox'">
-    <div class="w-11/12 flex items-center p-[20px] mx-auto">
-      <mat-icon class="text-white">search</mat-icon>
-      <input #searchInput class="searchInput sm: text-sm md:text-lg" type="text" placeholder="¿Qué es lo que estás buscando?" (keyup.enter)="searchTag($event)">
-      <mat-icon class="text-white hover:text-gray-200 cursor-pointer" (click)="close()">close</mat-icon>
+    <div class="w-full p-[20px]">
+      <div class="contenedor flex items-center">
+        <mat-icon class="text-white">search</mat-icon>
+        <input #searchInput class="searchInput text-lg" type="text" placeholder="¿Qué es lo que estás buscando?" (keyup.enter)="searchTag($event)">
+        <mat-icon class="text-white hover:text-gray-200 cursor-pointer" (click)="toggleSearch()">close</mat-icon>
+      </div>
     </div>
     <button
       *ngFor="let tag of tags"
@@ -14,6 +16,7 @@
       <span class="mx-auto">{{ tag | titlecase }}</span>
     </button>
   </div>
-  <div class="fixed w-full h-full" (click)="close()">
+  <div class="fixed w-full h-full" (click)="toggleSearch()">
   </div>
 </div>
+<mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleSearch()">search</mat-icon>

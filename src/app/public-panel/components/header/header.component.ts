@@ -10,9 +10,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class HeaderComponent {
 
   private authService = inject(AuthService);
-  public isSearchOpen: boolean = false;
 
-  constructor() {}
+  constructor(private elementRef: ElementRef) {}
 
   get currentUser() {
     return this.authService.currentUser();
@@ -22,54 +21,28 @@ export class HeaderComponent {
     this.authService.logout();
   }
 
-  // search
-  toggleSearch() {
-    this.isSearchOpen = true;
-  }
-
-  receiveEvent($event:boolean){
-    this.isSearchOpen = $event;
-  }
-  //
-
   isCartOpen: boolean = false;
 
   toggleCart() {
     this.isCartOpen = !this.isCartOpen;
   }
 
+
+  //Sidebar
+
   isMenuOpen: boolean = false;
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+    document.getElementById('sidebar')?.classList.toggle('active');
   }
 
-  // prevScrollpos = window.pageYOffset;
-  // visible = true;
-
-  // @HostListener('window:scroll', ['$event'])
-  // onWindowScroll() {
-  //   const currentScrollPos = window.pageYOffset;
-  //   if (this.prevScrollpos > currentScrollPos) {
-  //     this.visible = true; // Desplazamiento hacia arriba, muestra el encabezado
-  //   } else {
-  //     this.visible = false; // Desplazamiento hacia abajo, oculta el encabezado
-  //   }
-  //   this.prevScrollpos = currentScrollPos;
-  // }
-
-  searchActive: boolean = false;
-
-  // togglePageScroll() {
-  //   if (!this.searchActive) {
-  //     // Deshabilita temporalmente el desplazamiento de la página
-  //     document.body.style.overflow = 'hidden';
-  //     this.searchActive = true;
-  //   } else {
-  //     // Activa el desplazamiento de la página
-  //     document.body.style.overflow = '';
-  //     this.searchActive = false;
-  //   }
-  // }
+  @HostListener('document:click', ['$event'])
+  onClick(event: Event) {
+    if (!this.elementRef.nativeElement.contains(event.target) && this.isMenuOpen) {
+      // El clic fue fuera del nav, aquí puedes realizar la acción que desees
+      this.toggleMenu()
+    }
+  }
 
 }

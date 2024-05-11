@@ -1,8 +1,6 @@
-.contenedor {
+.layout-container {
   display: grid;
-  grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
-  grid-gap: 12px;
   grid-template-areas:
     "header"
     "content"

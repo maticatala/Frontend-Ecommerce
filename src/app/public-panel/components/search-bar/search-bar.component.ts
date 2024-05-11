@@ -8,29 +8,20 @@ import { ProductsService } from 'src/app/shared/services/products.service';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css']
 })
-export class SearchBarComponent implements OnChanges {
+export class SearchBarComponent {
 
   private productService = inject(ProductsService);
   private router = inject(Router);
-  @Input() isExpanded: boolean = false;
-  @Output() closeEvent = new EventEmitter<boolean>();
+  public isExpanded: boolean = false;
   @ViewChild('searchInput') searchInput!: ElementRef;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['isExpanded']){
-      setTimeout(() => {
-        this.searchInput.nativeElement.focus();
-      }, 150);;
-    }
-  }
 
-  close() {
-    this.isExpanded = false;
-    this.closeEvent.emit(this.isExpanded);
+  toggleSearch() {
+    this.isExpanded = !this.isExpanded;
   }
 
   searchTag(event: any) {
-    this.close();
+    this.toggleSearch();
 
     const newTag = event.target.value;
 
@@ -52,7 +43,7 @@ export class SearchBarComponent implements OnChanges {
 
   clickedTag( tag : string ) : void {
 
-    this.close();
+    this.toggleSearch();
 
     this.router.navigateByUrl(`/products?name=${tag}`);
   }
