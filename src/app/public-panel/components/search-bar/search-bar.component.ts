@@ -15,7 +15,6 @@ export class SearchBarComponent {
   public isExpanded: boolean = false;
   @ViewChild('searchInput') searchInput!: ElementRef;
 
-
   toggleSearch() {
     this.isExpanded = !this.isExpanded;
   }
@@ -45,6 +44,9 @@ export class SearchBarComponent {
 
     this.toggleSearch();
 
-    this.router.navigateByUrl(`/products?name=${tag}`);
+    this.router.navigate(['products'], {
+      queryParams: { name: tag },
+      queryParamsHandling: 'merge'
+    });
   }
 }
