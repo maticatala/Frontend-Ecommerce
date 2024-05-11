@@ -1,5 +1,4 @@
-import { HttpParams } from '@angular/common/http';
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/shared/services/products.service';
 
@@ -17,6 +16,12 @@ export class SearchBarComponent {
 
   toggleSearch() {
     this.isExpanded = !this.isExpanded;
+
+    if (this.isExpanded){
+      setTimeout(() => {
+        this.searchInput.nativeElement.focus();
+      }, 100);
+    }
   }
 
   searchTag(event: any) {
