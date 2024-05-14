@@ -1,0 +1,45 @@
+.productGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+
+.productPage{
+  background-color: #fff;
+}
+
+mat-card {
+  box-shadow: none !important;
+}
+
+.filters {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+  width: 75vw;
+  transition: transform 0.5s ease;
+}
+
+.shadow {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+@media screen and (min-width:992px) {
+  .filters {
+    position: inherit;
+    width: auto;
+    transform: translate(0px);
+  }
+
+  .shadow {
+    display: none;
+  }
+}

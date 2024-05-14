@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { CategoryComponent } from './pages/category/category.component';
-import { ProductsComponent } from './pages/products/products.component';
+import { ProductsComponent } from './pages/products-page/products.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { LayoutPageComponent } from './layouts/layout-page/layout-page.component';

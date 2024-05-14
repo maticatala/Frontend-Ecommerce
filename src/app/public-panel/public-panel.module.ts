@@ -7,7 +7,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LayoutPageComponent } from './layouts/layout-page/layout-page.component';
-import { ProductsComponent } from './pages/products/products.component';
+import { ProductsComponent } from './pages/products-page/products.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
@@ -16,6 +16,7 @@ import { ContactComponent } from '../public-panel/pages/contact/contact.componen
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { ProductPageComponent } from './pages/product-page/product-page.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     ContactComponent,
     CarouselComponent,
     SearchBarComponent,
+    ProductPageComponent,
   ],
   imports: [
     CommonModule,

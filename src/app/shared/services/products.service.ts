@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { environment } from 'src/app/environments/environments';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { Product } from '../interfaces/product.interface';
 
 @Injectable({
@@ -94,18 +94,17 @@ export class ProductsService {
     if (tag)
     this.organizeHistory(tag);
 
-    return this.http.get<Product[]>(`${this.baseUrl}/products`,{ params })
+    return this.http.get<any>(`${this.baseUrl}/products`,{ params })
       .pipe(
-        map(products => {
-          this._productList.set(products);
-          return true;
-        }),
+        tap(response => {
+          this._productList.set(response.data)
+        })
       )
 
   }
 
   getProducts()  {
-    return this.http.get<Product[]>(`${this.baseUrl}/products`)
+    return this.http.get<Product[]>(`${this.baseUrl}/products/all`)
     .pipe(
       map(products => {
         this._productList.set(products);
