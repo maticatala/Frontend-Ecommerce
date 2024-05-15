@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/app/environments/environments';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 
@@ -8,6 +9,8 @@ import { Product } from 'src/app/shared/interfaces/product.interface';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
+
+  private router = inject(Router);
 
   @Input()
   public product! : Product;
@@ -23,6 +26,10 @@ export class ProductCardComponent {
     // Incrementa el contador de carrito cada vez que se agrega un artículo
     this.contadorCarrito++;
     console.log(this.product)
+  }
+
+  showProduct() {
+    this.router.navigate(['/product', this.product.id]);
   }
 
 }

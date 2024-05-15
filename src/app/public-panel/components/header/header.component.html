@@ -22,25 +22,7 @@
     <div class="icons">
       <public-search-bar class="flex justify-center"/>
 
-      <div class="flex items-center">
-        <mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleCart()">shopping_cart</mat-icon>
-        <div class="cart-overlay" [class.show]="isCartOpen" (click)="toggleCart()"></div>
-        <div class="cart-container rounded-lg" [class.show]="isCartOpen">
-          <!-- Contenido del carrito de compras aquí -->
-          <div id="cartBox" class=" p-4 items-center text-center">
-            <p>Carrito</p>
-            <button class="absolute top-6 right-0 m-2 items-center flex text-black hover:text-gray-800 " (click)="toggleCart()">
-              <mat-icon class="">close</mat-icon>
-            </button>
-          </div>
-          <div>
-
-          </div>
-          <div id="cartBox" class="fixed bottom-5 inset-x-5 bg-orange-300 shadow-md p-4 rounded-md mt-3 z-5 flex items-center justify-center">
-            <a routerLink="/products">Ver Productos</a>
-          </div>
-        </div>
-      </div>
+      <public-shopping-cart class="flex justify-center"/>
 
       <div class="flex justify-center" *ngIf="currentUser">
         <div class="d-none d-lg-block">

@@ -1,1 +1,50 @@
-<p>product-page works!</p>
+<div class="productPage">
+  <div class="contenedor my-6 test">
+    <ng-container *ngIf="!product">
+      <div class="h-screen flex justify-center items-center">
+        <mat-spinner />
+      </div>
+    </ng-container>
+    <ng-container *ngIf="product">
+      <div class="productLayout">
+        <div class="productTitle">
+          <h2 class="post-title display-5 mb-2">{{product.name}}</h2>
+          <div class="post-category">
+            <div class="px-3 py-1 rounded-full text-xs primary" *ngFor="let category of product.categories">
+              {{ category.categoryName }}
+            </div>
+          </div>
+        </div>
+        <div class="productImage">
+          <img
+          src="{{ baseUrl }}/products/getFile?fileName={{ product.imagen }}"
+          [alt]="product.name"
+          />
+        </div>
+        <div class="productCart">
+          <div class="flex gap-8 items-center">
+            <p class="price">{{product.price | currency}}</p>
+            <div class="input-group">
+              <button class="input-btn primary brightness" (click)="reduce()">-</button>
+              <p class="font-semibold">{{amount}}</p>
+              <button class="input-btn primary brightness" (click)="increment()">+</button>
+            </div>
+          </div>
+          <div class="mt-5">
+            <button class="chip primary brightness" (click)="addCart()">
+              <mat-icon>add_shopping_cart</mat-icon>
+              <p>Añadir al carrito</p>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="chip primary-reverse mt-8">
+        <mat-icon>description</mat-icon>
+        <p>Descripción</p>
+      </div>
+      <div class="mt-5">
+        <p>{{product.description}}</p>
+      </div>
+    </ng-container>
+  </div>
+</div>

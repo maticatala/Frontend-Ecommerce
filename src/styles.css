@@ -3,12 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
 html, body { height: 100%; }
 
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
 }
 
 .mdc-notched-outline__notch {
@@ -16,10 +17,9 @@ body {
 }
 
 :root {
-  /* --container-sm: 48em;
-  --container-md: 62em;
-  --container-lg: 75em; */
-  --background-color: #374070;
+  --background-color: #3f51b5;
+  --primary: #3f51b5;
+  --text-color: #fff;
 }
 
 .contenedor {
@@ -32,6 +32,40 @@ body {
 
 .d-none {
   display: none !important;
+}
+
+.primary {
+  background-color: var(--primary);
+  color: var(--text-color);
+}
+
+.primary-reverse {
+  background-color: var(--text-color);
+  color: var(--primary)
+}
+
+.shadow, .shadowlg {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.chip, .chiplg {
+  width: 100%;
+  min-height: 50px;
+  border-radius: .3rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: .7rem 1rem;
+  font-size: small;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 @media screen and (min-width: 576px) {
@@ -57,6 +91,14 @@ body {
 
   .d-lg-block {
     display: block !important;
+  }
+
+  .shadow {
+    display: none;
+  }
+
+  .chip {
+    width: 200px;
   }
 }
 

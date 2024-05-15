@@ -1,5 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, computed, effect, inject } from '@angular/core';
-import { User } from 'src/app/auth/interfaces';
+import { Component, ElementRef, HostListener, inject } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
