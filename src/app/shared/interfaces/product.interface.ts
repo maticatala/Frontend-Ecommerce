@@ -5,12 +5,11 @@ import { Category } from "./category.interface";
 export interface Product {
   id:          number;
   name:        string;
-  createdAt:   string;
+  createdAt:   Date;
   description: string;
+  price:       number;
   imagen:      string;
-  isDeleted:   boolean;
-  price:       string;
   categories:  Category[];
+  isDeleted:   boolean;
 }
-
 

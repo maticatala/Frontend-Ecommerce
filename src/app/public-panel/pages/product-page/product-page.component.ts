@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/app/environments/environments';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 import { ProductsService } from 'src/app/shared/services/products.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   templateUrl: './product-page.component.html',
@@ -12,6 +13,7 @@ export class ProductPageComponent implements OnInit{
 
   private route = inject(ActivatedRoute);
   private productsService = inject(ProductsService);
+  private cartService = inject(CartService);
   public readonly baseUrl : string = environment.baseUrl;
   public product?: Product;
 
@@ -33,17 +35,18 @@ export class ProductPageComponent implements OnInit{
     });
   }
 
-  increment() {
-    this.amount = this.amount + 1;
-  }
-
-  reduce() {
-    if (this.amount >= 1 ) this.amount = this.amount - 1;
+  changeQuantity(quantity: number) {
+    if (this.amount + quantity > 0 ) this.amount += quantity;
   }
 
   addCart() {
     if (this.product){
-      this.productsService.pushProductCartList(this.product.id, this.amount);
+      const cartItem = {
+        product: this.product,
+        quantity: this.amount
+      }
+
+      this.cartService.addProduct(cartItem, true);
     }
   }
 

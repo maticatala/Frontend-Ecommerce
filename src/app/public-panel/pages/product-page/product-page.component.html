@@ -25,9 +25,9 @@
           <div class="flex gap-8 items-center">
             <p class="price">{{product.price | currency}}</p>
             <div class="input-group">
-              <button class="input-btn primary brightness" (click)="reduce()">-</button>
+              <button class="input-btn primary brightness" (click)="changeQuantity(-1)">-</button>
               <p class="font-semibold">{{amount}}</p>
-              <button class="input-btn primary brightness" (click)="increment()">+</button>
+              <button class="input-btn primary brightness" (click)="changeQuantity(+1)">+</button>
             </div>
           </div>
           <div class="mt-5">

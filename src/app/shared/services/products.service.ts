@@ -13,57 +13,11 @@ export class ProductsService {
   private http = inject(HttpClient);
   private _tagHistory : string[] = [];
   private _productList = signal<Product[] | null>(null);
-  public _productCartList = new BehaviorSubject<any>(null);
 
   //! Al mundo exterior
   public productList = computed( () => this._productList() );
 
-  constructor() {
-    this.loadProductDetails()
-  }
-
-  private loadProductDetails() {
-    let cartItems: { [key: string]: number } = JSON.parse(localStorage.getItem('cartItems') || '{}');
-    if (cartItems){
-      this._productCartList.next(cartItems);
-    }
-  }
-
-  public pushProductCartList(id: number, amount: number) {
-    let cartItems: { [key: string]: number } = JSON.parse(localStorage.getItem('cartItems') || '{}');
-    if (cartItems[id]) {
-      // Si el producto ya está en el carrito, sumar la cantidad existente
-      cartItems[id] = (cartItems[id] === 1 && amount < 0) ? 1 : cartItems[id] + amount;
-    } else {
-      // Si el producto no está en el carrito, agregarlo con la cantidad proporcionada
-      cartItems[id] = amount;
-    }
-      // Guardar los elementos actualizados del carrito en el localStorage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-
-
-    console.log("cambiando _productCartList");
-    this._productCartList.next(cartItems);
-  }
-
-  public removeProductFromCart(id: number) {
-    // Obtener los elementos actuales del carrito del localStorage
-    let cartItems: { [key: string]: number } = JSON.parse(localStorage.getItem('cartItems') || '{}');
-
-    // Verificar si el producto con el id proporcionado está en el carrito
-    if (cartItems[id]) {
-      // Si el producto está en el carrito, eliminarlo
-      delete cartItems[id];
-
-      // Actualizar el localStorage con los elementos modificados del carrito
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-
-      // Emitir el cambio a través del BehaviorSubject _productCartList
-      this._productCartList.next(cartItems);
-    }
-  }
-
-
+  constructor() {}
 
   getProductById(productId: number) {
     return this.http.get<Product>(`${this.baseUrl}/products/${productId}`);

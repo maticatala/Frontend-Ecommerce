@@ -1,5 +1,4 @@
 <mat-icon  [matBadge]="shoppingList ? shoppingList.length : ''" matBadgeColor="warn" (click)="toggleShoppingCart()" class="icon">shopping_cart</mat-icon>
-<!-- <div (click)="toggleFilters()" [ngClass]="isFilterOn ? 'shadow' : 'none'"></div> -->
 <div class="shoppingCart flex flex-col" [ngClass]="isExpanded ? '' : 'translate-x-full'">
   <div class="flex justify-between mb-4">
     <h2 class="text-2xl">Tu carrito</h2>
@@ -23,12 +22,12 @@
         </div>
         <div>
           <div class="ml-auto w-fit">
-            <mat-icon class="icon" (click)="removeShoppItem(shoppItem.product.id)">delete</mat-icon>
+            <mat-icon class="icon" (click)="removeShoppItem(shoppItem.product)">delete</mat-icon>
           </div>
           <div class="input-group">
-            <button class="input-btn primary-reverse brightness" (click)="decreaseQuantity(shoppItem.product.id)">-</button>
+            <button class="input-btn primary-reverse brightness" (click)="changeQuantity(shoppItem, -1)">-</button>
             <p class="font-semibold">{{shoppItem.quantity}}</p>
-            <button class="input-btn primary-reverse brightness" (click)="increaseQuantity(shoppItem.product.id)">+</button>
+            <button class="input-btn primary-reverse brightness" (click)="changeQuantity(shoppItem, +1)">+</button>
           </div>
         </div>
       </div>
