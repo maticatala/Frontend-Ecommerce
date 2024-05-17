@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { environment } from 'src/app/environments/environments';
-import { Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { Product } from '../interfaces/product.interface';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class ProductsService {
   //! Al mundo exterior
   public productList = computed( () => this._productList() );
 
-  constructor() { }
+  constructor() {}
 
   getProductById(productId: number) {
     return this.http.get<Product>(`${this.baseUrl}/products/${productId}`);

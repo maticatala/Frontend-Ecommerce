@@ -20,16 +20,7 @@ mat-card {
   z-index: 1000;
   width: 75vw;
   transition: transform 0.5s ease;
-}
-
-.shadow {
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
+  background-color: white;
 }
 
 @media screen and (min-width:992px) {
@@ -37,9 +28,6 @@ mat-card {
     position: inherit;
     width: auto;
     transform: translate(0px);
-  }
-
-  .shadow {
-    display: none;
+    z-index: 998;
   }
 }

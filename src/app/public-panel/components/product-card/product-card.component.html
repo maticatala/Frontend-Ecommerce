@@ -1,4 +1,4 @@
-<mat-card class="min-h-[440px]">
+<mat-card class="min-h-[440px] cursor-pointer" (click)="showProduct()">
   <mat-card-header class="justify-center">
     <img
       mat-card-xl-image
@@ -7,21 +7,21 @@
       [alt]="product.name"
     />
   </mat-card-header>
-  <mat-card-content class="mb-3">
+  <mat-card-content class="mb-3" >
     <p class="text-ellipsis overflow-hidden w-auto font-medium md:whitespace-nowrap ">{{ product.name }}</p>
     <div class="flex gap-1">
-      <div class="badge" *ngFor="let category of product.categories">
+      <div class="px-3 py-1 rounded-full text-xs primary" *ngFor="let category of product.categories">
         {{ category.categoryName }}
       </div>
     </div>
   </mat-card-content>
   <div class="flex flex-col mt-auto gap-2 m-2">
-    <p class="font-bold text-lg mx-auto">${{ product.price }}</p>
-    <button color="primary" mat-button>
+    <p class="font-bold text-lg mx-auto" >${{ product.price }}</p>
+    <button color="primary" mat-button (click)="addToCart($event)">
       <mat-icon>add_shopping_cart</mat-icon>
-      <p (click)="agregarAlCarrito()">Añadir al carrito</p>
+      <p>Añadir al carrito</p>
     </button>
-    <button color="primary" mat-raised-button>
+    <button color="primary" mat-raised-button (click)="buyProduct($event)">
       <mat-icon>shop</mat-icon>
       <p>Comprar</p>
     </button>

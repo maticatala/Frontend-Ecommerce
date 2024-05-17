@@ -4,10 +4,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Column } from 'src/app/shared/interfaces';
 import { Category } from '../../interfaces/category.interface';
 import { Router } from '@angular/router';
-import { Product } from '../../interfaces/product.interface';
+
 import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogConfirmComponent } from 'src/app/shared/components/dialog-confirm/dialog-confirm.component';
+import { Product } from 'src/app/shared/interfaces/product.interface';
 @Component({
   templateUrl: './list-products-page.component.html',
   styleUrls: ['./list-products-page.component.css']

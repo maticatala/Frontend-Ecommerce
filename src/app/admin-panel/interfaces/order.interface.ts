@@ -1,6 +1,7 @@
 import { User } from "src/app/auth/interfaces";
-import { Product } from "./product.interface";
+
 import { ShippingAddress } from "./shippingAddress.interface";
+import { Product } from "src/app/shared/interfaces/product.interface";
 
 export interface Order {
   id:              number;
