@@ -1,10 +1,9 @@
-import { Component, HostListener, OnInit, effect, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { environment } from 'src/app/environments/environments';
-import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
-import { ProductsService } from 'src/app/shared/services/products.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 import { tap } from 'rxjs';
+import { CartItem } from '../../interfaces/cart-item.interface';
 
 @Component({
   selector: 'public-shopping-cart',
@@ -14,7 +13,7 @@ import { tap } from 'rxjs';
 export class ShoppingCartComponent implements OnInit {
   private cartService = inject(CartService);
   public isExpanded: boolean = false;
-  public shoppingList: { product: any, quantity: number }[] = [];
+  public shoppingList: CartItem[] = [];
   public total: number = 0;
   public readonly baseUrl : string = environment.baseUrl;
 
@@ -39,12 +38,12 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.removeProduct(product)
   }
 
-  changeQuantity(shopItem: any, quantity: number) {
-    const newQuantity = shopItem.quantity + quantity;
+  changeQuantity(cartItem: CartItem, quantity: number) {
+    const newQuantity = cartItem.quantity + quantity;
 
     if (newQuantity > 0 ) {
       this.cartService.addProduct({
-        product: shopItem.product,
+        product: cartItem.product,
         quantity
       })
     }
