@@ -15,6 +15,10 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { ShippingFormComponent } from './components/shipping-form/shipping-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -32,11 +36,15 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     SearchBarComponent,
     ProductPageComponent,
     ShoppingCartComponent,
+    CheckoutComponent,
+    ShippingFormComponent,
   ],
   imports: [
     CommonModule,
     PublicPanelRoutingModule,
     AngularMaterialModule,
+    ReactiveFormsModule,
+    SharedModule,
   ]
 })
 export class PublicPanelModule { }

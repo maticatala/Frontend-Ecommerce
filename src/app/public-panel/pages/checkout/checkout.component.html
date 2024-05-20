@@ -1,0 +1,111 @@
+<div>
+  <div class="contenedor">
+    <div class="py-10">
+      <h2 class="text-2xl pb-4">Checkout</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="col-span-2">
+          <table class="table w-full" *ngIf="step===1">
+            <thead>
+              <tr>
+                <th>
+                  <div class="text-start mb-0 font-normal text-lg">Product</div>
+                </th>
+                <th><div class="text-start mb-0 font-normal text-lg">Cantidad</div></th>
+                <th><div class="text-start mb-0 font-normal text-lg">Total</div></th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let shoppItem of shoppingList">
+                <td class="text-start flex flex-col md:items-center md:flex-row ">
+                  <figure class="rounded w-14 md:w-28 lg:w-40">
+                    <img
+                    src="{{ baseUrl }}/products/getFile?fileName={{ shoppItem.product.imagen }}"
+                    [alt]="shoppItem.product.name"
+                    class="object-contain h-full"
+                    />
+                  </figure>
+                  <div class="w-full md:ml-5">
+                    <h3>
+                      <a href="./product/{{shoppItem.product.id}}">{{shoppItem.product.name}}</a>
+                    </h3>
+                  </div>
+                  <div class="w-full">
+                    <p class="m-0">
+                      <span class="primary-reverse">{{shoppItem.product.price | currency}}</span>
+                    </p>
+                  </div>
+                </td>
+                <td>
+                  <div class="input-group">
+                    <button class="input-btn primary brightness" (click)="changeQuantity(shoppItem, -1)">-</button>
+                    <p class="font-semibold">{{shoppItem.quantity}}</p>
+                    <button class="input-btn primary brightness" (click)="changeQuantity(shoppItem, +1)">+</button>
+                  </div>
+                </td>
+                <td>
+                  <p>{{shoppItem.product.price * shoppItem.quantity| currency}}</p>
+                </td>
+                <td>
+                  <mat-icon class="icon" (click)="removeShoppItem(shoppItem.product)">delete</mat-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-container *ngIf="step===2">
+            <public-shipping-form />
+          </ng-container>
+        </div>
+        <div class="mt-16 lg:mt-0">
+          <h3 class="mt-4 text-xl mb-6">Resumen del Pedido</h3>
+          <mat-divider></mat-divider>
+          <table class="table w-full">
+            <tbody>
+              <ng-container *ngIf="step>1">
+                <tr *ngFor="let shoppItem of shoppingList" >
+                  <td class="text-start flex flex-col md:items-center md:flex-row">
+                    <figure class="rounded w-14 md:w-28 lg:w-40">
+                      <img
+                      src="{{ baseUrl }}/products/getFile?fileName={{ shoppItem.product.imagen }}"
+                      [alt]="shoppItem.product.name"
+                      class="object-contain h-full"
+                      />
+                    </figure>
+                    <div class="w-full md:ml-5">
+                      <h3>
+                        <a href="./product/{{shoppItem.product.id}}">{{shoppItem.product.name}} x {{shoppItem.quantity}}</a>
+                      </h3>
+                    </div>
+                  </td>
+                  <td class="pe-0 text-end">
+                    <p>{{shoppItem.product.price * shoppItem.quantity| currency}}</p>
+                  </td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td class="ps-0">
+                  <strong>Subtotal</strong>
+                </td>
+                <td class="pe-0 text-end">
+                  <p>{{total | currency}}</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="ps-0">
+                  <strong>Total</strong>
+                </td>
+                <td class="pe-0 text-end">
+                  <p class="font-bold">{{total | currency}}</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="flex gap-4 mt-4">
+            <button class="chip primary-reverse" (click)="lastStep()" *ngIf="step>1">Volver</button>
+            <button class="chiplg primary" (click)="nextStep()">Continuar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

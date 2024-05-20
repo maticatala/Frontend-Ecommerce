@@ -1,0 +1,36 @@
+
+
+<form [formGroup]="myForm" class="grid grid-cols-6 gap-4" (ngSubmit)="onFormSubmit()">
+
+  <mat-form-field appearance="outline" class="col-span-3">
+    <mat-label>Nombre y apellido</mat-label>
+    <input matInput placeholder="nombre y apellido..." formControlName="name" />
+    <mat-hint
+      customLabel
+      [isTouched]="myForm.get('name')?.touched"
+      [errors]="myForm.get('name')?.errors"
+    ></mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="col-span-3">
+    <mat-label>Telefono</mat-label>
+    <input matInput placeholder="+341..." formControlName="name" />
+    <mat-hint
+      customLabel
+      [isTouched]="myForm.get('name')?.touched"
+      [errors]="myForm.get('name')?.errors"
+    ></mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="col-span-3">
+    <mat-label>Direccion</mat-label>
+    <input matInput placeholder="nombre y apellido..." formControlName="name" />
+    <mat-hint
+      customLabel
+      [isTouched]="myForm.get('name')?.touched"
+      [errors]="myForm.get('name')?.errors"
+    ></mat-hint>
+  </mat-form-field>
+
+</form>
+

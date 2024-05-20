@@ -3,8 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 import { ProductsService } from 'src/app/shared/services/products.service';
-
-interface CartItem { product: Product; quantity: number };
+import { CartItem } from '../interfaces/cart-item.interface';
 
 @Injectable({
   providedIn: 'root'
