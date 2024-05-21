@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/app/environments/environments';
-import { Order } from '../interfaces/order.interface';
-import { Observable } from 'rxjs';
+import { Order } from '../../admin-panel/interfaces/order.interface';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,15 @@ export class OrdersService {
   private http = inject(HttpClient);
 
   constructor() { }
+
+  createOrder(body: any): Observable<Order> {
+
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.post<any>(`${this.baseUrl}/orders`, body, {headers});
+  }
 
   getOrders(): Observable<Order[]> {
 

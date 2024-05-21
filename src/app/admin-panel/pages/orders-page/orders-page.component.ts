@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { OrdersService } from '../../services/orders.service';
+import { OrdersService } from '../../../shared/services/orders.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Column } from 'src/app/shared/interfaces';
 import { Order } from '../../interfaces/order.interface';

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OrdersService } from '../../services/orders.service';
+import { OrdersService } from '../../../shared/services/orders.service';
 import { Order } from '../../interfaces/order.interface';
 import { switchMap } from 'rxjs';
 import { User } from 'src/app/auth/interfaces';
