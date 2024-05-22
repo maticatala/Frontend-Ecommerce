@@ -28,12 +28,18 @@ export class OrderPageComponent {
   public total: number = 0;
 
   public dataSource = new MatTableDataSource();
+  public dataPaymentsSource = new MatTableDataSource();
   public columns: Column[] = [
     {id:'imagen',             label: 'Imagen',          breakpoint: 'static'                  },
     {id:'productName',        label: 'Producto',        breakpoint: 'static'                  },
-    {id:'product_unit_price', label: 'precio unitario', breakpoint: 'sm',     pipe: 'currency'},
-    {id:'product_quantity',   label: 'cantidad',        breakpoint: 'sm'                      },
-    {id:'subTotal',           label: 'subtotal',        breakpoint: 'sm',     pipe: 'currency'},
+    {id:'product_unit_price', label: 'precio unitario', breakpoint: 'md',     pipe: 'currency'},
+    {id:'product_quantity',   label: 'cantidad',        breakpoint: 'md'                      },
+    {id:'subTotal',           label: 'subtotal',        breakpoint: 'md',     pipe: 'currency'},
+  ]
+
+  public paymentsColumns: Column[] = [
+    {id:'paymentType',        label: 'Tipo de Pago',    breakpoint: 'static'                  },
+    {id:'amount',             label: 'Cantidad',        breakpoint: 'static', pipe: 'currency'},
   ]
 
   ngOnInit(): void {
@@ -49,18 +55,16 @@ export class OrderPageComponent {
       this.shippingAddress = order.shippingAddress;
       this.status = order.status;
 
-      const rows: any = [];
-
       order.products.forEach((element:any,index:number)=> {
         element['recId'] = index +1;
         element['imagen'] = element.product.imagen
         element['productName'] = element.product.name
         element['subTotal'] = (parseInt(element.product_unit_price)) * parseInt(element.product_quantity);
         this.total += element['subTotal'];
-        rows.push(element);
       });
 
       this.dataSource.data = order.products;
+      this.dataPaymentsSource.data = order.payments;
       return
     });
 

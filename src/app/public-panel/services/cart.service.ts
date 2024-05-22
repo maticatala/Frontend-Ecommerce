@@ -46,8 +46,12 @@ export class CartService {
           next: (product) => {
             this.cartProducts.push({ product, quantity });
             this.updateProducts();
+          }, error: (err: any) => {
+            delete this.cartItems[productId];
+            localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
           }
         });
+
       });
     }
   }
@@ -81,5 +85,13 @@ export class CartService {
       this.updateLocalStorage();
       this.updateProducts();
     }
+  }
+
+  clearCart() {
+    this.cartProducts = [];
+    this.cartItems = {};
+
+    this.updateLocalStorage();
+    this.updateProducts();
   }
 }

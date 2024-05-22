@@ -5,8 +5,13 @@
   /* grid-template-rows: .5fr auto; */
   grid-template-areas:
     "estado  estado   estado"
-    "cliente producto producto";
+    "cliente producto producto"
+    "pagos   producto producto";
   gap: 10px;
+}
+
+.pagos {
+  grid-area: pagos;
 }
 
 .cliente {
@@ -41,6 +46,7 @@
     grid-template-areas:
       "estado"
       "cliente"
+      "pagos"
       "producto";
   }
 

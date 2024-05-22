@@ -37,3 +37,14 @@ table.shopping-cart td {
 .icon:hover {
   color: var(--primary);
 }
+
+section > .chiplg {
+  flex-direction: column;
+  align-items: start;
+  padding-top: 2.5rem;
+  padding-bottom: 2rem;
+}
+
+.xd {
+  fill: var(--success);
+}

@@ -62,6 +62,33 @@
         </mat-card>
       </div>
 
+      <div class="pagos">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-subtitle>Pagos</mat-card-subtitle>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <div>
+              <div *ngFor="let payment of order?.payments">
+                <div>
+                  <span>Tipo de pago: </span>
+                  <span>{{payment.paymentType}}</span>
+                </div>
+                <div>
+                  <span>Cantidad: </span>
+                  <span>{{payment.amount}}</span>
+                </div>
+                <div>
+                  <span>Estado: </span>
+                  <span>{{payment.status}}</span>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
       <div class="productos">
         <mat-card>
           <mat-card-header>
