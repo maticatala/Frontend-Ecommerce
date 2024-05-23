@@ -18,7 +18,7 @@ export class OrdersPageComponent {
 
   columns: Column[] = [
     {id:'id',         label: 'Numero',     breakpoint: 'static'},
-    {id:'user',       label: 'Cliente',    breakpoint: 'md', pipe: 'userEmail'},
+    {id:'userEmail',  label: 'Cliente',    breakpoint: 'md'},
     {id:'orderAt',    label: 'Pedido el',  breakpoint: 'md', pipe: 'date'},
     {id:'status',     label: 'Estado',     breakpoint: 'static' },
     {id:'more',       label: 'Ver mas',    breakpoint: 'static' },
@@ -36,7 +36,8 @@ export class OrdersPageComponent {
 
         result.forEach((element:any,index:number)=> {
           element['recId'] = index +1;
-          rows.push(element);
+          element['userEmail'] = element.user.email;
+          rows.unshift(element);
         });
 
         this.dataSource.data = rows;

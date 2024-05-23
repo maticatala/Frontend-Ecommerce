@@ -27,9 +27,9 @@
 
     <div>
       <mat-form-field appearance="outline">
-        <mat-label>Change Password</mat-label>
+        <mat-label>Password</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-        <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <button type="button" mat-icon-button matSuffix (click)="changeVisibility()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-hint customLabel [isTouched]="myForm.get('password')?.touched" [errors]="myForm.get('password')?.errors"></mat-hint>
@@ -37,9 +37,6 @@
       <mat-form-field appearance="outline">
         <mat-label>Confirm Password</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'" formControlName="password2">
-        <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
         <mat-hint customLabel [isTouched]="myForm.get('password2')?.touched" [errors]="myForm.get('password2')?.errors"></mat-hint>
       </mat-form-field>
     </div>

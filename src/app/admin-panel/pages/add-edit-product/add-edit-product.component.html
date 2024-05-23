@@ -109,8 +109,8 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit">
-        ADD PRODUCT
+      <button class="chiplg primary" type="submit">
+        {{productId ? 'Update Product' : 'Create Product'}}
       </button>
     </form>
   </mat-card-content>

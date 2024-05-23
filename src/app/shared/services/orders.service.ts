@@ -58,9 +58,15 @@ export class OrdersService {
       'authorization': `Bearer ${localStorage.getItem('token')}`
     });
 
-    console.log(data);
-
     return this.http.put<Order>(`${this.baseUrl}/orders/${id}`, data, {headers})
+  }
+
+  updatePaymentStatus(id:number, data:any): Observable<Order> {
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.put<Order>(`${this.baseUrl}/orders/payments/${id}`, data, {headers})
   }
 
 }

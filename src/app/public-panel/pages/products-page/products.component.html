@@ -54,7 +54,7 @@
         ></public-panel-product-card>
         <p *ngIf="filteredProducts?.length === 0">No hay productos</p>
       </mat-card-content>
-      <mat-card-footer *ngIf="filteredProducts">
+      <mat-card-footer *ngIf="meta">
         <mat-paginator
           [length]="meta.totalItems"
           [pageSize]="meta.itemsPerPage"

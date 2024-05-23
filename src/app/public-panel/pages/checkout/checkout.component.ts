@@ -8,6 +8,7 @@ import { Product } from 'src/app/shared/interfaces/product.interface';
 import { OrdersService } from 'src/app/shared/services/orders.service';
 import { Order } from 'src/app/admin-panel/interfaces/order.interface';
 import { CustomSnackbarService } from '../../../shared/components/custom-snackbar/custom-snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './checkout.component.html',
@@ -18,6 +19,7 @@ export class CheckoutComponent implements OnInit{
   private orderService = inject(OrdersService);
   private _cusSnackbar = inject(CustomSnackbarService);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   public readonly baseUrl : string = environment.baseUrl;
   public total: number = 0;
@@ -25,6 +27,7 @@ export class CheckoutComponent implements OnInit{
   public step = 1;
   public paymentMethod: string = '';
   public orderId: string = '';
+  public countdown: number = 7;
 
   public myForm: FormGroup = this.fb.group({
     name:     [''],
@@ -85,9 +88,15 @@ export class CheckoutComponent implements OnInit{
     this.cartService.removeProduct(product)
   }
 
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   lastStep() {
+    this.scrollToTop();
     this.step --;
   }
+
 
   nextStep() {
     if (this.step === 2 && this.myForm.invalid){
@@ -108,22 +117,32 @@ export class CheckoutComponent implements OnInit{
     }
 
     if (this.step === 4){
-
       this.createOrder();
       return;
     }
 
-
+    this.scrollToTop();
     this.step++;
  }
+
+ private startCountdown() {
+  const interval = setInterval(() => {
+    this.countdown--;
+    if (this.countdown === 0) {
+      clearInterval(interval);
+      this.router.navigate(['/']); // Cambia '/' por la ruta de tu página de inicio
+    }
+  }, 1000);
+}
 
  createOrder() {
   this.orderService.createOrder(this.orderData()).subscribe({
     next: (order:Order) => {
-      console.log(order);
+      this.scrollToTop();
       this.orderId = order.id.toString();
       this.cartService.clearCart();
       this.step = 5;
+      this.startCountdown();
     }, error: (e) => {
       this._cusSnackbar.openCustomSnackbar("error", e.error.message, "Okay", 3000, 'danger');
     }

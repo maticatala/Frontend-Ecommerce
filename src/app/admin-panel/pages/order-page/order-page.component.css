@@ -1,4 +1,4 @@
-.contenedor {
+.orderContainer {
   margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -34,13 +34,8 @@
 }
 
 @media (max-width: 991px) {
-  /* app-nav,
-  app-aside {
-    margin: 0;
-  } */
-  /* "estado  estado   estado"
-  "cliente producto producto"; */
-  .contenedor {
+
+  .orderContainer {
     grid-template-columns: 1fr;
     grid-template-rows:auto minmax(60px, auto) auto;
     grid-template-areas:
