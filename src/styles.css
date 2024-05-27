@@ -20,6 +20,10 @@ body {
   --background-color: #3f51b5;
   --primary: #3f51b5;
   --text-color: #fff;
+  --success: #02be6e;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #17a2b8;
 }
 
 .contenedor {

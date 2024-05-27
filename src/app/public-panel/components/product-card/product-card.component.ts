@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/app/environments/environments';
-import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 import { CartService } from '../../services/cart.service';
+import { CartItem } from '../../interfaces/cart-item.interface';
 
 @Component({
   selector: 'public-panel-product-card',
@@ -27,7 +27,7 @@ export class ProductCardComponent {
   }
 
   addToCart(event: MouseEvent) {
-    const cartItem = {
+    const cartItem: CartItem = {
       product: this.product,
       quantity: 1
     }

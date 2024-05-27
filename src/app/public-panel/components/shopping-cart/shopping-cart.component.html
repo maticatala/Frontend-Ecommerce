@@ -37,10 +37,11 @@
     <span>Subtotal:</span>
     <span>{{total | currency}}</span>
   </div>
-  <button class="chiplg primary-reverse brightness mt-4">
+  <button class="chiplg primary-reverse brightness mt-4" [disabled]="shoppingList.length === 0" [ngClass]="{'disabled': shoppingList.length === 0}" routerLink="/checkout" (click)="toggleShoppingCart()">
     <mat-icon>payments</mat-icon>
     <p>Checkout</p>
   </button>
+  <div id="wallet_container"></div>
 </div>
 <div (click)="toggleShoppingCart()" [ngClass]="isExpanded ? 'shadowlg' : 'none'">
 

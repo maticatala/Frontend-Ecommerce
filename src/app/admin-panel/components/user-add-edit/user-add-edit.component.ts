@@ -25,29 +25,34 @@ export class UserAddEditComponent implements OnInit {
   public hide = true;
 
   public myForm: FormGroup = this.fb.group({
-    email: [{value: '', disabled: true}, [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     password: ['', [Validators.minLength(6)], []],
     password2: ['', [], []],
     rol: ['', [Validators.required], []]
-  }, {
-    validators: [
-      this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2'),
-    ]
   });
 
 
   ngOnInit(): void {
+    this.loadUserDetails();
+  }
+
+  loadUserDetails() {
     if (this.data) {
+      this.myForm.patchValue(this.data);
+      this.myForm.get('password')?.disable();
+      this.myForm.get('password2')?.disable();
       this.myForm.get('password')?.clearValidators();
       this.myForm.get('password')?.updateValueAndValidity();
-      // this.myForm.get('email')?.setAsyncValidators(this.emailValidator.validate())
     } else {
       this.myForm.get('password')?.setValidators([Validators.required, Validators.minLength(4)]);
-      // this.myForm.get('email')?.setAsyncValidators(this.emailValidator.validate())
+      this.myForm.setValidators([this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2')]);
     }
-    this.myForm.patchValue(this.data);
+  }
+
+  changeVisibility(){
+    this.hide = !this.hide
   }
 
   onFormSubmit(): void {

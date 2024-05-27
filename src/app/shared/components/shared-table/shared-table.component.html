@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <mat-form-field appearance="outline" class="mr-auto">
+    <mat-form-field appearance="outline" class="mr-auto" *ngIf="filterOff">
       <input matInput (keyup)="FilterChange($event)" placeholder="Filter" />
     </mat-form-field>
     <button *ngIf="addNew" type="button" mat-fab extended color="primary" (click)="agregarElemento($event)">
@@ -93,8 +93,8 @@
 
     </mat-table>
   </mat-card-content>
-  <mat-card-actions align="end">
+  <mat-card-actions align="end" *ngIf="paginatorOff">
     <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-      (page)="pageEvent = $event"></mat-paginator>
+      (page)="pageEvent = $event" ></mat-paginator>
   </mat-card-actions>
 </mat-card>

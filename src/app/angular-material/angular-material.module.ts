@@ -21,6 +21,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -47,6 +49,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CdkTreeModule,
     MatChipsModule,
     MatProgressSpinnerModule,
+    MatStepperModule,
+    MatRadioModule,
   ]
 })
 export class AngularMaterialModule { }

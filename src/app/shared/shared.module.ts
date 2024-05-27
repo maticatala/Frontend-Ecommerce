@@ -21,7 +21,7 @@ import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confi
     CustomLabelDirective,
     SharedTableComponent,
     CustomSnackbarComponent,
-    DialogConfirmComponent
+    DialogConfirmComponent,
   ]
 })
 export class SharedModule { }

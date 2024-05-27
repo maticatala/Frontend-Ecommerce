@@ -49,8 +49,8 @@ export class SharedTableComponent implements AfterContentInit  {
 
   // MatPaginator Inputs
   public length = 100;
-  public pageSize = 5;
-  public pageSizeOptions: number[] = [5, 10, 25, 100];
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [10, 25, 100];
 
   // MatPaginator Output
   public  pageEvent?: PageEvent;
@@ -59,11 +59,13 @@ export class SharedTableComponent implements AfterContentInit  {
   @Input() dataSource!: MatTableDataSource<any>;
   @Input() columnsdef!: Column[];
   @Input() addNew: boolean = true;
+  @Input() filterOff: boolean = true;
+  @Input() paginatorOff: boolean = true;
 
   // MatTable
   @ViewChild(MatTable, { static: true })  dataTable!: MatTable<Element>;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   // Output Events
   @Output() elementoEditado = new EventEmitter<any>();
@@ -106,10 +108,10 @@ export class SharedTableComponent implements AfterContentInit  {
     const tableWidth = window.innerWidth; // Obtén el ancho de la ventana
     const breakpoints = {
       static: 0,
-      sm: 640, // Define tus breakpoints de acuerdo a Tailwind
+      sm: 640,
       md: 768,
       lg: 1024,
-      xl: 1280,
+      xl: 1280
     };
 
     this.columnsdef.forEach((column) => {
@@ -141,6 +143,7 @@ export class SharedTableComponent implements AfterContentInit  {
 
     this.debounceTimer = setTimeout(() => {
       this.dataSource.filter = value;
+      console.log(this.dataSource);
     }, 350);
   }
 
@@ -174,8 +177,6 @@ export class SharedTableComponent implements AfterContentInit  {
         return this.datePipe.transform(text, 'd/M/yy, h:mm a')!;
       case 'currency':
         return this.currencyPipe.transform(text, 'USD', 'symbol')!;
-      case 'userEmail':
-        return text.email;
       default:
         return text;
     }

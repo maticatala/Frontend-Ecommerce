@@ -1,0 +1,274 @@
+<div>
+  <div class="contenedor">
+    <div class="py-10">
+      <h2 class="text-2xl pb-4">Checkout</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="col-span-2" *ngIf="step !== 5">
+          <table class="table w-full" *ngIf="step===1">
+            <thead>
+              <tr>
+                <th>
+                  <div class="text-start mb-0 font-normal text-lg">Product</div>
+                </th>
+                <th><div class="text-start mb-0 font-normal text-lg">Cantidad</div></th>
+                <th><div class="text-start mb-0 font-normal text-lg">Total</div></th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let shoppItem of shoppingList">
+                <td class="text-start flex flex-col md:items-center md:flex-row ">
+                  <figure class="rounded w-14 md:w-28 lg:w-40">
+                    <img
+                    src="{{ baseUrl }}/products/getFile?fileName={{ shoppItem.product.imagen }}"
+                    [alt]="shoppItem.product.name"
+                    class="object-contain h-full"
+                    />
+                  </figure>
+                  <div class="w-full md:ml-5">
+                    <h3>
+                      <a href="./product/{{shoppItem.product.id}}">{{shoppItem.product.name}}</a>
+                    </h3>
+                  </div>
+                  <div class="w-full">
+                    <p class="m-0">
+                      <span class="primary-reverse">{{shoppItem.product.price | currency}}</span>
+                    </p>
+                  </div>
+                </td>
+                <td>
+                  <div class="input-group">
+                    <button class="input-btn primary brightness" (click)="changeQuantity(shoppItem, -1)">-</button>
+                    <p class="font-semibold">{{shoppItem.quantity}}</p>
+                    <button class="input-btn primary brightness" (click)="changeQuantity(shoppItem, +1)">+</button>
+                  </div>
+                </td>
+                <td>
+                  <p>{{shoppItem.product.price * shoppItem.quantity| currency}}</p>
+                </td>
+                <td>
+                  <mat-icon class="icon" (click)="removeShoppItem(shoppItem.product)">delete</mat-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-container *ngIf="step===2">
+            <h2 class="text-xl pb-4">Información de facturación</h2>
+            <form [formGroup]="myForm" class="grid grid-cols-6 gap-4">
+
+              <mat-form-field appearance="outline" class="col-span-3">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="nombre" formControlName="name" />
+                <mat-hint
+                  customLabel
+                  [isTouched]="myForm.get('name')?.touched"
+                  [errors]="myForm.get('name')?.errors"
+                ></mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-span-3">
+                <mat-label>Apellido</mat-label>
+                <input matInput placeholder="nombre y apellido..." formControlName="lastName" />
+                <mat-hint
+                  customLabel
+                  [isTouched]="myForm.get('name')?.touched"
+                  [errors]="myForm.get('name')?.errors"
+                ></mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-span-3">
+                <mat-label>Telefono</mat-label>
+                <input matInput placeholder="+341..." formControlName="phone" />
+                <mat-hint
+                  customLabel
+                  [isTouched]="myForm.get('phone')?.touched"
+                  [errors]="myForm.get('phone')?.errors"
+                ></mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-span-3">
+                <mat-label>Direccion</mat-label>
+                <input matInput placeholder="Direccion 123..." formControlName="address" />
+                <mat-hint
+                  customLabel
+                  [isTouched]="myForm.get('address')?.touched"
+                  [errors]="myForm.get('address')?.errors"
+                ></mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-span-2">
+                <mat-label>Piso</mat-label>
+                <input matInput placeholder="1..." formControlName="floor" />
+                <mat-hint
+                  customLabel
+                  [isTouched]="myForm.get('floor')?.touched"
+                  [errors]="myForm.get('floor')?.errors"
+                ></mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-span-2">
+                <mat-label>Departamento</mat-label>
+                <input matInput placeholder="3A..." formControlName="flat" />
+                <mat-hint
+                  customLabel
+                  [isTouched]="myForm.get('flat')?.touched"
+                  [errors]="myForm.get('flat')?.errors"
+                ></mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-span-2">
+                <mat-label>Codigo Postal</mat-label>
+                <input matInput placeholder="Codigo Postal" formControlName="postCode" />
+                <mat-hint
+                  customLabel
+                  [isTouched]="myForm.get('postCode')?.touched"
+                  [errors]="myForm.get('postCode')?.errors"
+                ></mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-span-2">
+                <mat-label>Localidad</mat-label>
+                <input matInput placeholder="Ciudad" formControlName="city" />
+                <mat-hint
+                  customLabel
+                  [isTouched]="myForm.get('city')?.touched"
+                  [errors]="myForm.get('city')?.errors"
+                ></mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-span-2">
+                <mat-label>Provincia</mat-label>
+                <input matInput placeholder="Provincia" formControlName="state" />
+                <mat-hint
+                  customLabel
+                  [isTouched]="myForm.get('state')?.touched"
+                  [errors]="myForm.get('state')?.errors"
+                ></mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-span-2">
+                <mat-label>Pais</mat-label>
+                <input matInput placeholder="País" formControlName="country" />
+                <mat-hint
+                  customLabel
+                  [isTouched]="myForm.get('country')?.touched"
+                  [errors]="myForm.get('country')?.errors"
+                ></mat-hint>
+              </mat-form-field>
+
+            </form>
+          </ng-container>
+          <ng-container *ngIf="step===3">
+            <h2 class="text-xl pb-4">Método de Pago</h2>
+            <mat-radio-group aria-label="Select an option" class="flex flex-col"  [(ngModel)]="paymentMethod">
+              <mat-radio-button color="primary" value="efectivo" checked>Efectivo</mat-radio-button>
+              <mat-radio-button color="primary" value="mercadoPago">MercadoPago</mat-radio-button>
+              <mat-radio-button color="primary" value="transferencia">Transferencia</mat-radio-button>
+            </mat-radio-group>
+          </ng-container>
+          <ng-container *ngIf="step===4">
+            <ng-container *ngIf="paymentMethod === 'transferencia'">
+              <section>
+                <div class="primary-reverse chiplg">
+                  <h5 class="text-lg pb-2">Cuenta bancaria para realizar la transferencia</h5>
+                  <div *ngFor="let item of accountDetails">
+                    <div class="pb-2">
+                      <span class="text-base font-semibold">{{ item.label }}: </span>
+                      <span>{{ item.value }}</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </ng-container>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="step===5">
+          <ng-container *ngIf="paymentMethod === 'transferencia'">
+            <section class="col-span-3">
+              <div class="primary-reverse flex flex-col items-center  text-center">
+                <svg class="fill-[var(--warning)]" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+                <h3 class="text-xl font-semibold mt-2">Tu pago está pendiente de aprobación</h3>
+                <h4 class="text-base mt-6">Envianos tu comprobante de pago a <a href="mailto:matiasncatala@gmail.com" target="_blank" class="font-semibold">matiasncatala@gmail.com</a></h4>
+                <h4 class="flex items-center text-base">
+                  O por WhatsApp haciendo click acá
+                  <a href="https://api.whatsapp.com/send?phone=3413358173" class="ml-2"><svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 256 258"><defs><linearGradient id="logosWhatsappIcon0" x1="50%" x2="50%" y1="100%" y2="0%"><stop offset="0%" stop-color="#1faf38"/><stop offset="100%" stop-color="#60d669"/></linearGradient><linearGradient id="logosWhatsappIcon1" x1="50%" x2="50%" y1="100%" y2="0%"><stop offset="0%" stop-color="#f9f9f9"/><stop offset="100%" stop-color="#fff"/></linearGradient></defs><path fill="url(#logosWhatsappIcon0)" d="M5.463 127.456c-.006 21.677 5.658 42.843 16.428 61.499L4.433 252.697l65.232-17.104a122.994 122.994 0 0 0 58.8 14.97h.054c67.815 0 123.018-55.183 123.047-123.01c.013-32.867-12.775-63.773-36.009-87.025c-23.23-23.25-54.125-36.061-87.043-36.076c-67.823 0-123.022 55.18-123.05 123.004"/><path fill="url(#logosWhatsappIcon1)" d="M1.07 127.416c-.007 22.457 5.86 44.38 17.014 63.704L0 257.147l67.571-17.717c18.618 10.151 39.58 15.503 60.91 15.511h.055c70.248 0 127.434-57.168 127.464-127.423c.012-34.048-13.236-66.065-37.3-90.15C194.633 13.286 162.633.014 128.536 0C58.276 0 1.099 57.16 1.071 127.416m40.24 60.376l-2.523-4.005c-10.606-16.864-16.204-36.352-16.196-56.363C22.614 69.029 70.138 21.52 128.576 21.52c28.3.012 54.896 11.044 74.9 31.06c20.003 20.018 31.01 46.628 31.003 74.93c-.026 58.395-47.551 105.91-105.943 105.91h-.042c-19.013-.01-37.66-5.116-53.922-14.765l-3.87-2.295l-40.098 10.513z"/><path fill="#fff" d="M96.678 74.148c-2.386-5.303-4.897-5.41-7.166-5.503c-1.858-.08-3.982-.074-6.104-.074c-2.124 0-5.575.799-8.492 3.984c-2.92 3.188-11.148 10.892-11.148 26.561c0 15.67 11.413 30.813 13.004 32.94c1.593 2.123 22.033 35.307 54.405 48.073c26.904 10.609 32.379 8.499 38.218 7.967c5.84-.53 18.844-7.702 21.497-15.139c2.655-7.436 2.655-13.81 1.859-15.142c-.796-1.327-2.92-2.124-6.105-3.716c-3.186-1.593-18.844-9.298-21.763-10.361c-2.92-1.062-5.043-1.592-7.167 1.597c-2.124 3.184-8.223 10.356-10.082 12.48c-1.857 2.129-3.716 2.394-6.9.801c-3.187-1.598-13.444-4.957-25.613-15.806c-9.468-8.442-15.86-18.867-17.718-22.056c-1.858-3.184-.199-4.91 1.398-6.497c1.431-1.427 3.186-3.719 4.78-5.578c1.588-1.86 2.118-3.187 3.18-5.311c1.063-2.126.531-3.986-.264-5.579c-.798-1.593-6.987-17.343-9.819-23.64"/></svg></a>
+                </h4>
+                <h3>
+                  <span>Numero de pedido: </span>
+                  <span>{{orderId}}</span>
+                </h3>
+                <h4 class="text-lg mt-4">Gracias por confiar en <span class="font-semibold">Beyond Limits</span></h4>
+                <h3 class="text-lg mt-4">Redirigiendo a la pagina principal {{countdown}}s</h3>
+                <button class="chip primary mt-8">
+                  VER DETALLE DEL PEDIDO
+                </button>
+              </div>
+            </section>
+          </ng-container>
+          <ng-container *ngIf="paymentMethod !== 'transferencia'">
+          <section class="col-span-3">
+            <div class="primary-reverse flex flex-col items-center text-center">
+              <svg class="fill-[var(--success)]" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+              <h3 class="text-xl mt-2 font-semibold">Pedio realizado con Exito!</h3>
+              <h4 class="text-base font-light mt-4">Gracias por comprar con nostotros. Tu pedido se está procesando</h4>
+              <h3 class="text-lg mt-4">Redirigiendo a la pagina principal {{countdown}}s</h3>
+              <button class="chip primary mt-8">
+                VER DETALLE DEL PEDIDO
+              </button>
+            </div>
+          </section>
+          </ng-container>
+        </ng-container>
+        <div class="mt-16 lg:mt-0" *ngIf="step !== 5">
+          <h3 class="mt-4 md:mt-0 text-xl mb-6">Resumen del Pedido</h3>
+          <mat-divider></mat-divider>
+          <table class="table w-full">
+            <tbody>
+              <ng-container *ngIf="step>1">
+                <tr *ngFor="let shoppItem of shoppingList" >
+                  <td class="text-start flex flex-col md:items-center md:flex-row">
+                    <figure class="rounded w-14 md:w-28 lg:w-40">
+                      <img
+                      src="{{ baseUrl }}/products/getFile?fileName={{ shoppItem.product.imagen }}"
+                      [alt]="shoppItem.product.name"
+                      class="object-contain h-full"
+                      />
+                    </figure>
+                    <div class="w-full md:ml-5">
+                      <h3>
+                        <a href="./product/{{shoppItem.product.id}}">{{shoppItem.product.name}} x {{shoppItem.quantity}}</a>
+                      </h3>
+                    </div>
+                  </td>
+                  <td class="pe-0 text-end">
+                    <p>{{shoppItem.product.price * shoppItem.quantity| currency}}</p>
+                  </td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td class="ps-0">
+                  <strong>Subtotal</strong>
+                </td>
+                <td class="pe-0 text-end">
+                  <p>{{total | currency}}</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="ps-0">
+                  <strong>Total</strong>
+                </td>
+                <td class="pe-0 text-end">
+                  <p class="font-bold">{{total | currency}}</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="flex gap-4 mt-4">
+            <button class="chip primary-reverse" (click)="lastStep()" *ngIf="step>1">Volver</button>
+            <button class="chiplg primary" (click)="nextStep()">Continuar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

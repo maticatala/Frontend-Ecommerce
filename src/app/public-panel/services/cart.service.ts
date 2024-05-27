@@ -3,8 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 import { ProductsService } from 'src/app/shared/services/products.service';
-
-interface CartItem { product: Product; quantity: number };
+import { CartItem } from '../interfaces/cart-item.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +46,12 @@ export class CartService {
           next: (product) => {
             this.cartProducts.push({ product, quantity });
             this.updateProducts();
+          }, error: (err: any) => {
+            delete this.cartItems[productId];
+            localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
           }
         });
+
       });
     }
   }
@@ -82,5 +85,13 @@ export class CartService {
       this.updateLocalStorage();
       this.updateProducts();
     }
+  }
+
+  clearCart() {
+    this.cartProducts = [];
+    this.cartItems = {};
+
+    this.updateLocalStorage();
+    this.updateProducts();
   }
 }

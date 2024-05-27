@@ -5,7 +5,7 @@
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-card-content class="bg-gray-200">
-    <div class="contenedor">
+    <div class="orderContainer">
 
       <div class="estado">
         <mat-card>
@@ -62,18 +62,37 @@
         </mat-card>
       </div>
 
+      <div class="pagos">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-subtitle>Pagos</mat-card-subtitle>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content class="mt-4">
+            <shared-table
+            [addNew]="false"
+            [paginatorOff]="false"
+            [filterOff]="false"
+            [dataSource]="dataPaymentsSource"
+            [columnsdef]="paymentsColumns"
+            (elementoEditado)="openPaymentDetaildDialog($event)"
+          ></shared-table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
       <div class="productos">
         <mat-card>
           <mat-card-header>
             <mat-card-subtitle>Productos ({{order?.products?.length}})</mat-card-subtitle>
           </mat-card-header>
           <mat-divider></mat-divider>
-          <mat-card-content>
+          <mat-card-content class="mt-4">
             <shared-table
               [addNew]="false"
+              [paginatorOff]="false"
               [dataSource]="dataSource"
               [columnsdef]="columns"
-              class="m-1"
             ></shared-table>
             <div class="text-md font-semibold flex justify-end">
               <div>Total: {{total | currency}}</div>

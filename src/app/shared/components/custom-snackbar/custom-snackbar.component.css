@@ -20,18 +20,18 @@
 }
 
 ::ng-deep .success-snackbar{
-  --mdc-snackbar-container-color: #02be6e;
+  --mdc-snackbar-container-color: var(--success);
 }
 
 ::ng-deep .danger-snackbar{
-  --mdc-snackbar-container-color: #dc3545;
+  --mdc-snackbar-container-color: var(--danger);
 }
 
 ::ng-deep .warning-snackbar{
-  --mdc-snackbar-container-color: #ffc107;
+  --mdc-snackbar-container-color: var(--warning);
 }
 
 ::ng-deep .info-snackbar{
-  --mdc-snackbar-container-color: #17a2b8;
+  --mdc-snackbar-container-color: var(--info);
 }
 
