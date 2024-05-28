@@ -26,13 +26,7 @@ body {
   --info: #17a2b8;
 }
 
-.contenedor {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
-}
+/* COLOR */
 
 .text-danger {
   color: var(--danger);
@@ -50,6 +44,18 @@ body {
   color: var(--info);
 }
 
+.primary {
+  background-color: var(--primary);
+  color: var(--text-color);
+}
+
+.primary-reverse {
+  background-color: var(--text-color);
+  color: var(--primary)
+}
+
+/* COLOR */
+
 
 .icon {
   cursor: pointer;
@@ -61,17 +67,6 @@ body {
 
 .d-none {
   display: none !important;
-}
-
-
-.primary {
-  background-color: var(--primary);
-  color: var(--text-color);
-}
-
-.primary-reverse {
-  background-color: var(--text-color);
-  color: var(--primary)
 }
 
 .shadow, .shadowlg {
@@ -98,23 +93,7 @@ body {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-@media screen and (min-width: 576px) {
-  .contenedor {
-      max-width: 540px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .contenedor {
-      max-width: 720px;
-  }
-}
-
 @media screen and (min-width: 992px) {
-  .contenedor {
-      max-width: 960px;
-  }
-
   .d-lg-none {
     display: none !important;
   }
@@ -129,17 +108,5 @@ body {
 
   .chip {
     width: 200px;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .contenedor {
-      max-width: 1140px;
-  }
-}
-
-@media screen and (min-width: 1400px) {
-  .contenedor {
-      max-width: 1320px;
   }
 }

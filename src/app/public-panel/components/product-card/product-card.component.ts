@@ -24,6 +24,11 @@ export class ProductCardComponent {
 
   showProduct() {
     this.router.navigate(['/product', this.product.id]);
+    this.scrollToTop();
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   addToCart(event: MouseEvent) {
@@ -35,9 +40,5 @@ export class ProductCardComponent {
     event.stopPropagation();
 
     this.cartService.addProduct(cartItem, true);
-  }
-
-  buyProduct(event: MouseEvent){
-    event.stopPropagation();
   }
 }

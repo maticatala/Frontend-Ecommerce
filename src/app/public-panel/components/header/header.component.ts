@@ -33,7 +33,6 @@ export class HeaderComponent {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
-    document.getElementById('sidebar')?.classList.toggle('active');
   }
 
   @HostListener('document:click', ['$event'])

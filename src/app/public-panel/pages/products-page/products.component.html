@@ -1,5 +1,5 @@
 <div class="productPage">
-  <section class="flex contenedor pt-12 pb-14">
+  <section class="flex container pt-12 pb-14">
     <aside class="filters p-2" [ngClass]="isFilterOn ? '' : '-translate-x-full'">
       <mat-form-field class="w-full d-lg-none mt-4">
         <mat-label>
@@ -24,9 +24,7 @@
         </ng-container>
       </mat-nav-list>
     </aside>
-    <div (click)="toggleFilters()" [ngClass]="isFilterOn ? 'shadow' : 'none'">
-
-    </div>
+    <div (click)="toggleFilters()" [ngClass]="{'shadow' : isFilterOn}"></div>
     <mat-card class="flex-grow">
       <mat-card-header class="flex mb-12">
         <mat-card-title>Productos</mat-card-title>

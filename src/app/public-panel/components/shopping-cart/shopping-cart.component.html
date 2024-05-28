@@ -1,5 +1,5 @@
 <mat-icon  [matBadge]="shoppingList ? shoppingList.length : ''" matBadgeColor="warn" (click)="toggleShoppingCart()" class="icon">shopping_cart</mat-icon>
-<div class="shoppingCart flex flex-col" [ngClass]="isExpanded ? '' : 'translate-x-full'">
+<div class="shoppingCart flex flex-col" [ngClass]="{'translate-x-full' : !isExpanded}">
   <div class="flex justify-between mb-4">
     <h2 class="text-2xl">Tu carrito</h2>
     <button (click)="toggleShoppingCart()">
@@ -43,5 +43,5 @@
   </button>
   <div id="wallet_container"></div>
 </div>
-<div (click)="toggleShoppingCart()" [ngClass]="isExpanded ? 'shadowlg' : 'none'">
+<div (click)="toggleShoppingCart()" [ngClass]="{'shadowlg' : isExpanded}">
 

@@ -1,31 +1,11 @@
-.contenedor-search {
+.searchBar {
   position: fixed;
   width: 100vw;
-  height: 100vh;
   top: 0;
   left: 0;
-  transition: all 0.3s ease;
-  z-index: 999;
-  background-color: rgba(30, 34, 40, .7);
-  opacity: 1;
+  z-index: 1000;
+  transition: transform 0.3s ease;
 }
-
-.transition {
-  transform: none;
-  visibility: visible;
-  transition: all 0.3s ease;
-}
-
-.hiddenContenedor {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.hiddenSearchBox {
-  transform: translateY(-100%);
-  visibility: hidden;
-}
-
 
 .searchInput {
   padding: .45rem;
@@ -34,5 +14,4 @@
   border: none;
   background: none;
   box-shadow: none;
-  color: white;
 }
