@@ -1,0 +1,16 @@
+mat-list-item {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+mat-list-item.active{
+  background-color: var(--text-color);
+  color: var(--primary) !important;
+}
+
+.mdc-list-item--with-leading-icon .mdc-list-item__start {
+  color: inherit;
+}
+
+.mdc-list-item__secondary-text {
+  color: inherit;
+}

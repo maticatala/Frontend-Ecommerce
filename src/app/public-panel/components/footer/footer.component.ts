@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'public-panel-footer',
@@ -8,19 +8,16 @@ import { Component } from '@angular/core';
 
 export class FooterComponent {
 
-  openWhatsApp() {
-    // Número de teléfono al que se enviará el mensaje de WhatsApp
-    const phoneNumber = '';
+  showButton: boolean = false;
 
-    // Mensaje predeterminado que se enviará
-    const message = 'Hola, ¿cómo puedo ayudarte?';
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
-    // Crear el enlace de WhatsApp con el número de teléfono y el mensaje prefijados
-    const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-    // Abrir la ventana de WhatsApp
-    window.open(whatsappLink, '_blank');
+    // Mostrar el botón después de hacer un poco de scroll (por ejemplo, 100px)
+    this.showButton = scrollTop > 100;
   }
+
   goToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }

@@ -8,6 +8,9 @@ import { LayoutPageComponent } from './layouts/layout-page/layout-page.component
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { isAuthenticatedGuard } from '../auth/guards';
+import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
 
 const routes: Routes = [{
   path: '',
@@ -19,8 +22,11 @@ const routes: Routes = [{
     {path: 'product/:id', component: ProductPageComponent},
     {path: 'contact', component: ContactComponent},
     {path: 'checkout', canActivate: [isAuthenticatedGuard], component: CheckoutComponent},
+    {path: 'orders', canActivate: [isAuthenticatedGuard], component: OrdersPageComponent},
+    {path: 'orders/:orderId', canActivate: [isAuthenticatedGuard], component: OrderPageComponent},
+    {path: 'profile', canActivate: [isAuthenticatedGuard], component: ProfilePageComponent},
     {path: '', redirectTo: '/home', pathMatch: 'full' },
-    {path: '**', redirectTo: 'home'},
+    {path: '**', redirectTo: '/'},
   ]
 }];
 

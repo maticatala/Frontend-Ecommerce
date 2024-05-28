@@ -61,21 +61,17 @@
   </div>
 </footer>
 
-<div class="md:col-span-2 lg:col-span-1 flex flex-col justify-end items-center">
-
-  <div class="">
-    <button (click)="openWhatsApp()" class=" bg-[#25d366] hover:bg-[#5ab17a] text-white px-4 py-4 rounded-full focus:outline-none fixed bottom-4 left-4 text-lg ">
-
-      <mat-icon class="">phone</mat-icon>
-      WhatsApp
-    </button>
-  </div>
-
-  <div>
-    <button (click)="goToTop() "class="hover:bg-[#5153cebe] bg-[#5153ce] px-4 py-3 focus:outline-none fixed bottom-4 right-4 text-lg rounded-full">
-      <mat-icon class="py-1">
-        keyboard_arrow_up
-      </mat-icon>
-    </button>
-  </div>
+<div>
+  <button
+    (click)="goToTop()"
+    class="hover:brightness-125 primary border-gray-300 border px-4 py-3 fixed bottom-4 right-4 rounded-full transition-opacity duration-500"
+    [ngClass]="{
+      'opacity-0': !showButton,
+      'opacity-100': showButton,
+      'invisible': !showButton
+    }">
+    <mat-icon class="pt-1">
+      keyboard_arrow_up
+    </mat-icon>
+  </button>
 </div>

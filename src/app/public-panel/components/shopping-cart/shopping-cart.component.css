@@ -15,14 +15,6 @@
   display: none;
 }
 
-.icon {
-  cursor: pointer;
-}
-
-.icon:hover {
-  color: var(--primary);
-}
-
 .input-group {
   display: flex;
   border-radius: .3rem;

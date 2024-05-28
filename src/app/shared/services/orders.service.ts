@@ -42,6 +42,14 @@ export class OrdersService {
 
   }
 
+  getUserOrderById(id: number): Observable<Order> {
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.get<Order>(`${this.baseUrl}/orders/userOrder/${id}`, {headers});
+  }
+
   cancelOrder(id: number): Observable<Order> {
 
     const headers = new HttpHeaders({
@@ -67,6 +75,15 @@ export class OrdersService {
     });
 
     return this.http.put<Order>(`${this.baseUrl}/orders/payments/${id}`, data, {headers})
+  }
+
+  getUserOrders(): Observable<Order[]> {
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    // return this.http.put<Order>(`${this.baseUrl}/orders/payments/${id}`, data, {headers})
+    return this.http.get<Order[]>(`${this.baseUrl}/orders/userOrders`, {headers});
   }
 
 }
