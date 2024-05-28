@@ -37,13 +37,21 @@
         <mat-icon class="d-lg-none text-white" [matMenuTriggerFor]="menu">person</mat-icon>
 
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="Logout()" routerLink="/">
-            <mat-icon>logout</mat-icon>
-            <span>Logout</span>
+          <button mat-menu-item routerLink="/profile">
+            <mat-icon>person</mat-icon>
+            <span>Perfil</span>
+          </button>
+          <button mat-menu-item routerLink="/orders">
+            <mat-icon>inventory_2</mat-icon>
+            <span>Pedidos</span>
           </button>
           <button *ngIf="currentUser?.rol === 'admin'" mat-menu-item routerLink="/dashboard">
             <mat-icon>home</mat-icon>
             <span>Admin Panel</span>
+          </button>
+          <button mat-menu-item (click)="Logout()" routerLink="/">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
           </button>
         </mat-menu>
       </div>

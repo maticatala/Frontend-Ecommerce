@@ -1,0 +1,100 @@
+<public-user-panel-layout>
+  <ng-container *ngIf="!order">
+    <div class="flex flex-col items-center justify-center h-full" *ngIf="!unAuthorized">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div class="flex flex-col items-center justify-center h-full" *ngIf="unAuthorized">
+      <h3>Oops... Pedido no encontrado!</h3>
+      <mat-icon>warning</mat-icon>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="order">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Pedido</mat-card-title>
+        <div class="ml-auto">
+          <button routerLink="/orders">
+            <mat-icon class="icon">arrow_back</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="mt-4 grid grid-cols-6 gap-1 mb-2 border-solid border-2 border-slate-100 rounded-xl p-3 cursor-pointer lg:p-4 lg:gap-2 text-slate-400 text-sm transition-all duration-100 ease-linear hover:border-slate-300" [routerLink]="['/orders', order.id]">
+          <div class="col-span-3 lg:col-span-2">
+            <span>Código: </span>
+            <span class="font-medium">{{order.id}}</span>
+          </div>
+          <div class="col-span-3 lg:col-span-2">
+            <span>Productos: </span>
+            <span class="font-medium">{{order.products.length}}</span>
+          </div>
+          <div class="col-span-3 lg:col-span-2" *ngIf="order.total">
+            <span>Total: </span>
+            <span class="font-medium">{{order.total | currency}}</span>
+          </div>
+          <div class="col-span-3 lg:col-span-2">
+            <span>Fecha: </span>
+            <span class="font-medium">{{order.orderAt | date:'d/M/yy, h:mm a'}}</span>
+          </div>
+          <div class="col-span-3 lg:col-span-2" *ngIf="order.payments.length > 0">
+            <span>Pago: </span>
+            <span class="p-1.5 rounded-full" [ngClass]="setPaymentStatusColor(order.payments[0].status)">{{order.payments[0].status}}</span>
+          </div>
+          <div class="col-span-3 lg:col-span-2">
+            <span>Estado: </span>
+            <span class="p-1.5 rounded-full" [ngClass]="setOrderStatusColor(order.status)">{{order.status}}</span>
+          </div>
+        </div>
+        <mat-card-subtitle>Productos</mat-card-subtitle>
+        <div class="mt-4 flex gap-4 mb-2 border-solid border-2 border-slate-100 rounded-xl p-3  lg:p-4 lg:gap-2 text-slate-400 text-sm transition-all duration-100 ease-linear hover:border-slate-300" *ngFor="let product of order.products">
+          <div class="flex items-center justify-center col-span-1">
+            <div class="w-[50px] max-w-[50px] lg:max-w-[100px]">
+              <img
+              src="{{ baseUrl }}/products/getFile?fileName={{ product.product.imagen }}"
+              [alt]="product.product.name"
+              class="w-full"
+              />
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-4 w-full justify-center items-center">
+            <div class="col-span-1">
+              <span>Producto: </span>
+              <span>{{product.product.name}}</span>
+            </div>
+            <div class="col-span-1">
+              <span>Cantidad: </span>
+              <span>{{product.product_quantity}}</span>
+            </div>
+            <div class="col-span-1">
+              <span>Precio: </span>
+              <span>{{product.product_unit_price}}</span>
+            </div>
+          </div>
+        </div>
+        <mat-card-subtitle>Pagos</mat-card-subtitle>
+        <div class="mt-4 grid grid-cols-6 gap-1 mb-2 border-solid border-2 border-slate-100 rounded-xl p-3 cursor-pointer lg:p-4 lg:gap-2 text-slate-400 text-sm transition-all duration-100 ease-linear hover:border-slate-300" *ngFor="let payment of order.payments">
+          <div class="col-span-3 lg:col-span-2">
+            <span>Tipo de pago: </span>
+            <span class="font-medium">{{payment.paymentType}}</span>
+          </div>
+          <div class="col-span-3 lg:col-span-2" >
+            <span>Moneda: </span>
+            <span class="font-medium">{{payment.currency}}</span>
+          </div>
+          <div class="col-span-3 lg:col-span-2">
+            <span>Monto: </span>
+            <span class="font-medium">{{payment.amount | currency}}</span>
+          </div>
+          <div class="col-span-3 lg:col-span-2">
+            <span>Fecha registrada: </span>
+            <span class="font-medium">{{payment.paymentDate | date:'d/M/yy, h:mm a'}}</span>
+          </div>
+          <div class="col-span-3">
+            <span>Estado: </span>
+            <span class="p-1.5 rounded-full" [ngClass]="setPaymentStatusColor(order.payments[0].status)">{{payment.status}}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</public-user-panel-layout>

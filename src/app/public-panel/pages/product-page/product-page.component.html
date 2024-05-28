@@ -6,6 +6,13 @@
       </div>
     </ng-container>
     <ng-container *ngIf="product">
+      <div class="w-full">
+        <div class="ml-auto w-fit">
+          <button (click)="goBack()">
+            <mat-icon class="icon">arrow_back</mat-icon>
+          </button>
+        </div>
+      </div>
       <div class="productLayout">
         <div class="productTitle">
           <h2 class="post-title display-5 mb-2">{{product.name}}</h2>
@@ -19,7 +26,10 @@
           <img
           src="{{ baseUrl }}/products/getFile?fileName={{ product.imagen }}"
           [alt]="product.name"
+          (mousemove)="zoomIn($event)"
+          (mouseleave)="zoomOut($event)"
           />
+          <div class="magnifying-glass"></div>
         </div>
         <div class="productCart">
           <div class="flex gap-8 items-center">

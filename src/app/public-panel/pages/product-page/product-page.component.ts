@@ -48,6 +48,35 @@ export class ProductPageComponent implements OnInit{
 
       this.cartService.addProduct(cartItem, true);
     }
+
+  }
+
+  goBack() {
+    // Obtener la URL de la página anterior
+    const previousUrl = document.referrer;
+    // Obtener la URL actual
+    const currentUrl = window.location.href;
+
+    // Verificar si la URL de la página anterior contiene el mismo dominio que la actual
+    if (previousUrl.includes(window.location.origin)) {
+      // Si la URL de la página anterior tiene el mismo dominio, volver a ella
+      window.history.back();
+    } else {
+      // Si la URL de la página anterior no tiene el mismo dominio, redirigir a una página predefinida
+      window.location.href = '/products'; // Reemplaza 'paginaPredefinida.html' con la URL de tu página por defecto
+    }
+  }
+
+  zoomIn(event:any) {
+    const x = event.layerX;
+    const y = event.layerY;
+    event.target.style.transformOrigin = `${x}px ${y}px`
+    event.target.style.transform = 'scale(2)'
+  }
+
+  zoomOut(event: any) {
+    event.target.style.transformOrigin = "center"
+    event.target.style.transform = 'scale(1)'
   }
 
 }

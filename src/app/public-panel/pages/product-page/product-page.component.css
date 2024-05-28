@@ -24,12 +24,15 @@
   grid-area: content;
   max-height: 520px;
   padding: 1rem;
+  overflow: hidden;
 }
 
 .productImage > img {
   height: 100%;
   margin-left: auto;
   margin-right: auto;
+  transform-origin: center;
+  object-fit: cover;
 }
 
 .productCart {

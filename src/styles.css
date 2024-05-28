@@ -34,9 +34,35 @@ body {
   padding-right: 15px;
 }
 
+.text-danger {
+  color: var(--danger);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.text-info {
+  color: var(--info);
+}
+
+
+.icon {
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: var(--primary);
+}
+
 .d-none {
   display: none !important;
 }
+
 
 .primary {
   background-color: var(--primary);

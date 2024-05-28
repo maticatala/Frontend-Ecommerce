@@ -3,7 +3,8 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
 
 import { environment } from 'src/app/environments/environments';
-import { AuthStatus, CheckTokenResponse, LoginResponse, User, RegisterResponse } from '../interfaces';
+import { CheckTokenResponse, LoginResponse, User, RegisterResponse } from '../interfaces';
+import { AuthStatus } from '../enums/auth-status.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ export class AuthService {
   }
 
   private setAuthentication(user: User, token: string): boolean {
+
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
     //Almacenamos el token en el localStorage para poder recuperar los datos del usuario frente a un reload del navegador
@@ -85,6 +87,7 @@ export class AuthService {
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`);
 
+
     return this.http.get<CheckTokenResponse>(url, { headers })
       .pipe(
         map(({ user, token }) => this.setAuthentication(user, token)),
@@ -102,4 +105,11 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
+  updateUser(body: any): Observable<User> {
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+
+    return this.http.patch<User>(`${this.baseUrl}/auth/updateUser`, body, { headers });
+  }
 }

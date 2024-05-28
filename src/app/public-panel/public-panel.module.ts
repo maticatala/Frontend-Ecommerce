@@ -19,6 +19,12 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { UserPanelLayoutComponent } from './layouts/user-panel-layout/user-panel-layout.component';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
+
 
 
 @NgModule({
@@ -37,6 +43,11 @@ import { FormsModule } from '@angular/forms';
     ProductPageComponent,
     ShoppingCartComponent,
     CheckoutComponent,
+    ProfilePageComponent,
+    OrdersPageComponent,
+    SideBarComponent,
+    UserPanelLayoutComponent,
+    OrderPageComponent
   ],
   imports: [
     CommonModule,
