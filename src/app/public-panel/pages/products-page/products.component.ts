@@ -125,17 +125,6 @@ export class ProductsComponent implements OnInit{
     return this.productService.productList();
   }
 
-  searchCategory(id: number){
-
-    this.router.navigate(['products'], {
-      queryParams: { category: id, page: 1 },
-      queryParamsHandling: 'merge',
-    });
-
-    this.paginator?.firstPage();
-
-  }
-
   searchSort(event: any){
     const {orderBy, sortOrder} = event.value;
 

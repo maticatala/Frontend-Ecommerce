@@ -17,7 +17,7 @@
       </mat-card-header>
       <mat-card-content>
         <div *ngFor="let order of userOrders" class="pt-4">
-          <div class="grid grid-cols-6 gap-1 mb-2 border-solid border-2 border-slate-100 rounded-xl p-3 cursor-pointer lg:p-4 lg:gap-2 text-slate-400 text-sm transition-all duration-100 ease-linear hover:border-slate-300" [routerLink]="['/orders', order.id]">
+          <div class="grid grid-cols-6 gap-1 mb-2 border-solid border-2 border-slate-500 rounded-xl p-3 cursor-pointer lg:p-4 lg:gap-2  text-sm transition-all duration-100 ease-linear hover:border-slate-300" [routerLink]="['/orders', order.id]">
             <div class="col-span-3 lg:col-span-2">
               <span>Código: </span>
               <span class="font-medium">{{order.id}}</span>

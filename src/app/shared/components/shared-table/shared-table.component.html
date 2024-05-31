@@ -3,7 +3,7 @@
     <mat-form-field appearance="outline" class="mr-auto" *ngIf="filterOff">
       <input matInput (keyup)="FilterChange($event)" placeholder="Filter" />
     </mat-form-field>
-    <button *ngIf="addNew" type="button" mat-fab extended color="primary" (click)="agregarElemento($event)">
+    <button color="accent" *ngIf="addNew" type="button" mat-fab extended (click)="agregarElemento($event)">
       <mat-icon>add</mat-icon>
       Add new
     </button>

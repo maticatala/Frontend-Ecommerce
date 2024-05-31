@@ -5,7 +5,7 @@
   font-weight: 500;
   line-height: 1.7;
   color: #60697b;
-  background-color: #fefefe;
+  background-color: var(--primary);
   background-clip: padding-box;
   border: 1px solid rgba(8, 60, 130, .07);
   -webkit-appearance: none;

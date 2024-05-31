@@ -7,7 +7,7 @@
   z-index: 1000;
   transition: transform 0.3s ease;
   padding: 2rem;
-  background-color: var(--background-color);
+  background-color: var(--primary);
   overflow-y: scroll;
 }
 

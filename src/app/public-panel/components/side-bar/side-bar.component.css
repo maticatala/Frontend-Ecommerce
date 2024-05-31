@@ -1,10 +1,7 @@
-mat-list-item {
-  color: rgba(0, 0, 0, 0.54);
-}
 
 mat-list-item.active{
-  background-color: var(--text-color);
-  color: var(--primary) !important;
+   color: var(--accent);
+  border-left: 5px solid var(--accent);
 }
 
 .mdc-list-item--with-leading-icon .mdc-list-item__start {

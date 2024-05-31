@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="fix-nav">
-  <button type="button" mat-icon-button (click)="toggleSidebar()">
+  <button type="button" color="accent" mat-icon-button (click)="toggleSidebar()">
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
   <span class="hidden lg:block text-center">
@@ -8,13 +8,13 @@
   <span class="example-spacer"></span>
 
 
-  <button *ngIf="finishedUserCheck()" mat-button [matMenuTriggerFor]="menu" class="flex items-center p-1">
+  <button *ngIf="finishedUserCheck()" mat-button [matMenuTriggerFor]="menu" class=" flex items-center p-1">
     <mat-icon class="scale-[2]">person</mat-icon>
     <span class="flex flex-col items-start text-xs ml-2">
       <div>{{currentUser?.firstName || 'no name' | titlecase}} {{currentUser?.lastName | titlecase}}</div>
       <div>{{currentUser?.email}}</div>
     </span>
-    <mat-icon iconPositionEnd>expand_more</mat-icon>
+    <mat-icon color="accent" iconPositionEnd>expand_more</mat-icon>
   </button>
 
   <div *ngIf="!finishedUserCheck()">

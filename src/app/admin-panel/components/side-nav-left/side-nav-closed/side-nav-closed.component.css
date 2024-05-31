@@ -3,3 +3,7 @@
 .app-tree-node .app-tree-node {
   padding-left: 0px;
 }
+
+.selected {
+  border-left: 5px solid var(--accent);
+}

@@ -1,5 +1,5 @@
-<mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleSearch()">search</mat-icon>
-<div class="searchBar bg-gray-800 w-full flex flex-col" [ngClass]="{'-translate-y-full' : !isExpanded}">
+<mat-icon class="cursor-pointer hover:text-[var(--accent)]" (click)="toggleSearch()">search</mat-icon>
+<div class="searchBar bg-[var(--primary)] w-full flex flex-col" [ngClass]="{'-translate-y-full' : !isExpanded}">
   <div class="w-full p-[20px]">
     <div class="container flex items-center">
       <mat-icon>search</mat-icon>
@@ -12,7 +12,7 @@
   <button
     *ngFor="let tag of tags"
     (click)="clickedTag(tag)"
-    class="bg-gray-800 text-white hover:bg-gray-900 px-4 py-2 w-full flex items-center"
+    class="bg-[var(--primary)] text-white hover:text-[var(--accent)] transition-colors px-4 py-2 w-full flex items-center"
   >
     <mat-icon>history</mat-icon>
     <span class="mx-auto">{{ tag | titlecase }}</span>

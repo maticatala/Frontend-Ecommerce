@@ -4,10 +4,6 @@
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
 }
 
-.productPage{
-  background-color: #fff;
-}
-
 mat-card {
   box-shadow: none !important;
 }
@@ -20,14 +16,21 @@ mat-card {
   z-index: 1000;
   width: 75vw;
   transition: transform 0.3s ease;
-  background-color: white;
+  background-color: var(--primary);
+}
+
+.selected {
+  border-left: 5px solid var(--accent);
+
 }
 
 @media screen and (min-width:992px) {
   .filters {
     position: inherit;
     width: auto;
+    height: auto;
     transform: translate(0px);
     z-index: 998;
+    background: none;
   }
 }
