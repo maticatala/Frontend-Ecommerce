@@ -41,11 +41,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Description</mat-label>
-        <input
-          matInput
-          placeholder="description..."
-          formControlName="description"
-        />
+        <textarea matInput placeholder="description" formControlName="description"></textarea>
         <mat-hint
           customLabel
           [isTouched]="myForm.get('description')?.touched"

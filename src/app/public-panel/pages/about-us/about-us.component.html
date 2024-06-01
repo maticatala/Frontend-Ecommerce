@@ -1,3 +1,211 @@
-<div class="h-screen">
+<div class="container">
+  <section>
+    <div class="py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
+            <div class="max-w-lg">
+                <h2 class="text-3xl font-bold  sm:text-4xl">Bienvenidos a nuestra tienda en línea</h2>
+                <p class="mt-4 text-lg">Descubre una amplia gama de productos únicos y personalizados, fabricados con la última tecnología de impresión 3D.</p>
+                <div class="mt-8">
+                  <button class="chip accent" routerLink="/products">
+                    Explorar Productos
+                  </button>
+                </div>
+            </div>
+            <div class="mt-12 md:mt-0">
+                <img src="https://images.unsplash.com/photo-1611505908502-5b67e53e3a76?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8M2QlMjBwcmludGluZ3xlbnwwfHwwfHx8MA%3D%3D" alt="About Us Image" class="object-cover rounded-lg shadow-md">
+            </div>
+        </div>
+    </div>
+  </section>
+  <section class="py-24">
+    <h2 class="block antialiased tracking-normal  text-4xl font-bold leading-[1.3] mb-4">Acerca de nosotros</h2>
+    <div class="mt-10">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="flex flex-col bg-clip-border rounded-xl shadow-md border border-[var(--primary)]">
+          <div class=" bg-clip-border mt-4 rounded-xl overflow-hidden bg-transparent shadow-none !m-0 px-6">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Origen en Rosario</h3>
+          </div>
+          <div class="py-4 px-6 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Nuestra empresa nació en la ciudad de Rosario, Santa Fe, Argentina, con el objetivo de llevar la impresión 3D a un público más amplio.</p>
+          </div>
+        </div>
+        <div class="flex flex-col bg-clip-border rounded-xl shadow-md border border-[var(--primary)]">
+          <div class=" bg-clip-border mt-4 rounded-xl overflow-hidden bg-transparent shadow-none !m-0 px-6">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Equipo Apasionado</h3>
+          </div>
+          <div class="py-4 px-6 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Nuestro equipo está conformado por diseñadores, ingenieros y entusiastas de la tecnología, comprometidos con crear productos innovadores.</p>
+          </div>
+        </div>
+        <div class="flex flex-col col-span-1 md:col-span-2 lg:col-span-1 bg-clip-border rounded-xl shadow-md border border-[var(--primary)]">
+          <div class=" bg-clip-border mt-4 rounded-xl overflow-hidden bg-transparent shadow-none !m-0 px-6">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Visión Sustentable</h3>
+          </div>
+          <div class="py-4 px-6 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Nos enfocamos en producir de manera responsable, minimizando el impacto ambiental y promoviendo el uso de materiales reciclables.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="py-24">
+    <h2 class="block antialiased tracking-normal  text-4xl font-bold leading-[1.3] mb-4">Nuestros productos hechos con impresión 3D</h2>
+    <div class="mt-10">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="flex flex-col bg-clip-border">
+          <div class=" bg-clip-border mt-4overflow-hidden bg-transparent shadow-none !m-0">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Hogar y Decoración</h3>
+          </div>
+          <div class="py-4 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Desde floreros únicos hasta adornos personalizados, nuestros diseños para el hogar le dan un toque especial a cualquier espacio.</p>
+          </div>
+        </div>
+        <div class="flex flex-col bg-clip-border">
+          <div class=" bg-clip-border mt-4 overflow-hidden bg-transparent shadow-none !m-0">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Accesorios de Moda</h3>
+          </div>
+          <div class="py-4 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Descubre una selección de joyas, gafas y otros complementos de moda, todos creados con la más alta calidad.</p>
+          </div>
+        </div>
+        <div class="flex flex-col col-span-1 md:col-span-2 lg:col-span-1 bg-clip-border rounded-xl">
+          <div class=" bg-clip-border mt-4 overflow-hidden bg-transparent shadow-none !m-0">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Juguetes y Regalos</h3>
+          </div>
+          <div class="py-4 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Nuestros juguetes educativos y divertidos regalos son perfectos para sorprender a tus seres queridos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="py-24">
+    <div class="max-w-screen-md mx-auto flex flex-col justify-between">
+        <div class="text-center">
+            <p class="mt-4 text-sm leading-7 font-regular">
+                Pasos
+            </p>
+            <h3 class="text-3xl sm:text-5xl leading-normal font-extrabold tracking-tight ">
+                Proceso de <span class="text-[var(--accent)]">Fabricación</span>
+            </h3>
 
+        </div>
+        <div class="mt-20">
+            <ul class="">
+                <li class=" bg-[var(--primary)] p-5 pb-10 text-center mb-20">
+                    <div class="flex flex-col items-center">
+                        <div class="flex-shrink-0 relative top-0 -mt-16">
+                            <div
+                                class="flex items-center justify-center h-20 w-20 rounded-full accent border-4 border-[var(--accent)] text-xl font-semibold">
+                                1
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="text-lg leading-6 font-medium">Diseño</h4>
+                            <p class="mt-2 text-base leading-6 text-slate-200">
+                              Diseñamos los modelos digitales utilizando software de vanguardia.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class=" bg-[var(--primary)] p-5 pb-10 text-center mb-20">
+                  <div class="flex flex-col items-center">
+                      <div class="flex-shrink-0 relative top-0 -mt-16">
+                          <div
+                              class="flex items-center justify-center h-20 w-20 rounded-full accent border-4 border-[var(--accent)] text-xl font-semibold">
+                              2
+                          </div>
+                      </div>
+                      <div class="mt-4">
+                          <h4 class="text-lg leading-6 font-medium">Impresión</h4>
+                          <p class="mt-2 text-base leading-6 text-slate-200">
+                            Nuestras impresoras 3D materializan los diseños en productos de alta calidad.
+                          </p>
+                      </div>
+                  </div>
+              </li>
+              <li class=" bg-[var(--primary)] p-5 pb-10 text-center mb-20">
+                <div class="flex flex-col items-center">
+                    <div class="flex-shrink-0 relative top-0 -mt-16">
+                        <div
+                            class="flex items-center justify-center h-20 w-20 rounded-full accent border-4 border-[var(--accent)] text-xl font-semibold">
+                            3
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="text-lg leading-6 font-medium">Acabado</h4>
+                        <p class="mt-2 text-base leading-6 text-slate-200">
+                          Cada producto pasa por un meticuloso proceso de acabado y control de calidad.
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            </ul>
+        </div>
+
+    </div>
+  </section>
+  <section class="py-24">
+    <h2 class="block antialiased tracking-normal  text-4xl font-bold leading-[1.3] mb-4">Materiales y Tecnología</h2>
+    <div class="mt-10">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="flex flex-col bg-clip-border rounded-xl shadow-md border border-[var(--primary)]">
+          <div class=" bg-clip-border mt-4 rounded-xl overflow-hidden bg-transparent shadow-none !m-0 px-6">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Materiales Sostenibles</h3>
+          </div>
+          <div class="py-4 px-6 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Utilizamos una variedad de materiales reciclables y biodegradables, como PLA y PETG, para producir nuestros artículos.</p>
+          </div>
+        </div>
+        <div class="flex flex-col bg-clip-border rounded-xl shadow-md border border-[var(--primary)]">
+          <div class=" bg-clip-border mt-4 rounded-xl overflow-hidden bg-transparent shadow-none !m-0 px-6">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Innovación Familiar</h3>
+          </div>
+          <div class="py-4 px-6 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">En nuestra empresa, combinamos tradición y tecnología para crear productos de calidad que destacan por su precisión y eficiencia.</p>
+          </div>
+        </div>
+        <div class="flex flex-col col-span-1 md:col-span-2 lg:col-span-1 bg-clip-border rounded-xl shadow-md border border-[var(--primary)]">
+          <div class=" bg-clip-border mt-4 rounded-xl overflow-hidden bg-transparent shadow-none !m-0 px-6">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Control de Calidad</h3>
+          </div>
+          <div class="py-4 px-6 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Cada pieza pasa por un cuidadoso proceso de inspección para asegurar su durabilidad y perfección, manteniendo nuestros altos estándares familiares.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="pt-24 pb-40">
+    <h2 class="block antialiased tracking-normal  text-4xl font-bold leading-[1.3] mb-4">Envíos a todo el país</h2>
+    <div class="mt-10">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="flex flex-col bg-clip-border">
+          <div class=" bg-clip-border mt-4overflow-hidden bg-transparent shadow-none !m-0">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Entregas Rápidas</h3>
+          </div>
+          <div class="py-4 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Hacemos envíos en todo el territorio argentino en un plazo de 3 a 7 días hábiles.</p>
+          </div>
+        </div>
+        <div class="flex flex-col bg-clip-border">
+          <div class=" bg-clip-border mt-4 overflow-hidden bg-transparent shadow-none !m-0">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Embalaje Seguro</h3>
+          </div>
+          <div class="py-4 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Tus productos serán enviados en embalajes resistentes y cuidadosos para garantizar su llegada en perfectas condiciones.</p>
+          </div>
+        </div>
+        <div class="flex flex-col col-span-1 md:col-span-2 lg:col-span-1 bg-clip-border rounded-xl">
+          <div class=" bg-clip-border mt-4 overflow-hidden bg-transparent shadow-none !m-0">
+            <h3 class="antialiased tracking-normal text-2xl font-medium leading-snug flex gap-1 mt-4">Cobertura Nacional</h3>
+          </div>
+          <div class="py-4 border-blue-gray-50">
+           <p class="block antialiased text-lg leading-normal font-normal">Llegamos a todas las provincias y regiones de Argentina, incluyendo las más remotas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
