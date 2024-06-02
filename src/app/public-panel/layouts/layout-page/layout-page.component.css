@@ -10,6 +10,15 @@
 
 public-panel-header {
   grid-area: header;
+  position: fixed;
+  width: 100%;
+  z-index: 1001;
+  top: 0;
+  transition: background-color 0.3s;
+}
+
+.scrolled {
+  background: var(--primary);
 }
 
 main {

@@ -1,6 +1,6 @@
 <div class="layout-container mat-app-background">
 
-  <public-panel-header></public-panel-header>
+  <public-panel-header [ngClass]="{'scrolled': scrolled}"></public-panel-header>
 
   <main>
     <router-outlet></router-outlet>
