@@ -1,0 +1,21 @@
+<mat-icon class="cursor-pointer hover:text-[var(--accent)]" (click)="toggleSearch()">search</mat-icon>
+<div class="searchBar bg-[var(--primary)] w-full flex flex-col" [ngClass]="{'-translate-y-full' : !isExpanded}">
+  <div class="w-full p-[20px]">
+    <div class="container flex items-center">
+      <mat-icon>search</mat-icon>
+      <input #searchInput class="searchInput text-lg" type="text" placeholder="¿Qué es lo que estás buscando?" (keyup.enter)="searchTag($event)">
+      <button  class="cursor-pointer">
+        <mat-icon (click)="toggleSearch()">close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <button
+    *ngFor="let tag of tags"
+    (click)="clickedTag(tag)"
+    class="bg-[var(--primary)] text-white hover:text-[var(--accent)] transition-colors px-4 py-2 w-full flex items-center"
+  >
+    <mat-icon>history</mat-icon>
+    <span class="mx-auto">{{ tag | titlecase }}</span>
+  </button>
+</div>
+<div (click)="toggleSearch()" [ngClass]="{'shadowlg' : isExpanded}"></div>

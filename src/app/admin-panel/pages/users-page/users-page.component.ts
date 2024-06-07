@@ -1,119 +1,109 @@
 import { User } from './../../../auth/interfaces/user.interface';
-import { Component, /*EventEmitte,*/ HostListener, OnInit, /*Output,*/ ViewChild, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { SpecialKeys } from 'src/app/shared/interfaces';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+
+import { Column } from 'src/app/shared/interfaces';
+import { MatDialog } from '@angular/material/dialog';
+import { UserAddEditComponent } from '../../components/user-add-edit/user-add-edit.component';
+import { DialogConfirmComponent } from 'src/app/shared/components/dialog-confirm/dialog-confirm.component';
+import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
+
 
 
 @Component({
   templateUrl: './users-page.component.html',
   styleUrls: ['./users-page.component.css'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
 })
 export class UsersPageComponent implements OnInit{
-
   private usersService = inject(UsersService)
-  private debounceTimer?: NodeJS.Timeout; //* Sirve para esperar hasta que el usuario termine de ingresar texto en el input y asi no sobrecargarlo
-  public dataSource: any;
-  public displayedColumns: string[] = ["id", "email", "name", "createdAt", "action"];
-  public columnsToDisplayWithExpand = ['expand', ...this.displayedColumns];
-  public expandedElement: User | null = null;
+  private _cusSnackbar = inject(CustomSnackbarService);
+  public dataSource = new MatTableDataSource();
 
-  // El metodo eventData manda la info por su metodo emit, el cual sera llamado cuando se haga click en un registro de la tabla
-  //@Output() eventData = new EventEmitter<any>();
+  columns: Column[] = [
+    {id:'id',        label:'ID',       breakpoint: 'md'                  },
+    {id:'email',     label:'Email',    breakpoint: 'static'              },
+    {id:'firstName', label:'Nombre',   breakpoint: 'lg'                  },
+    {id:'lastName',  label:'Apellido', breakpoint: 'lg'                  },
+    {id:'createdAt', label:'Creado',   breakpoint: 'lg',    pipe: 'date' },
+    {id:'rol',       label:'Rol',      breakpoint: 'sm'                  },
+    {id:'action',    label:'Acciones', breakpoint: 'static'              },
+  ]
 
-  /* Invoca el metodo emit
-  selectedRow(row: any): void{
-    this.eventData.emit(row);
-  }
-  */
+  constructor(private dialog: MatDialog){}
 
-  @ViewChild(MatPaginator)
-  paginator !: MatPaginator;
+  ngOnInit(){
 
-  @ViewChild(MatSort)
-  sort !: MatSort;
-
-  get users() {
-    return this.usersService.users();
-  }
-
-  ngOnInit(): void {
-    this.fetchUsers();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    const windowWidth = window.innerWidth;
-
-    if (windowWidth >= 1280) {
-      this.displayedColumns = ["id", "email", "name", "createdAt", "action"];
-      this.columnsToDisplayWithExpand = ['expand', ...this.displayedColumns];
-    } else if (windowWidth >= 1024) {
-      this.displayedColumns = ["id", "email", "name", "action"];
-      this.columnsToDisplayWithExpand = ['expand', ...this.displayedColumns];
-    } else if (windowWidth >= 768) {
-      this.displayedColumns = ["email", "name", "action"];
-      this.columnsToDisplayWithExpand = ['expand', ...this.displayedColumns];
-    } else if (windowWidth >= 640) {
-      this.displayedColumns = ["email", "action"];
-      this.columnsToDisplayWithExpand = ['expand', ...this.displayedColumns];
-    } else {
-      // Lógica para pantallas más pequeñas que sm (por ejemplo, xs)
-    }
+    this.setUserList();
 
   }
 
-  fetchUsers(): void {
-    this.usersService.getUsers()
-      .subscribe( users => {
-        this.dataSource = new MatTableDataSource<User>(users);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+  private setUserList(): void {
+    this.usersService.getUsers().subscribe( result => {
+
+      if(result.length > 0){
+        const rows: any = [];
+
+        result.forEach((element:any,index:number)=> {
+          element['recId'] = index +1;
+          rows.push(element)
+        });
+
+        this.dataSource.data = rows;
+      }
+    })
   }
 
-  FilterChange(e: KeyboardEvent): void {
+  onElementoEditado(user: User) {
+    const dialogRef = this.dialog.open(UserAddEditComponent, {
+      data: user,
+    });
 
-    if (this.isSpecialKey(e)) return;
-
-    if (this.debounceTimer) clearTimeout(this.debounceTimer)
-
-    const value = (e.target as HTMLInputElement).value;
-
-    this.debounceTimer = setTimeout(() => {
-      this.dataSource.filter = value;
-    }, 350);
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) this.setUserList();
+      }
+    })
   }
 
-  isSpecialKey(event: KeyboardEvent): boolean {
-    // Define una función para determinar si una tecla es especial
-    let specialKeys: SpecialKeys[] = Object.values(SpecialKeys);
+  onElementoEliminado(user: User) {
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {
+      data: {
+        type: 'Usuario',
+        object: user.email,
+      }
+    });
 
-    return specialKeys.includes(event.key as SpecialKeys);
+
+
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (!val) return;
+
+        this.usersService.deleteUser(user.id).subscribe({
+          next: (res) => {
+            this.setUserList();
+            this._cusSnackbar.openCustomSnackbar("done", "Delete Successfuly!", "Okay", 3000, 'success');
+          },
+          error: (e) => {
+            console.log(e);
+            let message = e.message;
+            if (e.error.message) message = e.error.message
+
+            this._cusSnackbar.openCustomSnackbar("error", message, "Okay", 3000, 'danger');
+          }
+        });
+      }
+    })
   }
 
-  // onPaginateChange(event: PageEvent) {
-  //   let page = event.pageIndex;
-  //   let size = event.pageSize;
+  onAddElement(event: any) {
+    const dialogRef = this.dialog.open(UserAddEditComponent);
 
-  //   page = page + 1;
-
-  //   this.usersService.getUsers(page, size)
-  //   .subscribe(({ results, meta }) => {
-  //       this._users.set(results);
-  //       this._meta.set(meta);
-  //       this.dataSource = new MatTableDataSource<User>(this._users());
-  //     });
-  // }
-
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) this.setUserList();
+      }
+    })
+  }
 }

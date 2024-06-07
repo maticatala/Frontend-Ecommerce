@@ -1,0 +1,77 @@
+<footer class="primary">
+  <div class="container py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center ">
+      <div class="mb-5">
+        <h4><strong>Donde estamos?</strong></h4>
+        <br />
+        <div class="flex justify-center gap-2">
+          <mat-icon>place</mat-icon>
+          <p>Rosario, Santa Fe - Argentina</p>
+        </div>
+      </div>
+      <div class="mb-5">
+        <h4><strong>Links</strong></h4>
+        <ul>
+          <br />
+          <li class="pb-4">
+            <i class="fa fa-chevron-right"></i
+            ><a
+              href="http://localhost:4200/home"
+              class="hover:text-yellow-500"
+              >Inicio</a
+            >
+          </li>
+          <li class="pb-4">
+            <i class="fa fa-chevron-right"></i
+            ><a
+              href="http://localhost:4200/products"
+              class="hover:text-yellow-500"
+              >Productos</a
+            >
+          </li>
+          <li class="pb-4">
+            <i class="fa fa-chevron-right"></i
+            ><a
+              href="http://localhost:4200/aboutUs"
+              class="hover:text-yellow-500"
+              >Sobre Nosotros</a
+            >
+          </li>
+          <li></li>
+        </ul>
+      </div>
+      <div class="mb-5">
+        <ul>
+          <li>
+            <h4><strong>Contactanos!</strong></h4>
+            <br />
+            <mat-icon>phone</mat-icon> <br />
+            <mat-icon>message</mat-icon> <br />
+            <mat-icon>email</mat-icon> <br />
+          </li>
+        </ul>
+      </div>
+      <div class="mb-5">
+        <strong>Nuestros Serivicios</strong> <br />
+        <ul>
+          <li>Impresiones 3D</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div>
+  <button
+    (click)="goToTop()"
+    class="hover:brightness-125 primary border-gray-300 border px-4 py-3 fixed bottom-4 right-4 rounded-full transition-opacity duration-500"
+    [ngClass]="{
+      'opacity-0': !showButton,
+      'opacity-100': showButton,
+      'invisible': !showButton
+    }">
+    <mat-icon class="pt-1">
+      keyboard_arrow_up
+    </mat-icon>
+  </button>
+</div>

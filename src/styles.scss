@@ -1,0 +1,111 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import './custom.scss';
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mdc-notched-outline__notch {
+  border-right: none !important;
+}
+
+/* COLOR */
+
+.text-danger {
+  color: var(--danger);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.text-info {
+  color: var(--info);
+}
+
+.primary {
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+}
+
+.primary-reverse {
+  background-color: var(--primary-contrast);
+  color: var(--primary)
+}
+
+.accent {
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.accent-reverse {
+  background-color: var(--accent-contrast);
+  color: var(--accent);
+}
+
+/* COLOR */
+
+
+.icon {
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: var(--primary);
+}
+
+.d-none {
+  display: none !important;
+}
+
+.shadow, .shadowlg {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.chip, .chiplg {
+  width: 100%;
+  min-height: 50px;
+  border-radius: .3rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: .7rem 1rem;
+  font-size: small;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+@media screen and (min-width: 992px) {
+  .d-lg-none {
+    display: none !important;
+  }
+
+  .d-lg-block {
+    display: block !important;
+  }
+
+  .shadow {
+    display: none;
+  }
+
+  .chip {
+    width: 200px;
+  }
+}

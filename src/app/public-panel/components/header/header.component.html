@@ -1,0 +1,66 @@
+<header >
+  <div class="container header-container">
+
+    <a class="logo" routerLink="/home">
+      <img src="../../../assets/images/logo2.png" alt="logo">
+    </a>
+
+    <nav class="nav" [ngClass]="{'-translate-x-full' : !isMenuOpen}">
+      <div class="toggleBtn">
+        <button class="ml-auto m-8" id="toggle" (click)="toggleMenu()">
+          <mat-icon class="text-white">close</mat-icon>
+        </button>
+      </div>
+      <ul class="nav-list" (click)="toggleMenu()">
+        <li><a class="nav-link" routerLink="/home">inicio</a></li>
+        <li><a class="nav-link" routerLink="/products">Productos</a></li>
+        <li><a class="nav-link" routerLink="/about-us">Nosotros</a></li>
+        <li><a class="nav-link" routerLink="/contact">Contacto</a></li>
+      </ul>
+    </nav>
+    <div (click)="toggleMenu()" [ngClass]="{'shadow' : isMenuOpen}"></div>
+
+    <div class="icons">
+      <public-search-bar class="flex justify-center"/>
+
+      <public-shopping-cart class="flex justify-center"/>
+
+      <div class="flex justify-center" *ngIf="currentUser">
+        <div class="d-none d-lg-block">
+          <button mat-button [matMenuTriggerFor]="menu" class="flex items-center p-1">
+            <mat-icon class="scale-[1.5] text-white">person</mat-icon>
+            <span class="flex flex-col items-start text-xs ml-2 text-white">
+              <div>{{currentUser.firstName || 'no name' | titlecase}}</div>
+            </span>
+          </button>
+        </div>
+
+        <mat-icon class="d-lg-none text-white" [matMenuTriggerFor]="menu">person</mat-icon>
+
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item routerLink="/profile">
+            <mat-icon>person</mat-icon>
+            <span>Perfil</span>
+          </button>
+          <button mat-menu-item routerLink="/orders">
+            <mat-icon>inventory_2</mat-icon>
+            <span>Pedidos</span>
+          </button>
+          <button *ngIf="currentUser?.rol === 'admin'" mat-menu-item routerLink="/dashboard">
+            <mat-icon>home</mat-icon>
+            <span>Admin Panel</span>
+          </button>
+          <button mat-menu-item (click)="Logout()" routerLink="/">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </div>
+
+      <mat-icon *ngIf="!currentUser" class="cursor-pointer hover:text-blue-700" routerLink="auth/login">person</mat-icon>
+
+      <mat-icon class="d-lg-none" (click)="toggleMenu()">menu</mat-icon>
+    </div>
+
+  </div>
+</header>

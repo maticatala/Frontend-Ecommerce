@@ -1,18 +1,17 @@
-<form class="bg-white w-full px-10 py-12 rounded-3xl border-2 border-gray-100"
+<form class="bg-white w-full px-10 py-12 rounded-3xl border-2 border-gray-100 text-gray-500"
   [formGroup]="myForm"
   (ngSubmit)="onSubmit()"
 >
 
-  <h1 class="text-5xl font-semibold">Welcome Back</h1>
-  <p class="font-medium text-lg text-gray-500 mt-4">Welcome Back! Please enter your details</p>
-
+  <h1 class="text-5xl text-gray-900 font-semibold ">Bienvenido!</h1>
+  <p class="font-medium text-lg  mt-4">Ingrese sus datos para iniciar sesión</p>
   <div class="mt-8">
     <div>
-      <label class="text-lg font-medium" for="email">Email</label>
+      <label class="text-lg font-medium " for="email">Email</label>
       <input
         type="text"
         class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
-        placeholder="Enter your email"
+        placeholder="Ingrese su email"
         name="email"
         id="email"
         autocomplete="email"
@@ -21,12 +20,12 @@
       <p customLabel [isTouched]="myForm.get('email')?.touched" [errors]="myForm.get('email')?.errors"></p>
     </div>
     <div>
-      <label class="text-lg font-medium" for="password">Password</label>
+      <label class="text-lg font-medium " for="password">Contraseña</label>
       <div class="relative">
         <input
           [type]="password()"
           class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
-          placeholder="Enter your Password"
+          placeholder="Ingrese su contraseña"
           name="password"
           id="password"
           formControlName="password"
@@ -55,18 +54,19 @@
       <div>
         <input
           type="checkbox"
-          id="remember"
+          id="keepLogged"
+          formControlName="keepLogged"
         >
-        <label class="ml-2 font-medium text-base" for="remember">Remember for 30 days</label>
+        <label class="ml-2 font-medium text-base " for="keepLogged">Mantenerme logueado</label>
       </div>
-      <button type="button" class="font-medium text-base text-teal-500">Forgot Password</button>
+      <button type="button" class="font-medium text-base text-gray-600">Olvide mi contraseña</button>
     </div>
     <div class="mt-8 flex flex-col">
-      <button type="submit" class="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out py-3 rounded-xl bg-teal-500 text-white text-lg font-bold">Sign in</button>
+      <button type="submit" class="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out py-3 rounded-xl accent text-lg font-bold">Iniciar Sesión</button>
     </div>
     <div class="mt-8 flex justify-center items-center">
-      <p class="font-medium text-base">Don't have an account?</p>
-      <button type="button" class="text-teal-500 text-base font-medium ml-2" routerLink="/auth/register">Sign up</button>
+      <p class="font-medium text-base ">No tienes una cuenta?</p>
+      <button type="button" class="text-gray-600 text-base font-medium ml-2" routerLink="/auth/register">Registrarse</button>
     </div>
   </div>
 </form>

@@ -1,8 +1,25 @@
-<div class="flex overflow-x-hidden h-screen">
-  <div class="sticky top-0 self-start">
-    <admin-side-bar />
-  </div>
-  <div class="content grow h-full p-2">
-    <router-outlet></router-outlet>
-  </div>
+
+<div class="layout-container font-regular">
+  <admin-top-nav (sideNavToggled)="onToolbarMenuToggle()"></admin-top-nav>
+  <mat-sidenav-container class="flex-1" [hasBackdrop]="hasBackdrop">
+    <mat-sidenav #snav position="start" role="navigation" class="p-2 transition-[width] mat-elevation-z10"
+      [mode]="sideNavMode" [opened]="sideNavDefaultOpened"
+      [ngClass]="isExpanded ? 'w-[250px]' : 'w-[90px]'"
+      >
+      <admin-side-nav *ngIf="showFullMenu; else elseBlock" (buttonClick)="closeInSm()"></admin-side-nav>
+
+      <ng-template #elseBlock>
+        <admin-side-nav-closed></admin-side-nav-closed>
+      </ng-template>
+
+    </mat-sidenav>
+  <mat-sidenav-content role="rigion" id="sidenav-content"
+    [ngStyle]="{'margin-left.px': isExpanded && !isMobile ? 250 :  90}"
+    class="transition-[margin-left]"
+  >
+      <main class="p-2">
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

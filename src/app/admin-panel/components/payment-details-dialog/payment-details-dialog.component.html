@@ -1,0 +1,26 @@
+<h2 mat-dialog-title class="mt-0">Detalles del Pago</h2>
+<mat-dialog-content>
+  <p><strong>ID del Pago:</strong> {{ payment.id }}</p>
+  <p><strong>Fecha del Pago:</strong> {{ payment.paymentDate | date:'d/M/yy, h:mm a' }}</p>
+  <p><strong>Método de Pago:</strong> {{ payment.paymentType }}</p>
+  <p><strong>Total pagado:</strong> {{ payment.amount }}</p>
+  <p><strong>Moneda:</strong> {{ payment.currency }}</p>
+  <p><strong *ngIf="payment.transactionId">Id de transacción:</strong> {{ payment.transactionId }}</p>
+
+  <div class="flex items-center gap-2 mt-2">
+    <div class="w-40 p-2 primary rounded-sm">
+      <mat-select [(value)]="paymentInitialStatus">
+        <mat-option *ngFor="let status of paymentStatus | keyvalue" [value]="status.value" >
+          {{ status.key }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <button mat-raised-button color="accent" (click)="updatePaymentStatus()" [disabled]="paymentInitialStatus === payment.status">
+      Actualizar estado
+    </button>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+

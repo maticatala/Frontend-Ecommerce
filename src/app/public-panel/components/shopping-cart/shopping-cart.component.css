@@ -1,0 +1,41 @@
+.shoppingCart {
+  position: fixed;
+  width: 90vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  padding: 2rem;
+  background-color: var(--primary);
+  overflow-y: scroll;
+}
+
+.shoppingCart::-webkit-scrollbar {
+  display: none;
+}
+
+.input-group {
+  display: flex;
+  border-radius: .3rem;
+  overflow: hidden;
+  width: 80px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-btn {
+  width: 23px;
+  padding: .2rem 0;
+}
+
+.disabled {
+  color: gray;
+}
+
+@media screen and (min-width: 576px) {
+  .shoppingCart {
+    width: 400px;
+  }
+
+}

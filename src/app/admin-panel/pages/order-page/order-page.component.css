@@ -1,0 +1,54 @@
+.orderContainer {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "estado  estado   estado"
+    "cliente producto producto"
+    "pagos   producto producto";
+  gap: 10px;
+}
+
+.pagos {
+  grid-area: pagos;
+}
+
+.cliente {
+  grid-area: cliente;
+}
+
+.productos {
+  grid-area: producto;
+}
+
+.estado {
+  grid-area: estado;
+}
+
+.client-data-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .5rem;
+  margin-top: .5rem;
+}
+
+@media (max-width: 991px) {
+
+  .orderContainer {
+    grid-template-columns: 1fr;
+    grid-template-rows:auto minmax(60px, auto) auto;
+    grid-template-areas:
+      "estado"
+      "cliente"
+      "pagos"
+      "producto";
+  }
+
+  .client-data-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .5rem;
+    margin-top: .5rem;
+  }
+}
+

@@ -14,6 +14,15 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -32,7 +41,16 @@ import { MatSortModule } from '@angular/material/sort';
     MatSliderModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    CdkTreeModule,
+    MatChipsModule,
+    MatProgressSpinnerModule,
+    MatStepperModule,
+    MatRadioModule,
   ]
 })
 export class AngularMaterialModule { }

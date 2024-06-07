@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { EmailValidator } from 'src/app/shared/validators/email-validator.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -16,11 +16,11 @@ export class RegisterPageComponent {
   private router = inject(Router)
 
   public myForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)], [ new EmailValidator() ]],
+    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(4)], []],
-    password2: ['', [Validators.required], []]
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    password2: ['', [Validators.required]]
   }, {
     validators: [
       this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2'),
@@ -39,21 +39,24 @@ export class RegisterPageComponent {
 
 
   onSubmit(): void {
-    const { email, password, firstName, lastName } = this.myForm.value;
-    const name = firstName + ' ' + lastName;
-
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
-      this.myForm.markAsDirty();
-      this.myForm.markAsPristine();
-      this.myForm.markAsTouched();
       return;
     };
 
-    this.authService.register(email, password, name)
+    const { password2, ...user } = this.myForm.value;
+
+    this.authService.register( user )
     .subscribe({
       next: () => {
-        this.router.navigateByUrl('/auth/login');
+        this.router.navigateByUrl('/dashboard');
+      },
+      error: (e: any) => {
+        if (!Array.isArray(e)) {
+          this.myForm.get('email')?.setErrors({emailTaken: true});
+        } else {
+          console.log(e)
+        }
       }
     });
 

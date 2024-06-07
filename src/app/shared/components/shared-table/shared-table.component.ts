@@ -1,90 +1,81 @@
-import { Component, Input, ChangeDetectionStrategy, AfterContentInit, OnDestroy, ViewChild, ChangeDetectorRef, NgZone, OnInit } from "@angular/core";
-import { ViewportRuler } from "@angular/cdk/scrolling";
+import { Component, Input, ChangeDetectionStrategy, AfterContentInit, OnDestroy, ViewChild, ChangeDetectorRef, NgZone, OnInit, HostListener, Output, EventEmitter } from "@angular/core";
 import { FormControl } from '@angular/forms';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { Subscription } from "rxjs";
 
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
-import { MatTable, MatTableDataSource } from "@angular/material/table";
-import { MatSort } from "@angular/material/sort";
-import { Column } from "../../interfaces";
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTable } from '@angular/material/table';
+
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Column, SpecialKeys } from "../../interfaces";
+import { environment } from "src/app/environments/environments";
+import { CurrencyPipe, DatePipe, UpperCasePipe } from "@angular/common";
 
 
 @Component({
   selector: 'shared-table',
   templateUrl: './shared-table.component.html',
-  styleUrls: ['./xd.scss'],
+  styleUrls: ['./shared-table.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0', visibility: 'hidden'})),
-      state('expanded', style({height: '*', visibility: 'visible'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+  trigger('detailExpand', [
+    state(
+      'collapsed',
+      style({ height: '0', minHeight: '0', visibility: 'hidden' })
+    ),
+    state('expanded', style({ maxHeight: 'min-content', visibility: 'visible' })),
+    transition('expanded <=> collapsed', [
+      animate('250ms ease-in-out'),
     ]),
-  ],
+  ]),
+],
 })
-export class SharedTableComponent implements AfterContentInit, OnDestroy, OnInit  {
 
-  public MIN_COLUMN_WIDTH:number = 200;
+export class SharedTableComponent implements AfterContentInit  {
+
+  public readonly baseUrl: string = environment.baseUrl;
+  private uppercasePipe = new UpperCasePipe();
+  private datePipe = new DatePipe('en-US');
+  private currencyPipe = new CurrencyPipe('en-US');
+  private debounceTimer?: NodeJS.Timeout; //* Sirve para esperar hasta que el usuario termine de ingresar texto en el input y asi no sobrecargarlo
 
   // Filter Fields
-  generalFilter = new FormControl
+  private generalFilter = new FormControl
 
   // Visible Hidden Columns
-  visibleColumns!: Column[];
-  hiddenColumns!: Column[];
-  expandedElement: any = {}
+  public visibleColumns?: Column[];
+  public hiddenColumns?: Column[];
+  public expandedElement:any = {}
 
   // MatPaginator Inputs
-  length = 100;
-  pageSize = 5;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [10, 25, 100];
 
   // MatPaginator Output
-  pageEvent!: PageEvent;
+  public  pageEvent?: PageEvent;
 
   // Shared Variables
   @Input() dataSource!: MatTableDataSource<any>;
   @Input() columnsdef!: Column[];
+  @Input() addNew: boolean = true;
+  @Input() filterOff: boolean = true;
+  @Input() paginatorOff: boolean = true;
 
   // MatTable
   @ViewChild(MatTable, { static: true })  dataTable!: MatTable<Element>;
-  @ViewChild(MatSort, {static:true}) sort!: MatSort;
-  @ViewChild(MatPaginator,{static:true}) paginator!: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
-  private rulerSubscription: Subscription;
+  // Output Events
+  @Output() elementoEditado = new EventEmitter<any>();
+  @Output() elementoEliminado = new EventEmitter<any>();
+  @Output() elementoAgregado = new EventEmitter<any>();
 
+  constructor(private _changeDetectorRef: ChangeDetectorRef){}
 
-  get visibleColumnsIds() {
-    const visibleColumnsIds = this.visibleColumns.map(column => column.id)
-
-    return this.hiddenColumns.length ? ['trigger', ...visibleColumnsIds] : visibleColumnsIds
-  }
-
-  get hiddenColumnsIds() {
-    return this.hiddenColumns.map(column => column.id)
-  }
-
-  isExpansionDetailRow = (index: any, item:any) => item.hasOwnProperty('detailRow');
-
-
-  constructor(private ruler: ViewportRuler, private _changeDetectorRef: ChangeDetectorRef, private zone: NgZone) {
-    this.rulerSubscription = this.ruler.change(100).subscribe(data => {
-      // accesing clientWidth cause browser layout, cache it!
-      // const tableWidth = this.table.nativeElement.clientWidth;
-      this.toggleColumns(this.dataTable['_elementRef'].nativeElement.clientWidth);
-    });
-  }
-
-  /**
-   * Lifecycle Hook Start
-   */
-
-  ngOnInit(){
-  }
   ngAfterContentInit() {
-    // console.log(this.dataTable['_elementRef'].nativeElement.clientWidth)
-    this.toggleColumns(this.dataTable['_elementRef'].nativeElement.clientWidth);
+    this.toggleColumns();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
 
@@ -95,48 +86,100 @@ export class SharedTableComponent implements AfterContentInit, OnDestroy, OnInit
 
   }
 
-  ngOnDestroy() {
-    this.rulerSubscription.unsubscribe();
+  get visibleColumnsIds() {
+    if (!this.visibleColumns) return;
+
+    const visibleColumnsIds = this.visibleColumns.map(column => column.id)
+
+    return this.hiddenColumns!.length ? ['trigger', ...visibleColumnsIds] : visibleColumnsIds
   }
 
-  /**
-   * Lifecycle Hook End
-   */
-
-  applyFilter(e: KeyboardEvent) {
-    const value = (e.target as HTMLInputElement).value
-
-    this.dataSource.filter = value;
+  get hiddenColumnsIds() {
+    if (!this.hiddenColumns) return
+    return this.hiddenColumns.map(column => column.id)
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.toggleColumns();
+  }
 
-  toggleColumns(tableWidth: number){
-    //console.log('tableWidth',tableWidth)
-    this.zone.runOutsideAngular(() => {
-      const sortedColumns = this.columnsdef.slice()
-        .map((column, index) => ({ ...column, order: index }))
-        .sort((a, b) => a.hideOrder - b.hideOrder);
+  toggleColumns() {
+    const tableWidth = window.innerWidth; // Obtén el ancho de la ventana
+    const breakpoints = {
+      static: 0,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280
+    };
 
-      for (const column of sortedColumns) {
-        const columnWidth = column.width ? column.width : this.MIN_COLUMN_WIDTH;
-        //console.log('columnWidth',columnWidth)
+    this.columnsdef.forEach((column) => {
+      const breakpoint = column.breakpoint; // Supongamos que cada columna tiene una propiedad "breakpoint"
 
-        if (column.hideOrder && tableWidth < columnWidth) {
-          column.visible = false;
-
-          continue;
-        }
-
-        tableWidth -= columnWidth;
+      if (breakpoints[breakpoint] && tableWidth < breakpoints[breakpoint]) {
+        column.visible = false;
+      } else {
         column.visible = true;
       }
+    });
 
-      this.columnsdef = sortedColumns.sort((a, b) => a.order - b.order);
-      this.visibleColumns = this.columnsdef.filter(column => column.visible);
-      this.hiddenColumns = this.columnsdef.filter(column => !column.visible)
-    })
+    this.visibleColumns = this.columnsdef.filter((column) => column.visible);
+    this.hiddenColumns = this.columnsdef.filter((column) => !column.visible);
 
     this._changeDetectorRef.detectChanges();
+  }
+
+
+  // Barra de búsqueda
+
+  FilterChange(e: KeyboardEvent): void {
+
+    if (this.isSpecialKey(e)) return;
+
+    if (this.debounceTimer) clearTimeout(this.debounceTimer)
+
+    const value = (e.target as HTMLInputElement).value;
+
+    this.debounceTimer = setTimeout(() => {
+      this.dataSource.filter = value;
+      console.log(this.dataSource);
+    }, 350);
+  }
+
+  isSpecialKey(event: KeyboardEvent): boolean {
+    // Define una función para determinar si una tecla es especial
+    let specialKeys: SpecialKeys[] = Object.values(SpecialKeys);
+
+    return specialKeys.includes(event.key as SpecialKeys);
+  }
+
+  // Lógica para editar y eliminar elementos
+  editarElemento(elemento: any) {
+    // Realiza la edición
+    this.elementoEditado.emit(elemento);
+  }
+
+  eliminarElemento(elemento: any) {
+    // Realiza la eliminación
+    this.elementoEliminado.emit(elemento);
+  }
+
+  agregarElemento(evento: any) {
+    this.elementoAgregado.emit(evento);
+  }
+
+  transformText(text: any, pipe?: string): string {
+    switch (pipe) {
+      case 'upperCase':
+        return this.uppercasePipe.transform(text);
+      case 'date':
+        return this.datePipe.transform(text, 'd/M/yy, h:mm a')!;
+      case 'currency':
+        return this.currencyPipe.transform(text, 'USD', 'symbol')!;
+      default:
+        return text;
+    }
   }
 
 }

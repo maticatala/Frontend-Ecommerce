@@ -1,0 +1,13 @@
+
+mat-list-item.active{
+   color: var(--accent);
+  border-left: 5px solid var(--accent);
+}
+
+.mdc-list-item--with-leading-icon .mdc-list-item__start {
+  color: inherit;
+}
+
+.mdc-list-item__secondary-text {
+  color: inherit;
+}

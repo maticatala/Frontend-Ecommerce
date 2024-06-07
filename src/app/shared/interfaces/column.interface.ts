@@ -1,7 +1,10 @@
 export interface Column {
-    id: string;
-    visible?: boolean
-    label: string,
-    hideOrder: number,
-    width?: number
+  id: string;
+  pipe?: string;
+  visible?: boolean;
+  label: string;
+  breakpoint: Breakpoint;
+  width?: number;
 }
+
+export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | 'static';

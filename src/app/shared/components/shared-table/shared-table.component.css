@@ -1,51 +1,54 @@
-.m8 {
-  margin: 8px;
-}
 
-.expanded {
-  height: min-content !important;
-  visibility: visible !important;
-}
 
-.hidColLength-0 {
-  height: 0px !important;
-  min-height: 0px !important;
-  visibility: hidden !important;
-}
+  .container-example {
+    max-height: 70vh;
+    overflow: auto;
+  }
 
-.btnToggleExpand {
-  position: relative;
-  display: inline-block;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-}
+  .mat-column-trigger {
+    max-width: 58px;
+    /* word-wrap: break-word; */
+    padding: 0px;
+  }
 
-.btnToggleExpand.active:before {
-  content: '-';
-  background-color: #d33333;
-}
+  .mat-column-action {
+    max-width: 78.05px;
+    /* word-wrap: break-word; */
+    padding: 0;
+  }
 
-.btnToggleExpand:before {
-  top: 9px;
-  left: 4px;
-  height: 14px;
-  width: 14px;
-  display: block;
-  position: absolute;
-  color: white;
-  border: 2px solid white;
-  border-radius: 14px;
-  box-shadow: 0 0 3px #444;
-  box-sizing: content-box;
-  text-align: center;
-  text-indent: 0 !important;
-  font-family: 'Courier New', Courier, monospace;
-  line-height: 14px;
-  content: '+';
-  background-color: #31b131;
-}
+  .mat-column-more {
+    max-width: 78.05px;
+    /* word-wrap: break-word; */
+    padding: 0;
+  }
 
-.filterHeader {
-  padding: 0 24px;
-}
+  /* SIRVE PARA ESCONDER LA FILA DE ATRIBUTOS ESCONDIDOS CUANDO SE VUELVE A UNA PANTALLA GRANDE */
+  .hidColLength-0 {
+    height: 0px !important;
+    min-height: 0px !important;
+    visibility: hidden !important;
+  }
+
+  .filterHeader {
+    display: flex;
+    align-items: center;
+  }
+
+  mat-card {
+    position: inherit;
+  }
+
+  .mat-column-id {
+    max-width: 100px;
+    word-wrap: break-word;
+  }
+
+  .mat-column-imagen {
+    /* object-fit: cover; */
+    max-width: 200px;
+  }
+
+  .mat-mdc-cell {
+    word-break: break-all;
+  }

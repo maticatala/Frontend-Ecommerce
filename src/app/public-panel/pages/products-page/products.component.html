@@ -1,0 +1,72 @@
+<div class="productPage mt-[80px]">
+  <section class="flex container pt-12 pb-14">
+    <aside class="filters p-2" [ngClass]="isFilterOn ? '' : '-translate-x-full'">
+      <mat-form-field class="w-full d-lg-none mt-4">
+        <mat-label>
+          Ordenar
+        </mat-label>
+        <mat-select (selectionChange)="searchSort($event)" (selectionChange)="toggleFilters()">
+          <ng-container *ngFor="let sort of sortingOptions">
+            <mat-option [value]="sort.value">{{sort.label}}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+      <h3 class="text-xl mt-3">Categorias</h3>
+      <mat-divider></mat-divider>
+      <mat-nav-list role="navigation">
+        <mat-list-item (click)="toggleFilters()" (click)="selectedCategoryName = ''" routerLinkActive="selected" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/products']">
+            Todas
+        </mat-list-item>
+        <ng-container *ngFor="let category of categories">
+          <mat-list-item (click)="toggleFilters()" (click)="selectedCategoryName = category.categoryName"
+          routerLinkActive="selected"
+          [routerLink]="['/products']"
+          [queryParams]="{ category: category.id, page: 1 }"
+          queryParamsHandling="merge"
+          routerLinkActive="selected"
+          [routerLinkActiveOptions]="{ exact: false }">
+            {{ category.categoryName }}
+          </mat-list-item>
+        </ng-container>
+      </mat-nav-list>
+    </aside>
+    <div (click)="toggleFilters()" [ngClass]="{'shadow' : isFilterOn}"></div>
+    <mat-card class="flex-grow">
+      <mat-card-header class="flex mb-12">
+        <mat-card-title>Productos</mat-card-title>
+        <mat-card-subtitle>{{selectedCategoryName}}</mat-card-subtitle>
+        <mat-form-field class="mb-[-1.25em] ml-auto d-none d-lg-block">
+          <mat-label>
+            Ordenar
+          </mat-label>
+          <mat-select (selectionChange)="searchSort($event)">
+            <ng-container *ngFor="let sort of sortingOptions">
+              <mat-option [value]="sort.value">{{sort.label}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <div class="d-lg-none ml-auto">
+          <button mat-icon-button (click)="toggleFilters()" >
+            <mat-icon>tune</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <mat-card-content class="productGrid">
+        <public-panel-product-card
+          *ngFor="let product of filteredProducts"
+          [product]="product"
+        ></public-panel-product-card>
+        <p *ngIf="filteredProducts?.length === 0">No hay productos</p>
+      </mat-card-content>
+      <mat-card-footer *ngIf="meta">
+        <mat-paginator
+          [length]="meta.totalItems"
+          [pageSize]="meta.itemsPerPage"
+          [pageSizeOptions]="[6, 12, 24]"
+          (page)="pageEvent = $event; onPaginateChange($event)"
+        showFirstLastButtons>
+        </mat-paginator>
+      </mat-card-footer>
+    </mat-card>
+  </section>
+</div>

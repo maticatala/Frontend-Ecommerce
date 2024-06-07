@@ -1,0 +1,22 @@
+.inputForm {
+  width: 75%;
+  padding: .45rem 1rem;
+  font-size: .8rem;
+  font-weight: 500;
+  line-height: 1.7;
+  color: #60697b;
+  background-color: var(--primary);
+  background-clip: padding-box;
+  border: 1px solid rgba(8, 60, 130, .07);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: .4rem;
+  box-shadow: 0 0 1.25rem rgba(30,34,40,.04);
+  outline: none;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.inputForm:focus {
+  border-color: rgb(59, 130, 246);
+}

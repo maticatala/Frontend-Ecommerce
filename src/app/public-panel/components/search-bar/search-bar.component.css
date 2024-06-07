@@ -1,0 +1,17 @@
+.searchBar {
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.searchInput {
+  padding: .45rem;
+  width: 100%;
+  outline: none;
+  border: none;
+  background: none;
+  box-shadow: none;
+}

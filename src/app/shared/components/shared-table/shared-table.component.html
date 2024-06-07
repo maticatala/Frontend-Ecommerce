@@ -1,90 +1,100 @@
-<div class="shredTable">
-  <div class="filterHeader">
-    <mat-form-field>
-      <input
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Filter"
-      />
+<mat-card>
+  <mat-card-header>
+    <mat-form-field appearance="outline" class="mr-auto" *ngIf="filterOff">
+      <input matInput (keyup)="FilterChange($event)" placeholder="Filter" />
     </mat-form-field>
-  </div>
+    <button color="accent" *ngIf="addNew" type="button" mat-fab extended (click)="agregarElemento($event)">
+      <mat-icon>add</mat-icon>
+      Add new
+    </button>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-table #dataTable [dataSource]="dataSource" matSort multiTemplateDataRows>
+      <!-- Toggle Button Start -->
+      <ng-container matColumnDef="trigger">
+        <mat-header-cell *matHeaderCellDef class="flex justify-center">
+          <mat-icon>menu</mat-icon>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="flex justify-center">
+          <button mat-icon-button aria-label="expand row"
+            (click)="expandedElement[row.recId] = !expandedElement[row.recId]">
+            <mat-icon *ngIf="!expandedElement[row.recId]">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="expandedElement[row.recId]">keyboard_arrow_up</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <!-- Toggle Button End -->
 
-  <mat-table #dataTable [dataSource]="dataSource" matSort multiTemplateDataRows>
-    <!-- Toggle Button Start -->
-    <ng-container matColumnDef="trigger">
-      <mat-header-cell *matHeaderCellDef class="w-[70px]">
-        <mat-icon>menu</mat-icon>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row; let i = dataIndex" class="w-[70px]">
-        <span
-          (click)="expandedElement[row.recId] = !expandedElement[row.recId]"
-          [ngClass]="[expandedElement[row.recId] ? 'active' : 'inActive']"
-          class="btnToggleExpand"
-        ></span>
-      </mat-cell>
-    </ng-container>
-    <!-- Toggle Button End -->
+      <!-- Columnas visibles -->
+      <ng-container [matColumnDef]="column.id" *ngFor="let column of visibleColumns">
+        <!-- Header cell -->
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column.label }}
+        </mat-header-cell>
 
-    <ng-container
-      [matColumnDef]="column.id"
-      *ngFor="let column of visibleColumns"
-    >
-      <!-- Header cell -->
-      <mat-header-cell *matHeaderCellDef mat-sort-header>{{
-        column.label
-      }}</mat-header-cell>
+        <mat-cell *matCellDef="let row">
 
-      <mat-cell *matCellDef="let row">
-        <ng-container *ngIf="column.id !== 'action'">
-          {{ row[column.id] }}
-        </ng-container>
-        <ng-container *ngIf="column.id == 'action'">
-          <p>a</p>
-        </ng-container>
-      </mat-cell>
-    </ng-container>
+          <ng-container *ngIf="column.id !== 'action' && column.id !== 'more' && column.id !== 'imagen'">
+            {{ transformText(row[column.id], column.pipe ) }}
+          </ng-container>
+          <ng-container *ngIf="column.id === 'imagen'">
+            <img src="{{baseUrl}}/products/getFile?fileName={{row[column.id]}}" alt="imagen">
+          </ng-container>
 
-    <ng-container matColumnDef="hidden">
-      <mat-cell *matCellDef="let row; let i = dataIndex" class="matCell">
-        <p *ngFor="let hiddenColumn of hiddenColumns" class="m8">
-          <strong> {{ hiddenColumn.label }}: </strong>
-          <span>
-            {{ row[hiddenColumn.id] }}
-          </span>
-        </p>
-      </mat-cell>
-    </ng-container>
+          <!-- Action btn -->
+          <ng-container *ngIf="column.id === 'action'">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="eliminarElemento(row)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+              <button mat-menu-item (click)="editarElemento(row)">
+                <mat-icon>edit</mat-icon>
+                <span>Editar</span>
+              </button>
+            </mat-menu>
+          </ng-container>
 
-    <mat-header-row
-      *matHeaderRowDef="visibleColumnsIds"
-      class="matHeaderRow"
-    ></mat-header-row>
+          <ng-container *ngIf="column.id === 'more' ">
+            <button mat-icon-button  aria-label="icon-button" (click)="editarElemento(row)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </ng-container>
+          <!-- Action btn -->
 
-    <mat-row
-      *matRowDef="let row; let i = dataIndex; columns: visibleColumnsIds"
-      class="matRowVisible visible-row-{{ row.recId }}"
-    ></mat-row>
+        </mat-cell>
+      </ng-container>
 
-    <!-- Body row definition for hidden columns -->
-    <mat-row
-      *matRowDef="let row; let i = dataIndex; columns: ['hidden']"
-      [@detailExpand]="
-        expandedElement.length && expandedElement[row.recId]
-          ? 'expanded'
-          : 'collapsed'
-      "
-      style="overflow: hidden"
-      class="matRowHidden hidden-row-{{ row.recId }} hidColLength-{{
-        hiddenColumns.length
-      }}"
-      [ngClass]="expandedElement[row.recId] ? 'expanded' : 'collapsed'"
-    ></mat-row>
-  </mat-table>
+      <!-- Columnas escondidas -->
+      <ng-container matColumnDef="hidden">
+        <mat-cell *matCellDef="let row; let i = dataIndex" class="flex flex-col items-start">
+          <p *ngFor="let hiddenColumn of hiddenColumns" class="m-2">
+            <strong> {{ hiddenColumn.label }}: </strong>
+            <span>
+              {{ transformText(row[hiddenColumn.id], hiddenColumn.pipe ) }}
+            </span>
+          </p>
+        </mat-cell>
+      </ng-container>
 
-  <mat-paginator
-    [length]="length"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="pageSizeOptions"
-    (page)="pageEvent = $event"
-  ></mat-paginator>
-</div>
+      <mat-header-row *matHeaderRowDef="visibleColumnsIds; sticky: true" class=""></mat-header-row>
+
+      <mat-row *matRowDef="let row; let i = dataIndex; columns: visibleColumnsIds"
+        class="matRowVisible visible-row-{{ row.recId }}"></mat-row>
+
+      <!-- Body row definition for hidden columns -->
+      <mat-row *matRowDef="let row; let i = dataIndex; columns: ['hidden']" [@detailExpand]="expandedElement[row.recId]
+            ? 'expanded'
+            : 'collapsed'" class="hidColLength-{{hiddenColumns?.length}}">
+      </mat-row>
+
+    </mat-table>
+  </mat-card-content>
+  <mat-card-actions align="end" *ngIf="paginatorOff">
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      (page)="pageEvent = $event" ></mat-paginator>
+  </mat-card-actions>
+</mat-card>
