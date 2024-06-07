@@ -2,7 +2,7 @@
 
   <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
 
-    <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="app-tree-node" routerLinkActive="bg-slate-100">
+    <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="app-tree-node" routerLinkActive="selected">
       <a mat-list-item [routerLink]="['./', node.path]">
         <mat-icon matListItemIcon>{{ node.data.icon }}</mat-icon>
       </a>

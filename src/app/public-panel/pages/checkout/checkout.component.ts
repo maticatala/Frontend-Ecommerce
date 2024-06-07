@@ -27,7 +27,6 @@ export class CheckoutComponent implements OnInit{
   public step = 1;
   public paymentMethod: string = '';
   public orderId: string = '';
-  public countdown: number = 7;
 
   public myForm: FormGroup = this.fb.group({
     name:     [''],
@@ -125,15 +124,7 @@ export class CheckoutComponent implements OnInit{
     this.step++;
  }
 
- private startCountdown() {
-  const interval = setInterval(() => {
-    this.countdown--;
-    if (this.countdown === 0) {
-      clearInterval(interval);
-      this.router.navigate(['/']); // Cambia '/' por la ruta de tu página de inicio
-    }
-  }, 1000);
-}
+
 
  createOrder() {
   this.orderService.createOrder(this.orderData()).subscribe({
@@ -142,7 +133,6 @@ export class CheckoutComponent implements OnInit{
       this.orderId = order.id.toString();
       this.cartService.clearCart();
       this.step = 5;
-      this.startCountdown();
     }, error: (e) => {
       this._cusSnackbar.openCustomSnackbar("error", e.error.message, "Okay", 3000, 'danger');
     }

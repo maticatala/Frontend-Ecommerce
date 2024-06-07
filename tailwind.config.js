@@ -4,25 +4,44 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
     screens: {
-      'sm': '576px',
-      // => @media (min-width: x px) { ... }
-      'md': '640px',
-      // => @media (min-width: 640px) { ... }
-
-      'lg': '1024px',
-      // => @media (min-width: 1024px) { ... }
-
-      'xl': '1280px',
-      // => @media (min-width: 1280px) { ... }
-    },
+      sm: '576px',
+      md: '768px',
+      lg: '992px',
+      xl: '1200px',
+      '2xl': '1536px'
+    }
   },
-  container: {
-    center:true,
-    padding: '1rem'
+  corePlugins: {
+    container: false
   },
-
-  plugins: [],
+  plugins: [
+    function ({ addComponents }) {
+      addComponents({
+        '.container': {
+          maxWidth: '100%',
+          marginRight: 'auto',
+          marginLeft: 'auto',
+          paddingLeft: '15px',
+          paddingRight: '15px',
+          '@screen sm': {
+            maxWidth: '540px',
+          },
+          '@screen md': {
+            maxWidth: '720px',
+          },
+          '@screen lg': {
+            maxWidth: '960px',
+          },
+          '@screen xl': {
+            maxWidth: '1140px',
+          },
+          '@screen 2xl': {
+            maxWidth: '1320px',
+          },
+        }
+      })
+    }
+  ]
 }
 

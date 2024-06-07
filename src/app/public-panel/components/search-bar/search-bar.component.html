@@ -1,22 +1,21 @@
-<div class="contenedor-search" [ngClass]="isExpanded ? 'visible' : 'hiddenContenedor'">
-  <div class="bg-gray-800 w-full flex flex-col transition" [ngClass]="isExpanded ? null : 'hiddenSearchBox'">
-    <div class="w-full p-[20px]">
-      <div class="contenedor flex items-center">
-        <mat-icon class="text-white">search</mat-icon>
-        <input #searchInput class="searchInput text-lg" type="text" placeholder="¿Qué es lo que estás buscando?" (keyup.enter)="searchTag($event)">
-        <mat-icon class="text-white hover:text-gray-200 cursor-pointer" (click)="toggleSearch()">close</mat-icon>
-      </div>
+<mat-icon class="cursor-pointer hover:text-[var(--accent)]" (click)="toggleSearch()">search</mat-icon>
+<div class="searchBar bg-[var(--primary)] w-full flex flex-col" [ngClass]="{'-translate-y-full' : !isExpanded}">
+  <div class="w-full p-[20px]">
+    <div class="container flex items-center">
+      <mat-icon>search</mat-icon>
+      <input #searchInput class="searchInput text-lg" type="text" placeholder="¿Qué es lo que estás buscando?" (keyup.enter)="searchTag($event)">
+      <button  class="cursor-pointer">
+        <mat-icon (click)="toggleSearch()">close</mat-icon>
+      </button>
     </div>
-    <button
-      *ngFor="let tag of tags"
-      (click)="clickedTag(tag)"
-      class="bg-gray-800 text-white hover:bg-gray-900 px-4 py-2 w-full flex items-center"
-    >
-      <mat-icon>history</mat-icon>
-      <span class="mx-auto">{{ tag | titlecase }}</span>
-    </button>
   </div>
-  <div class="fixed w-full h-full" (click)="toggleSearch()">
-  </div>
+  <button
+    *ngFor="let tag of tags"
+    (click)="clickedTag(tag)"
+    class="bg-[var(--primary)] text-white hover:text-[var(--accent)] transition-colors px-4 py-2 w-full flex items-center"
+  >
+    <mat-icon>history</mat-icon>
+    <span class="mx-auto">{{ tag | titlecase }}</span>
+  </button>
 </div>
-<mat-icon class="cursor-pointer hover:text-blue-700" (click)="toggleSearch()">search</mat-icon>
+<div (click)="toggleSearch()" [ngClass]="{'shadowlg' : isExpanded}"></div>

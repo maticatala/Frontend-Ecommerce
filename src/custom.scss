@@ -1,0 +1,99 @@
+@import '@angular/material/theming';
+
+@include mat-core();
+
+/* For use in src/lib/core/theming/_palette.scss */
+$bv-brand: (
+    50 : #e9edee,
+    100 : #c9d1d5,
+    200 : #a5b2b9,
+    300 : #80939c,
+    400 : #657c87,
+    500 : #4a6572,
+    600 : #4a6572,
+    700 : #344955,
+    800 : #232f34,
+    900 : #223742,
+    A100 : #89d6ff,
+    A200 : #56c5ff,
+    A400 : #23b3ff,
+    A700 : #09aaff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+/* For use in src/lib/core/theming/_palette.scss */
+$bv-yellow: (
+    50 : #fef5e7,
+    100 : #fde6c2,
+    200 : #fcd599,
+    300 : #fbc470,
+    400 : #fab752,
+    500 : #f9aa33,
+    600 : #f8a32e,
+    700 : #f79927,
+    800 : #f69020,
+    900 : #f57f14,
+    A100 : #ffffff,
+    A200 : #fff7f1,
+    A400 : #ffdabe,
+    A700 : #ffcca4,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$my-app-primary: mat-palette($bv-brand, 700);
+$my-app-accent:  mat-palette($bv-yellow, 500);
+$my-app-warn:    mat-palette($mat-red);
+
+$my-app-colors: (
+  primary: $my-app-primary,
+  accent: $my-app-accent,
+  warn: $my-app-warn,
+);
+
+$my-app-theme: mat-dark-theme((
+  color: $my-app-colors,
+  typography: mat-typography-config(),
+  density: 0,
+));
+
+@include angular-material-theme($my-app-theme);
+
+:root {
+  --primary:  #{mat-color($my-app-primary)};
+  --accent:   #{mat-color($my-app-accent)};
+  --primary-contrast:  #{mat-color($my-app-primary, default-contrast)};
+  --accent-contrast:   #{mat-color($my-app-accent, default-contrast)};
+  --success: #02be6e;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #17a2b8;
+}

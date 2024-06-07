@@ -1,5 +1,5 @@
-<div class="productPage">
-  <section class="flex contenedor pt-12 pb-14">
+<div class="productPage mt-[80px]">
+  <section class="flex container pt-12 pb-14">
     <aside class="filters p-2" [ngClass]="isFilterOn ? '' : '-translate-x-full'">
       <mat-form-field class="w-full d-lg-none mt-4">
         <mat-label>
@@ -14,19 +14,23 @@
       <h3 class="text-xl mt-3">Categorias</h3>
       <mat-divider></mat-divider>
       <mat-nav-list role="navigation">
-        <mat-list-item (click)="toggleFilters()" (click)="selectedCategoryName = ''" routerLinkActive="mdc-list-item--activated" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/products']">
+        <mat-list-item (click)="toggleFilters()" (click)="selectedCategoryName = ''" routerLinkActive="selected" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/products']">
             Todas
         </mat-list-item>
         <ng-container *ngFor="let category of categories">
-          <mat-list-item (click)="toggleFilters()" (click)="selectedCategoryName = category.categoryName" routerLinkActive="mdc-list-item--activated" (click)="searchCategory(category.id)">
+          <mat-list-item (click)="toggleFilters()" (click)="selectedCategoryName = category.categoryName"
+          routerLinkActive="selected"
+          [routerLink]="['/products']"
+          [queryParams]="{ category: category.id, page: 1 }"
+          queryParamsHandling="merge"
+          routerLinkActive="selected"
+          [routerLinkActiveOptions]="{ exact: false }">
             {{ category.categoryName }}
           </mat-list-item>
         </ng-container>
       </mat-nav-list>
     </aside>
-    <div (click)="toggleFilters()" [ngClass]="isFilterOn ? 'shadow' : 'none'">
-
-    </div>
+    <div (click)="toggleFilters()" [ngClass]="{'shadow' : isFilterOn}"></div>
     <mat-card class="flex-grow">
       <mat-card-header class="flex mb-12">
         <mat-card-title>Productos</mat-card-title>
@@ -47,7 +51,7 @@
           </button>
         </div>
       </mat-card-header>
-      <mat-card-content class="productGrid mb-auto">
+      <mat-card-content class="productGrid">
         <public-panel-product-card
           *ngFor="let product of filteredProducts"
           [product]="product"

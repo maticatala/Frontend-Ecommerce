@@ -4,21 +4,21 @@
     <mat-card-title>Pedido #{{order?.id}} de {{customer?.firstName | titlecase}} {{customer?.lastName | titlecase}} {{total | currency}} {{order?.orderAt | date:'d/M/yy, h:mm a'}}</mat-card-title>
   </mat-card-header>
   <mat-divider></mat-divider>
-  <mat-card-content class="bg-gray-200">
+  <mat-card-content>
     <div class="orderContainer">
 
       <div class="estado">
         <mat-card>
           <mat-card-content>
             <div class="flex items-center gap-2">
-              <div class="w-40 bg-gray-200 p-2 rounded-sm">
+              <div class="w-40 primary p-2 rounded-sm">
                 <mat-select *ngIf="status" [(value)]="status">
                   <mat-option *ngFor="let status of orderStatus | keyvalue" [value]="status.value" >
                     {{ status.key }}
                   </mat-option>
                 </mat-select>
               </div>
-              <button mat-raised-button color="primary" (click)="updateOrderStatus()" [disabled]="status === order?.status">
+              <button mat-raised-button color="accent" (click)="updateOrderStatus()" [disabled]="status === order?.status">
                 Actualizar estado
               </button>
             </div>

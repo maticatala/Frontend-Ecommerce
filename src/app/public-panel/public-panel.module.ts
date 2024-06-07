@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PublicPanelRoutingModule } from './public-panel-routing.module';
 import { MainPageComponent } from './pages/main-page/main-page.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LayoutPageComponent } from './layouts/layout-page/layout-page.component';
@@ -30,7 +29,6 @@ import { OrderPageComponent } from './pages/order-page/order-page.component';
 @NgModule({
   declarations: [
     MainPageComponent,
-    NavBarComponent,
     HeaderComponent,
     FooterComponent,
     LayoutPageComponent,

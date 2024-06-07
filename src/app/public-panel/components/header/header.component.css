@@ -1,15 +1,13 @@
-.header {
-  background-color: var(--background-color);
-}
 
 .header-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
 .logo {
   height: 5em;
+  margin-right: auto;
 }
 
 .logo img{
@@ -22,13 +20,13 @@
 
 .nav {
   position: fixed;
-  top: 0;
-  left: -300px;
-  bottom: 0;
-  z-index: 999;
-  background-color: var(--background-color);
   width: 300px;
-  transition: left 0.5s;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: var(--primary);
+  transition: transform 0.3s ease;
 }
 
 .nav-list {
@@ -53,17 +51,13 @@
   width: 100%;
 }
 
-.active {
-  left: 0px;
-  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
-}
-
 .icons {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
   color: #ececec;
+  margin-left: auto;
 }
 
 .cart-overlay {

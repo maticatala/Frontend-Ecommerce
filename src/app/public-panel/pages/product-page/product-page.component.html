@@ -1,5 +1,5 @@
-<div class="productPage">
-  <div class="contenedor my-6 test">
+<div class="productPage mt-[80px]">
+  <div class="container my-6 test">
     <ng-container *ngIf="!product">
       <div class="h-screen flex justify-center items-center">
         <mat-spinner />
@@ -41,14 +41,14 @@
             </div>
           </div>
           <div class="mt-5">
-            <button class="chip primary brightness" (click)="addCart()">
+            <button class="chip accent brightness" (click)="addCart()">
               <mat-icon>add_shopping_cart</mat-icon>
               <p>Añadir al carrito</p>
             </button>
           </div>
         </div>
       </div>
-      <div class="chip primary-reverse mt-8">
+      <div class="chip primary mt-8">
         <mat-icon>description</mat-icon>
         <p>Descripción</p>
       </div>
