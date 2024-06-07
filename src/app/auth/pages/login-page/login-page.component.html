@@ -1,14 +1,13 @@
-<form class="bg-white w-full px-10 py-12 rounded-3xl border-2 border-gray-100"
+<form class="bg-white w-full px-10 py-12 rounded-3xl border-2 border-gray-100 text-gray-500"
   [formGroup]="myForm"
   (ngSubmit)="onSubmit()"
 >
 
-  <h1 class="text-5xl font-semibold ">Bienvenido!</h1>
-  <p class="font-medium text-lg text-gray-500 mt-4">Ingrese sus datos para iniciar sesión</p>
-
+  <h1 class="text-5xl text-gray-900 font-semibold ">Bienvenido!</h1>
+  <p class="font-medium text-lg  mt-4">Ingrese sus datos para iniciar sesión</p>
   <div class="mt-8">
     <div>
-      <label class="text-lg font-medium" for="email">Email</label>
+      <label class="text-lg font-medium " for="email">Email</label>
       <input
         type="text"
         class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
@@ -21,7 +20,7 @@
       <p customLabel [isTouched]="myForm.get('email')?.touched" [errors]="myForm.get('email')?.errors"></p>
     </div>
     <div>
-      <label class="text-lg font-medium" for="password">Contraseña</label>
+      <label class="text-lg font-medium " for="password">Contraseña</label>
       <div class="relative">
         <input
           [type]="password()"
@@ -58,7 +57,7 @@
           id="keepLogged"
           formControlName="keepLogged"
         >
-        <label class="ml-2 font-medium text-base" for="keepLogged">Mantenerme logueado</label>
+        <label class="ml-2 font-medium text-base " for="keepLogged">Mantenerme logueado</label>
       </div>
       <button type="button" class="font-medium text-base text-gray-600">Olvide mi contraseña</button>
     </div>
@@ -66,7 +65,7 @@
       <button type="submit" class="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out py-3 rounded-xl accent text-lg font-bold">Iniciar Sesión</button>
     </div>
     <div class="mt-8 flex justify-center items-center">
-      <p class="font-medium text-base">No tienes una cuenta?</p>
+      <p class="font-medium text-base ">No tienes una cuenta?</p>
       <button type="button" class="text-gray-600 text-base font-medium ml-2" routerLink="/auth/register">Registrarse</button>
     </div>
   </div>

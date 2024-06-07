@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from './layouts/layout-page/admin-layout-page.component';
-import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
 import { ListProductsPageComponent } from './pages/list-products-page/list-products-page.component';
@@ -15,7 +14,6 @@ const routes: Routes = [{
   canActivateChild: [isAdminGuard],
   component: LayoutPageComponent,
   children: [
-    {path: 'dashboard',component: DashboardPageComponent},
     {path: 'users', component: UsersPageComponent},
     {path: 'categories', component: CategoriesPageComponent},
     {path: 'products', component: ListProductsPageComponent},
@@ -23,7 +21,7 @@ const routes: Routes = [{
     {path: 'product', component: AddEditProductComponent},
     {path: 'orders', component: OrdersPageComponent},
     {path: 'order/:id', component: OrderPageComponent},
-    {path: '**', redirectTo: 'dashboard'},
+    {path: '**', redirectTo: 'orders'},
   ],
 }];
 

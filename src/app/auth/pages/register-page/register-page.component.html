@@ -1,16 +1,16 @@
-<form class="bg-white w-full px-10 py-12 rounded-3xl border-2 border-gray-100"
+<form class="bg-white w-full px-10 py-12 rounded-3xl border-2 border-gray-100 text-gray-500"
   [formGroup]="myForm"
   (ngSubmit)="onSubmit()"
 >
 
-  <h1 class="text-5xl font-semibold">Registro</h1>
-  <p class="font-medium text-lg text-gray-500 mt-4">Crearse una cuenta es gratis y le tomará un minuto!</p>
+  <h1 class="text-5xl font-semibold text-gray-900">Registro</h1>
+  <p class="font-medium text-lg  mt-4">Crearse una cuenta es gratis y le tomará un minuto!</p>
 
   <div class="mt-8">
 
     <div class="w-full flex gap-2">
       <div>
-        <label class="text-lg font-medium" for="firstName">Nombre</label>
+        <label class="text-lg font-medium " for="firstName">Nombre</label>
         <input class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
           placeholder="Nombre"
           name="firstName"
@@ -21,7 +21,7 @@
         <p customLabel [isTouched]="myForm.get('firstName')?.touched" [errors]="myForm.get('firstName')?.errors"></p>
       </div>
       <div>
-        <label class="text-lg font-medium" for="lastName">Apellido</label>
+        <label class="text-lg font-medium " for="lastName">Apellido</label>
         <input class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
           placeholder="Apellido"
           name="lastName"
@@ -34,7 +34,7 @@
     </div>
 
     <div class="mt-2">
-      <label class="text-lg font-medium" for="email">Email</label>
+      <label class="text-lg font-medium " for="email">Email</label>
       <input class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
         placeholder="Email"
         name="email"
@@ -47,7 +47,7 @@
     </div>
 
     <div class="mt-2">
-      <label class="text-lg font-medium" for="password">Contraseña</label>
+      <label class="text-lg font-medium " for="password">Contraseña</label>
       <div class="relative">
         <input class="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
           placeholder="Contraseña"
@@ -88,7 +88,7 @@
       </button>
     </div>
     <div class="mt-8 flex justify-center items-center">
-      <p class="font-medium text-base">Ya tienes una cuenta?</p>
+      <p class="font-medium text-base ">Ya tienes una cuenta?</p>
       <button type="button" class="text-gray-600 text-base font-medium ml-2" routerLink="/auth/login">Iniciar Sesión</button>
     </div>
   </div>

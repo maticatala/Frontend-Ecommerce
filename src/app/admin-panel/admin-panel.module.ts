@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { LayoutPageComponent } from './layouts/layout-page/admin-layout-page.component';
-import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { UserImagePipe } from './pipes/user-image.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -25,7 +24,6 @@ import { PaymentDetailsDialogComponent } from './components/payment-details-dial
 @NgModule({
   declarations: [
     LayoutPageComponent,
-    DashboardPageComponent,
     UsersPageComponent,
     UserImagePipe,
     UserAddEditComponent,
