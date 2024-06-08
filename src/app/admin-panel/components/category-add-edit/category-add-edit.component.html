@@ -3,7 +3,7 @@
 </div>
 <form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
   <div mat-dialog-content>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" color="accent">
       <mat-label>Category Name</mat-label>
       <input matInput type="text" placeholder="name..." formControlName="categoryName">
       <mat-hint customLabel [isTouched]="myForm.get('categoryName')?.touched"

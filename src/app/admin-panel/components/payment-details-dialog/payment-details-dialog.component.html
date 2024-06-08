@@ -9,8 +9,8 @@
 
   <div class="flex items-center gap-2 mt-2">
     <div class="w-40 p-2 primary rounded-sm">
-      <mat-select [(value)]="paymentInitialStatus">
-        <mat-option *ngFor="let status of paymentStatus | keyvalue" [value]="status.value" >
+      <mat-select [(value)]="paymentInitialStatus" >
+        <mat-option *ngFor="let status of paymentStatus | keyvalue" [value]="status.value">
           {{ status.key }}
         </mat-option>
       </mat-select>
@@ -21,6 +21,6 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-raised-button mat-dialog-close>Close</button>
+  <button mat-raised-button mat-dialog-close >Close</button>
 </mat-dialog-actions>
 

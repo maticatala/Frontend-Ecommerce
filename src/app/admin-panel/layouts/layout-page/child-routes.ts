@@ -7,10 +7,6 @@ export interface AppRoute {
 
 export const childRoutes: AppRoute[] = [
  {
-   path: 'dashboard',
-   data: { icon: 'dashboard', text: 'Dashboard' }
- },
- {
    path: 'users',
    data: { icon: 'table', text: 'Users' }
  },
