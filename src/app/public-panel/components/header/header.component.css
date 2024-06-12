@@ -39,11 +39,14 @@
 }
 
 .nav-list li a {
-  color: #ececec;
   font-size: larger;
   padding: 10px 20px;
   width: 100%;
   transition: padding 0.5s;
+}
+
+.nav-list li a:hover {
+  color: var(--accent);
 }
 
 .toggleBtn {

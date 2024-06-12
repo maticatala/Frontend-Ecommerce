@@ -67,16 +67,24 @@ export class ProductPageComponent implements OnInit{
     }
   }
 
-  zoomIn(event:any) {
-    const x = event.layerX;
-    const y = event.layerY;
-    event.target.style.transformOrigin = `${x}px ${y}px`
-    event.target.style.transform = 'scale(2)'
+  zoomIn(event: any) {
+    if (!this.isMobileDevice()) {
+      const x = event.layerX;
+      const y = event.layerY;
+      event.target.style.transformOrigin = `${x}px ${y}px`;
+      event.target.style.transform = 'scale(2)';
+    }
   }
 
   zoomOut(event: any) {
-    event.target.style.transformOrigin = "center"
-    event.target.style.transform = 'scale(1)'
+    if (!this.isMobileDevice()) {
+      event.target.style.transformOrigin = 'center';
+      event.target.style.transform = 'scale(1)';
+    }
+  }
+
+  isMobileDevice(): boolean {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
 }

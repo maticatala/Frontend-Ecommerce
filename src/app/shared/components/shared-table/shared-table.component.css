@@ -1,54 +1,50 @@
+mat-cell {
+  word-break: break-all;
+}
 
+.mat-column-trigger {
+  max-width: 58px;
+  padding: 0px;
+}
 
-  .container-example {
-    max-height: 70vh;
-    overflow: auto;
-  }
+.mat-column-action {
+  max-width: 78.05px;
+  padding: 0;
+}
 
-  .mat-column-trigger {
-    max-width: 58px;
-    /* word-wrap: break-word; */
-    padding: 0px;
-  }
+.mat-column-more {
+  max-width: 78.05px;
+  padding: 0;
+}
 
-  .mat-column-action {
-    max-width: 78.05px;
-    /* word-wrap: break-word; */
-    padding: 0;
-  }
+.mat-column-id {
+  max-width: 100px;
+  word-wrap: break-word;
+}
 
-  .mat-column-more {
-    max-width: 78.05px;
-    /* word-wrap: break-word; */
-    padding: 0;
-  }
+.mat-column-imagen {
+  max-width: 200px;
+}
 
-  /* SIRVE PARA ESCONDER LA FILA DE ATRIBUTOS ESCONDIDOS CUANDO SE VUELVE A UNA PANTALLA GRANDE */
-  .hidColLength-0 {
-    height: 0px !important;
-    min-height: 0px !important;
-    visibility: hidden !important;
-  }
+/* SIRVE PARA ESCONDER LA FILA DE ATRIBUTOS ESCONDIDOS CUANDO SE VUELVE A UNA PANTALLA GRANDE */
+.hidColLength-0 {
+  height: 0px !important;
+  min-height: 0px !important;
+  visibility: hidden !important;
+}
 
-  .filterHeader {
-    display: flex;
-    align-items: center;
-  }
+.filterHeader {
+  display: flex;
+  align-items: center;
+}
 
-  mat-card {
-    position: inherit;
-  }
+mat-card {
+  position: inherit;
+}
 
-  .mat-column-id {
-    max-width: 100px;
-    word-wrap: break-word;
-  }
-
-  .mat-column-imagen {
-    /* object-fit: cover; */
-    max-width: 200px;
-  }
-
-  .mat-mdc-cell {
-    word-break: break-all;
-  }
+.mat-column-description > p {
+  overflow: hidden;
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

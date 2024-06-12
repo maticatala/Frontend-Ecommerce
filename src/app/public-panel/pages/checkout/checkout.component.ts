@@ -104,6 +104,8 @@ export class CheckoutComponent implements OnInit{
     }
 
     if (this.step === 3 ){
+      if(!this.paymentMethod) return;
+
       if (this.paymentMethod === 'efectivo'){
         this.createOrder();
         return;

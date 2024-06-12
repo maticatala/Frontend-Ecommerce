@@ -35,7 +35,9 @@
         <mat-cell *matCellDef="let row">
 
           <ng-container *ngIf="column.id !== 'action' && column.id !== 'more' && column.id !== 'imagen'">
-            {{ transformText(row[column.id], column.pipe ) }}
+            <p class="ellipsis">
+              {{ transformText(row[column.id], column.pipe ) }}
+            </p>
           </ng-container>
           <ng-container *ngIf="column.id === 'imagen'">
             <img src="{{baseUrl}}/products/getFile?fileName={{row[column.id]}}" alt="imagen">
@@ -73,7 +75,7 @@
         <mat-cell *matCellDef="let row; let i = dataIndex" class="flex flex-col items-start">
           <p *ngFor="let hiddenColumn of hiddenColumns" class="m-2">
             <strong> {{ hiddenColumn.label }}: </strong>
-            <span>
+            <span class="whitespace-pre-line">
               {{ transformText(row[hiddenColumn.id], hiddenColumn.pipe ) }}
             </span>
           </p>
