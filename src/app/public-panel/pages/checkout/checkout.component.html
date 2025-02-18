@@ -8,7 +8,7 @@
             <thead>
               <tr>
                 <th>
-                  <div class="text-start mb-0 font-normal text-lg">Product</div>
+                  <div class="text-start mb-0 font-normal text-lg">Producto</div>
                 </th>
                 <th><div class="text-start mb-0 font-normal text-lg">Cantidad</div></th>
                 <th><div class="text-start mb-0 font-normal text-lg">Total</div></th>
@@ -32,7 +32,7 @@
                   </div>
                   <div class="w-full">
                     <p class="m-0">
-                      <span class="primary-reverse">{{shoppItem.product.price | currency}}</span>
+                      <span class="primary-reverse">{{shoppItem.product.price | currency:'ARS':'symbol':'1.2-2':'es-AR'}}</span>
                     </p>
                   </div>
                 </td>
@@ -44,7 +44,7 @@
                   </div>
                 </td>
                 <td>
-                  <p>{{shoppItem.product.price * shoppItem.quantity| currency}}</p>
+                  <p>{{shoppItem.product.price * shoppItem.quantity| currency:'ARS':'symbol':'1.2-2':'es-AR'}}</p>
                 </td>
                 <td>
                   <mat-icon class="icon" (click)="removeShoppItem(shoppItem.product)">delete</mat-icon>
@@ -239,7 +239,7 @@
                     </div>
                   </td>
                   <td class="pe-0 text-end">
-                    <p>{{shoppItem.product.price * shoppItem.quantity| currency}}</p>
+                    <p>{{shoppItem.product.price * shoppItem.quantity| currency:'ARS':'symbol':'1.2-2':'es-AR'}}</p>
                   </td>
                 </tr>
               </ng-container>
@@ -248,7 +248,7 @@
                   <strong>Subtotal</strong>
                 </td>
                 <td class="pe-0 text-end">
-                  <p>{{total | currency}}</p>
+                  <p>{{total | currency:'ARS':'symbol':'1.2-2':'es-AR'}}</p>
                 </td>
               </tr>
               <tr>
@@ -256,7 +256,7 @@
                   <strong>Total</strong>
                 </td>
                 <td class="pe-0 text-end">
-                  <p class="font-bold">{{total | currency}}</p>
+                  <p class="font-bold">{{total | currency:'ARS':'symbol':'1.2-2':'es-AR'}}</p>
                 </td>
               </tr>
             </tbody>

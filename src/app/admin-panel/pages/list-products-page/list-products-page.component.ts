@@ -23,10 +23,10 @@ export class ListProductsPageComponent implements OnInit{
 
   columns: Column[] = [
     {id:'imagen',         label: 'Imagen',      breakpoint: 'static'},
-    {id:'name',           label: 'Name',        breakpoint: 'static' },
-    {id:'description',    label: 'Description', breakpoint: 'sm' },
-    {id:'price',          label: 'Price',       breakpoint: 'sm', pipe: 'currency' },
-    {id:'categoriesName', label: 'Categories',  breakpoint: 'md' },
+    {id:'name',           label: 'Nombre',        breakpoint: 'static' },
+    {id:'description',    label: 'Descripción', breakpoint: 'sm' },
+    {id:'price',          label: 'Precio',       breakpoint: 'sm', pipe: 'currency' },
+    {id:'categoriesName', label: 'Categorias',  breakpoint: 'md' },
     {id:'createdAt',      label: 'Creado',      breakpoint: 'md', pipe: 'date'},
     {id:'action',         label: 'Acciones',    breakpoint: 'static'}
   ]
@@ -90,13 +90,13 @@ export class ListProductsPageComponent implements OnInit{
         this.productsService.deleteProduct(product.id).subscribe({
           next: (res) => {
             this.setProductsList();
-            this._cusSnackbar.openCustomSnackbar("done", "Delete Successfuly!", "Okay", 3000, 'success');
+            this._cusSnackbar.openCustomSnackbar("done", "Eliminado Correctamente!", "Ok", 3000, 'success');
           },
           error: (e) => {
             let message = e.message;
             if (e.error.message) message = e.error.message
 
-            this._cusSnackbar.openCustomSnackbar("error", message, "Okay", 3000, 'danger');
+            this._cusSnackbar.openCustomSnackbar("error", message, "Ok", 3000, 'danger');
           }
         });
       }

@@ -63,7 +63,7 @@ export class ProductPageComponent implements OnInit{
       window.history.back();
     } else {
       // Si la URL de la página anterior no tiene el mismo dominio, redirigir a una página predefinida
-      window.location.href = '/products'; // Reemplaza 'paginaPredefinida.html' con la URL de tu página por defecto
+      window.location.href = '/#/products'; // Reemplaza 'paginaPredefinida.html' con la URL de tu página por defecto
     }
   }
 

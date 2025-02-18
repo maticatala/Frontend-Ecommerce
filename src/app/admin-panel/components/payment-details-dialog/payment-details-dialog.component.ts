@@ -27,10 +27,10 @@ export class PaymentDetailsDialogComponent {
 
     this.orderService.updatePaymentStatus(this.payment.id, {status: this.paymentInitialStatus}).subscribe({
       next: (payment) => {
-        this._cusSnackbar.openCustomSnackbar("done", `${payment.status} Successfuly!`, "Okay", 3000, 'success');
+        this._cusSnackbar.openCustomSnackbar("done", `${payment.status} correctamente!`, "Okay", 3000, 'success');
       }, error: (e) => {
         const message = e.error.message;
-        this._cusSnackbar.openCustomSnackbar("error", message, "Okay", 3000, 'danger');
+        this._cusSnackbar.openCustomSnackbar("error", message, "Ok", 3000, 'danger');
       }
     });
 

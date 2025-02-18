@@ -72,7 +72,8 @@ export class SharedTableComponent implements AfterContentInit  {
   @Output() elementoEliminado = new EventEmitter<any>();
   @Output() elementoAgregado = new EventEmitter<any>();
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef){}
+  constructor(private _changeDetectorRef: ChangeDetectorRef){
+  }
 
   ngAfterContentInit() {
     this.toggleColumns();
@@ -176,7 +177,7 @@ export class SharedTableComponent implements AfterContentInit  {
       case 'date':
         return this.datePipe.transform(text, 'd/M/yy, h:mm a')!;
       case 'currency':
-        return this.currencyPipe.transform(text, 'USD', 'symbol')!;
+        return this.currencyPipe.transform(text, 'ARS', 'symbol', '1.2-2', 'es-AR')!;
       default:
         return text;
     }

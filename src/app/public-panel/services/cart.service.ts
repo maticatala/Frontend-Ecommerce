@@ -71,7 +71,7 @@ export class CartService {
     this.updateProducts();
 
     if (snackbar) {
-      this._cusSnackbar.openCustomSnackbar("done", `${cartItem.product.name} added successfuly!!`, "Okay", 3000, 'success');
+      this._cusSnackbar.openCustomSnackbar("done", `${cartItem.product.name} agregado correctamente!!`, "Ok", 3000, 'success');
     }
   }
 

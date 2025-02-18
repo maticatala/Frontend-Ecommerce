@@ -85,6 +85,10 @@ export class CheckoutComponent implements OnInit{
 
   removeShoppItem(product: Product) {
     this.cartService.removeProduct(product)
+    if(this.shoppingList.length === 0) {
+      this._cusSnackbar.openCustomSnackbar("error", 'No hay productos en el carrito', "Ok", 3000, 'danger');
+      this.router.navigate(['/products']);
+    };
   }
 
   scrollToTop() {
@@ -98,6 +102,7 @@ export class CheckoutComponent implements OnInit{
 
 
   nextStep() {
+
     if (this.step === 2 && this.myForm.invalid){
       this.myForm.markAllAsTouched();
       return;
@@ -112,7 +117,7 @@ export class CheckoutComponent implements OnInit{
       }
 
       if (this.paymentMethod === 'mercadoPago'){
-        this._cusSnackbar.openCustomSnackbar("error", 'En proceso...', "Okay", 3000, 'warning');
+        this._cusSnackbar.openCustomSnackbar("error", 'En proceso...', "Ok", 3000, 'warning');
         return;
       }
     }
@@ -136,7 +141,7 @@ export class CheckoutComponent implements OnInit{
       this.cartService.clearCart();
       this.step = 5;
     }, error: (e) => {
-      this._cusSnackbar.openCustomSnackbar("error", e.error.message, "Okay", 3000, 'danger');
+      this._cusSnackbar.openCustomSnackbar("error", e.error.message, "Ok", 3000, 'danger');
     }
   })
  }

@@ -1,17 +1,17 @@
 <div mat-dialog-title>
-  <h1>Category Form</h1>
+  <h1>Formulario de categorias</h1>
 </div>
 <form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
   <div mat-dialog-content>
     <mat-form-field appearance="outline" color="accent">
-      <mat-label>Category Name</mat-label>
-      <input matInput type="text" placeholder="name..." formControlName="categoryName">
+      <mat-label>Nombre de categoria</mat-label>
+      <input matInput type="text" placeholder="nombre..." formControlName="categoryName">
       <mat-hint customLabel [isTouched]="myForm.get('categoryName')?.touched"
         [errors]="myForm.get('categoryName')?.errors"></mat-hint>
     </mat-form-field>
   </div>
   <div mat-dialog-actions class="action">
-    <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
-    <button mat-raised-button color="accent" type="submit">{{data ? 'Update': 'Save'}}</button>
+    <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+    <button mat-raised-button color="accent" type="submit">{{data ? 'Actualizar': 'Añadir'}}</button>
   </div>
 </form>

@@ -8,27 +8,27 @@ export interface AppRoute {
 export const childRoutes: AppRoute[] = [
  {
    path: 'users',
-   data: { icon: 'table', text: 'Users' }
+   data: { icon: 'table', text: 'Usuarios' }
  },
  {
    path: 'categories',
-   data: { icon: 'category', text: 'Categories' }
+   data: { icon: 'category', text: 'Categorias' }
  },
  {
    path: 'Products',
-   data: { text: 'Products' },
+   data: { text: 'Productos' },
    children: [{
      path: 'product',
-     data: { icon: 'playlist_add', text: 'Create Product' },
+     data: { icon: 'playlist_add', text: 'Crear Productos' },
    },
    {
      path: 'products',
-     data: { icon: 'view_list', text: 'Product List' }
+     data: { icon: 'view_list', text: 'Listado de Productos' }
    }
    ]
  },
  {
    path: 'orders',
-   data: { icon: 'inventory_2', text: 'Orders' }
+   data: { icon: 'inventory_2', text: 'Pedidos' }
  },
 ];
