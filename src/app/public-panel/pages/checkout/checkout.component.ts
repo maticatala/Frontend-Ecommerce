@@ -9,6 +9,7 @@ import { OrdersService } from 'src/app/shared/services/orders.service';
 import { Order } from 'src/app/admin-panel/interfaces/order.interface';
 import { CustomSnackbarService } from '../../../shared/components/custom-snackbar/custom-snackbar.service';
 import { Router } from '@angular/router';
+import { OrderRequest, Payment, OrderedProduct, ShippingAddress} from '../../interfaces/order-request.interface';
 
 @Component({
   templateUrl: './checkout.component.html',
@@ -131,10 +132,9 @@ export class CheckoutComponent implements OnInit{
     this.step++;
  }
 
-
-
  createOrder() {
-  this.orderService.createOrder(this.orderData()).subscribe({
+  this.orderService.createOrder(this.orderData())
+  .subscribe({
     next: (order:Order) => {
       this.scrollToTop();
       this.orderId = order.id.toString();
@@ -146,10 +146,11 @@ export class CheckoutComponent implements OnInit{
   })
  }
 
- orderData(){
+ orderData(): OrderRequest {
+
   const {name, lastName, phone, address, city, postCode, state, country} = this.myForm.value;
 
-  const shippingAddress = {
+  const shippingAddress: ShippingAddress = {
     name: name + ' ' + lastName,
     phone,
     address,
@@ -159,13 +160,13 @@ export class CheckoutComponent implements OnInit{
     country
   }
 
-  const orderedProducts = this.shoppingList.map(item => ({
+  const orderedProducts: OrderedProduct[] = this.shoppingList.map(item => ({
     id: item.product.id,
     product_quantity: item.quantity
   }));
 
 
-  let payments;
+  let payments: Payment[] = [];
 
   if (this.paymentMethod === 'efectivo'){
     payments = [
@@ -185,7 +186,12 @@ export class CheckoutComponent implements OnInit{
     ];
   }
 
+  const orderRequest: OrderRequest = {  
+    shippingAddress,
+    orderedProducts,
+    payments
+  }
 
-  return {shippingAddress, orderedProducts, payments};
+  return orderRequest;
  }
 }

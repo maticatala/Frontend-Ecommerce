@@ -1,18 +1,18 @@
 .shoppingCart {
-  position: fixed;
-  width: 90vw;
-  height: 100vh;
-  top: 0;
+  position: fixed;  /*Fija el carrito en la pantalla, sin importar el desplazamiento del usuario.*/
+  width: 90vw;/* El carrito ocupa el 90% del ancho de la ventana.*/
+  height: 100vh;/*La altura del carrito es del 100% de la ventana (pantalla completa).*/
+  top: 0;/*Se posiciona en la esquina superior derecha.*/
   right: 0;
-  z-index: 1000;
-  transition: transform 0.3s ease;
-  padding: 2rem;
-  background-color: var(--primary);
-  overflow-y: scroll;
+  z-index: 1000;/*Se asegura de que el carrito aparezca por encima de otros elementos en la página.*/
+  transition: transform 0.3s ease;/*Suaviza el deslizamiento cuando el carrito se muestra o se oculta.*/
+  padding: 2rem;/*Agrega espacio interno para evitar que el contenido quede pegado a los bordes.*/
+  background-color: var(--primary);/* Usa una variable CSS (--primary) para definir el color de fondo.*/
+  overflow-y: scroll; /*Habilita el desplazamiento vertical si el contenido es más alto que el div (muchos articulos).*/
 }
 
 .shoppingCart::-webkit-scrollbar {
-  display: none;
+  display: none; /* Hace que la barra de desplazamiento sea invisible, pero el usuario aún puede desplazarse con el scroll. */
 }
 
 .input-group {
