@@ -9,6 +9,8 @@ import { OrdersService } from 'src/app/shared/services/orders.service';
 import { Order } from 'src/app/admin-panel/interfaces/order.interface';
 import { CustomSnackbarService } from '../../../shared/components/custom-snackbar/custom-snackbar.service';
 import { Router } from '@angular/router';
+import { MercadoPagoService } from '../../services/mercadopago.service';
+import { ItemMP } from '../../interfaces/item-mp.interface';
 
 @Component({
   templateUrl: './checkout.component.html',
@@ -20,6 +22,7 @@ export class CheckoutComponent implements OnInit{
   private _cusSnackbar = inject(CustomSnackbarService);
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private mercadoPagoService = inject(MercadoPagoService);
 
   public readonly baseUrl : string = environment.baseUrl;
   public total: number = 0;
@@ -117,7 +120,8 @@ export class CheckoutComponent implements OnInit{
       }
 
       if (this.paymentMethod === 'mercadoPago'){
-        this._cusSnackbar.openCustomSnackbar("error", 'En proceso...', "Ok", 3000, 'warning');
+        // this._cusSnackbar.openCustomSnackbar("error", 'En proceso...', "Ok", 3000, 'warning');
+        this.payWithMercadoPago();
         return;
       }
     }
@@ -183,9 +187,51 @@ export class CheckoutComponent implements OnInit{
         currency: "ARS",
       }
     ];
+  }else if (this.paymentMethod === 'mercadoPago') {
+    payments = [
+      {
+        paymentType: "mercadopago",
+        amount: this.total,
+        currency: "ARS",
+      }
+    ];
   }
 
 
   return {shippingAddress, orderedProducts, payments};
  }
+
+ payWithMercadoPago() {
+
+  // const items: ItemMP[] = this.shoppingList.map(item => ({
+  //   id: item.product.id.toString(),
+  //   title: item.product.name,
+  //   unit_price: item.product.price,
+  //   quantity: item.quantity,
+  //   currency_id: 'ARS',
+  // }));
+
+  // const {name, lastName} = this.myForm.value;
+  // const email = this.authService.getEmail(); // Obtener el email del usuario autenticado
+  // const payer = {
+  //   name,
+  //   lastName,
+  //   email,
+  // };
+
+  this.mercadoPagoService.checkout(this.orderData())
+  .subscribe({
+  next: (response) => {
+    // Opcional: guarda localmente los datos del pedido para recuperarlos después
+    // localStorage.setItem('pendingOrderData', JSON.stringify(this.orderData()));
+
+    window.location.href = response.init_point; // Redirige a Mercado Pago
+  },
+  error: (e) => {
+    this._cusSnackbar.openCustomSnackbar("error", 'Error al iniciar pago', "Ok", 3000, 'danger');
+  }
+  });
+ }
+
+
 }

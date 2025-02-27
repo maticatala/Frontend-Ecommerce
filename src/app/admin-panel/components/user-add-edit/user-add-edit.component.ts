@@ -41,11 +41,12 @@ export class UserAddEditComponent implements OnInit {
   loadUserDetails() {
     if (this.data) {
       this.myForm.patchValue(this.data);
-      this.myForm.get('password')?.disable();
+      this.myForm.get('password')?.disable(); // deshabilita el campo password
       this.myForm.get('password2')?.disable();
-      this.myForm.get('password')?.clearValidators();
-      this.myForm.get('password')?.updateValueAndValidity();
+      this.myForm.get('password')?.clearValidators(); // Elimina las validaciones del campo password
+      this.myForm.get('password')?.updateValueAndValidity(); // Actualiza el estado de validación del campo
     } else {
+      // Agrega las validaciones al campo password
       this.myForm.get('password')?.setValidators([Validators.required, Validators.minLength(4)]);
       this.myForm.setValidators([this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2')]);
     }

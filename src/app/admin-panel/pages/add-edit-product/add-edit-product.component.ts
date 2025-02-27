@@ -54,7 +54,7 @@ export class AddEditProductComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.productId = params['id'];
-      this.isEditing = !!this.productId;
+      this.isEditing = !!this.productId; //porque dos signos de admiracion?
       if (!this.isEditing) return;
 
       this.productsService.getProductById(this.productId!).subscribe(product => {
@@ -74,13 +74,12 @@ export class AddEditProductComponent implements OnInit {
     });
   }
 
-  getFile(e: any) {
-    if (e.target.files[0].type === 'image/png' || e.target.files[0].type === 'image/jpeg') {
-      this.file = e.target.files[0];
-      this.imagen = URL.createObjectURL(this.file);
-      this.myForm.get('image')?.setErrors(null);
+  getFile(e: any) { //Define una función que recibe un evento e (típicamente del evento change de un input file).
+    if (e.target.files[0].type === 'image/png' || e.target.files[0].type === 'image/jpeg') { //Verifica si el tipo de archivo es PNG o JPEG.
+      this.imagen = URL.createObjectURL(this.file); //Crea una URL temporal para la imagen cargada.
+      this.myForm.get('image')?.setErrors(null); //Limpia los errores del control de formulario.
     } else {
-      this.myForm.get('image')?.setErrors({ invalidMimeType: true })
+      this.myForm.get('image')?.setErrors({ invalidMimeType: true }) //Si el tipo de archivo no es PNG o JPEG, establece un error en el control de formulario.
     }
   }
 
@@ -109,12 +108,12 @@ export class AddEditProductComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent) {
 
-    if (!this.categoriesChips.includes(event.option.value)) {
+    if (!this.categoriesChips.includes(event.option.value)) { //Verifica si la categoría ya ha sido agregada.
 
-      this.categoriesChips.push(event.option.value);
+      this.categoriesChips.push(event.option.value); //Agrega la categoría al array categoriesChips.
     }
 
-    this.categoryInput!.nativeElement.value = '';
+    this.categoryInput!.nativeElement.value = ''; //Limpia el campo de entrada de categorías.
   }
 
   remove(categoryChip: Category): void {
@@ -128,7 +127,7 @@ export class AddEditProductComponent implements OnInit {
   }
 
   onFormSubmit() {
-    this.setCategoriesErrors();
+    this.setCategoriesErrors(); // Que hace esto?
 
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
