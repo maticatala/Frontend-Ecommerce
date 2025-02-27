@@ -15,9 +15,9 @@
                                   data-original="#000000" />
                           </svg>
                       </div>
-                      <a href="javascript:void(0)" class="text-[var(--accent)] text-sm ml-3">
+                      <a href="mailto: beyond@limits.com.ar" class="text-[var(--accent)] text-sm ml-3">
                           <small class="block">Mail</small>
-                          <strong>info@example.com</strong>
+                          <strong>beyond@limits.com.ar</strong>
                       </a>
                   </li>
               </ul>
@@ -46,7 +46,7 @@
                       </a>
                   </li>
                   <li class="bg-[var(--primary)] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                      <a href="javascript:void(0)">
+                      <a href="https://www.instagram.com/bl_impresiones_/">
                           <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='var(--accent)'
                               viewBox="0 0 24 24">
                               <path
@@ -58,17 +58,58 @@
               </ul>
           </div>
       </div>
-      <form class="ml-auto space-y-4">
-          <input type='text' placeholder='Nombre'
-              class="w-full bg-transparent rounded-md py-2.5 px-4 border text-sm outline-[var(--accent)]" />
-          <input type='email' placeholder='Email'
-              class="w-full bg-transparent rounded-md py-2.5 px-4 border text-sm outline-[var(--accent)]" />
-          <input type='text' placeholder='Asunto'
-              class="w-full bg-transparent rounded-md py-2.5 px-4 border text-sm outline-[var(--accent)]" />
-          <textarea placeholder='Mensaje' rows="6"
-              class="w-full bg-transparent rounded-md px-4 border text-sm pt-2.5 outline-[var(--accent)]"></textarea>
-          <button type='button'
-              class=" accent font-semibold rounded-md text-sm px-4 py-2.5 w-full">Enviar</button>
+      <div>
+        <form class="ml-auto space-y-4" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <div>
+              <input type='text' placeholder='Nombre y Apellido' formControlName='name'
+                  class="w-full bg-transparent rounded-md py-2.5 px-4 border text-sm outline-[var(--accent)]"
+                  [ngClass]="{'border-red-500': myForm.get('name')?.invalid && myForm.get('name')?.touched}" />
+              <p *ngIf="myForm.get('name')?.invalid && myForm.get('name')?.touched" class="text-red-500 text-xs mt-1">
+                  El nombre es requerido.
+              </p>
+          </div>
+
+          <div>
+              <input type='email' placeholder='Email' formControlName='email'
+                  class="w-full bg-transparent rounded-md py-2.5 px-4 border text-sm outline-[var(--accent)]"
+                  [ngClass]="{'border-red-500': myForm.get('email')?.invalid && myForm.get('email')?.touched}" />
+              <p *ngIf="myForm.get('email')?.hasError('required') && myForm.get('email')?.touched" class="text-red-500 text-xs mt-1">
+                  El email es requerido.
+              </p>
+              <p *ngIf="myForm.get('email')?.hasError('email') && myForm.get('email')?.touched" class="text-red-500 text-xs mt-1">
+                  Ingresa un email válido.
+              </p>
+          </div>
+
+          <div>
+              <input type='text' placeholder='Asunto' formControlName='subject'
+                  class="w-full bg-transparent rounded-md py-2.5 px-4 border text-sm outline-[var(--accent)]"
+                  [ngClass]="{'border-red-500': myForm.get('subject')?.invalid && myForm.get('subject')?.touched}" />
+              <p *ngIf="myForm.get('subject')?.invalid && myForm.get('subject')?.touched" class="text-red-500 text-xs mt-1">
+                  El asunto es requerido.
+              </p>
+          </div>
+
+          <div>
+              <textarea placeholder='Mensaje' rows="6" formControlName='message'
+                  class="w-full bg-transparent rounded-md px-4 border text-sm pt-2.5 outline-[var(--accent)]"
+                  [ngClass]="{'border-red-500': myForm.get('message')?.invalid && myForm.get('message')?.touched}"></textarea>
+              <p *ngIf="myForm.get('message')?.invalid && myForm.get('message')?.touched" class="text-red-500 text-xs mt-1">
+                  El mensaje es requerido.
+              </p>
+          </div>
+
+          <button type="submit" class="accent font-semibold rounded-md text-sm px-4 py-2.5 w-full active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out"> Enviar </button>
+
       </form>
+
+        <div *ngIf="loading" class="flex items-center gap-2 p-3 bg-yellow-100 text-yellow-700 rounded-lg shadow-md mt-2">
+          <svg class="animate-spin h-5 w-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0116 0H4z"></path>
+          </svg>
+          <p class="text-sm font-medium">Enviando mensaje...</p>
+        </div>
+      </div>
   </div>
 </div>
