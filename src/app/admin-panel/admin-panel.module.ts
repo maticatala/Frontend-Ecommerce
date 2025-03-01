@@ -20,6 +20,7 @@ import { AddEditProductComponent } from './pages/add-edit-product/add-edit-produ
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { PaymentDetailsDialogComponent } from './components/payment-details-dialog/payment-details-dialog.component';
+import { ReportsPageComponent } from './pages/reports-page/reports-page.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PaymentDetailsDialogComponent } from './components/payment-details-dial
     OrdersPageComponent,
     OrderPageComponent,
     PaymentDetailsDialogComponent,
+    ReportsPageComponent,
   ],
   imports: [
     CommonModule,
