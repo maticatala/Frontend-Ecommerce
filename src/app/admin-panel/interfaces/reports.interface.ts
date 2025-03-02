@@ -3,7 +3,9 @@ export interface SalesSummary {
   totalRevenue: number; // ingresos totales
   orderCount: number; // pedidos completados
   averageTicket: number; // ticket promedio
-  period: 'monthly' | 'annual'; //periodo
+  period: 'monthly' | 'annual' | 'historical'; // periodo
+  year?: number;
+  month?: number;
 }
 
 export interface OrderStatusCount {
@@ -35,3 +37,4 @@ export interface DashboardData {
   topProducts: TopProduct[]; //productos más vendidos
   popularCategories: PopularCategory[]; //categorías más populares
 }
+

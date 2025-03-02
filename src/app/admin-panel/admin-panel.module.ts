@@ -9,7 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserAddEditComponent } from './components/user-add-edit/user-add-edit.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './components/side-nav-left/side-nav/side-nav.component';
 import { SideNavClosedComponent } from './components/side-nav-left/side-nav-closed/side-nav-closed.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
@@ -47,6 +47,7 @@ import { ReportsPageComponent } from './pages/reports-page/reports-page.componen
     AngularMaterialModule,
     SharedModule,
     ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AdminPanelModule { }

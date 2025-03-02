@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DashboardData, SalesSummary, OrdersStatus, TopProduct, PopularCategory } from '../interfaces/reports.interface';
 import { environment } from 'src/app/environments/environments';
@@ -12,29 +12,59 @@ export class ReportsService {
 
   constructor(private http: HttpClient) {}
 
-  getDashboardData(): Observable<DashboardData> {
-    return this.http.get<DashboardData>(`${this.baseUrl}/dashboard`);
+  //A traves de este endpoint traemos toda la data del dashboard.
+  getDashboardData(
+    period: 'monthly' | 'annual' | 'historical' = 'historical',
+    year?: number,
+    month?: number
+  ): Observable<DashboardData> {
+    let params = new HttpParams().set('period', period);
+
+    if (year) {
+      params = params.set('year', year.toString());
+    }
+
+    if (month && period === 'monthly') {
+      params = params.set('month', month.toString());
+    }
+
+    return this.http.get<DashboardData>(`${this.baseUrl}/dashboard`, { params });
   }
 
-  getSalesSummary(period: 'monthly' | 'annual' = 'monthly'): Observable<SalesSummary> {
-    return this.http.get<SalesSummary>(`${this.baseUrl}/sales-summary`, {
-      params: { period }
-    });
+  //Con este endpoint traemos el resumen de ventas cuando se cambia el periodo
+  getSalesSummary(
+    period: 'monthly' | 'annual' | 'historical' = 'monthly',
+    year?: number,
+    month?: number
+  ): Observable<SalesSummary> {
+    let params = new HttpParams().set('period', period);
+
+    if (year) {
+      params = params.set('year', year.toString());
+    }
+
+    if (month && period === 'monthly') {
+      params = params.set('month', month.toString());
+    }
+
+    return this.http.get<SalesSummary>(`${this.baseUrl}/sales-summary`, { params });
   }
 
-  getOrdersStatus(): Observable<OrdersStatus> {
-    return this.http.get<OrdersStatus>(`${this.baseUrl}/orders-status`);
-  }
 
-  getTopProducts(limit: number = 10): Observable<TopProduct[]> {
-    return this.http.get<TopProduct[]>(`${this.baseUrl}/top-products`, {
-      params: { limit: limit.toString() }
-    });
-  }
+  //* No hace falta implementar estos metodos ya que no se utilizan en el front
+  // getOrdersStatus(): Observable<OrdersStatus> {
+  //   return this.http.get<OrdersStatus>(`${this.baseUrl}/orders-status`);
+  // }
 
-  getPopularCategories(limit: number = 5): Observable<PopularCategory[]> {
-    return this.http.get<PopularCategory[]>(`${this.baseUrl}/popular-categories`, {
-      params: { limit: limit.toString() }
-    });
-  }
+  // getTopProducts(limit: number = 10): Observable<TopProduct[]> {
+  //   return this.http.get<TopProduct[]>(`${this.baseUrl}/top-products`, {
+  //     params: { limit: limit.toString() }
+  //   });
+  // }
+
+  // getPopularCategories(limit: number = 5): Observable<PopularCategory[]> {
+  //   return this.http.get<PopularCategory[]>(`${this.baseUrl}/popular-categories`, {
+  //     params: { limit: limit.toString() }
+  //   });
+  // }
 }
