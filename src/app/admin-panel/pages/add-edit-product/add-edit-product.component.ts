@@ -76,6 +76,7 @@ export class AddEditProductComponent implements OnInit {
 
   getFile(e: any) { //Define una función que recibe un evento e (típicamente del evento change de un input file).
     if (e.target.files[0].type === 'image/png' || e.target.files[0].type === 'image/jpeg') { //Verifica si el tipo de archivo es PNG o JPEG.
+      this.file = e.target.files[0];
       this.imagen = URL.createObjectURL(this.file); //Crea una URL temporal para la imagen cargada.
       this.myForm.get('image')?.setErrors(null); //Limpia los errores del control de formulario.
     } else {
