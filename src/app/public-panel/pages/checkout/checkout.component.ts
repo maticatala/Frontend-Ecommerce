@@ -56,9 +56,19 @@ export class CheckoutComponent implements OnInit{
 
   ngOnInit() {
 
+    this.loadCartItems();
+
+    this.validateOrderPending();
+  }
+
+
+  validateOrderPending() {
+
     // Verificar si se viene de una redirección de failure para limpiar localStorage (manda cleanPendingOrder en la url)
     this.route.queryParams.subscribe(params => {
+      // console.log('params:', params);
       if (params['cleanPendingOrder'] === 'true') {
+        // console.log('cleanPendingOrder:', params['cleanPendingOrder']);
         localStorage.removeItem('pendingMPOrderId');
         localStorage.removeItem('mpPaymentTimestamp');
 
@@ -73,12 +83,14 @@ export class CheckoutComponent implements OnInit{
       }
     });
 
-
     // Verificar si hay un pedido pendiente (posible navegación con botón "atrás")
     const pendingOrderId = localStorage.getItem('pendingMPOrderId');
     const paymentTimestamp = localStorage.getItem('mpPaymentTimestamp');
 
     if (pendingOrderId && paymentTimestamp) {
+      console.log('pendingOrderId:', pendingOrderId);
+      console.log('mpPaymentTimestamp:', paymentTimestamp);
+
       const timeElapsed = Date.now() - parseInt(paymentTimestamp);
       // Si han pasado menos de 30 minutos, probablemente el usuario usó el botón "atrás"
       if (timeElapsed < 30 * 60 * 1000) {
@@ -101,9 +113,7 @@ export class CheckoutComponent implements OnInit{
         localStorage.removeItem('pendingMPOrderId');
         localStorage.removeItem('mpPaymentTimestamp');
       }
-  }
-
-    this.loadCartItems();
+    }
   }
 
   private loadCartItems() {
@@ -121,6 +131,11 @@ export class CheckoutComponent implements OnInit{
           console.log(err)
         }
       });
+
+    if (this.shoppingList.length === 0) {
+      this._cusSnackbar.openCustomSnackbar("error", 'No hay productos en el carrito', "Ok", 3000, 'danger');
+      this.router.navigate(['/products']);
+    }
   }
 
   changeQuantity(cartItem: CartItem, quantity: number) {
@@ -182,6 +197,7 @@ export class CheckoutComponent implements OnInit{
     this.scrollToTop();
     this.step++;
  }
+
 
 
  createOrder() {
@@ -283,5 +299,6 @@ export class CheckoutComponent implements OnInit{
   }
   });
  }
+
 
 }
