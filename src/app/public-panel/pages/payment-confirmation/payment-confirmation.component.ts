@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./payment-confirmation.component.css']
 })
 export class PaymentConfirmationComponent {
+  // limpiar el pedido pendiente del localstorage  ?
+  // limpiar el carrito ?
 
 }

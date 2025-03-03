@@ -8,9 +8,8 @@ import { Product } from 'src/app/shared/interfaces/product.interface';
 import { OrdersService } from 'src/app/shared/services/orders.service';
 import { Order } from 'src/app/admin-panel/interfaces/order.interface';
 import { CustomSnackbarService } from '../../../shared/components/custom-snackbar/custom-snackbar.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MercadoPagoService } from '../../services/mercadopago.service';
-import { ItemMP } from '../../interfaces/item-mp.interface';
 
 @Component({
   templateUrl: './checkout.component.html',
@@ -23,6 +22,7 @@ export class CheckoutComponent implements OnInit{
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private mercadoPagoService = inject(MercadoPagoService);
+  private route = inject(ActivatedRoute);
 
   public readonly baseUrl : string = environment.baseUrl;
   public total: number = 0;
@@ -55,6 +55,54 @@ export class CheckoutComponent implements OnInit{
   ];
 
   ngOnInit() {
+
+    // Verificar si se viene de una redirección de failure para limpiar localStorage (manda cleanPendingOrder en la url)
+    this.route.queryParams.subscribe(params => {
+      if (params['cleanPendingOrder'] === 'true') {
+        localStorage.removeItem('pendingMPOrderId');
+        localStorage.removeItem('mpPaymentTimestamp');
+
+        this._cusSnackbar.openCustomSnackbar("warning",'Se canceló el proceso de pago',"Ok",3000,'warning');
+
+        // Limpiar el parámetro de la URL para evitar que se dispare nuevamente si el usuario recarga
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { cleanPendingOrder: null },
+          queryParamsHandling: 'merge'
+        });
+      }
+    });
+
+
+    // Verificar si hay un pedido pendiente (posible navegación con botón "atrás")
+    const pendingOrderId = localStorage.getItem('pendingMPOrderId');
+    const paymentTimestamp = localStorage.getItem('mpPaymentTimestamp');
+
+    if (pendingOrderId && paymentTimestamp) {
+      const timeElapsed = Date.now() - parseInt(paymentTimestamp);
+      // Si han pasado menos de 30 minutos, probablemente el usuario usó el botón "atrás"
+      if (timeElapsed < 30 * 60 * 1000) {
+        // Eliminar el pedido pendiente
+        this.orderService.deleteOrder(parseInt(pendingOrderId)).subscribe({
+          next: () => {
+            console.log('Pedido eliminado por navegación hacia atrás');
+            localStorage.removeItem('pendingMPOrderId');
+            localStorage.removeItem('mpPaymentTimestamp');
+            this._cusSnackbar.openCustomSnackbar("warning", 'Se canceló el proceso de pago', "Ok", 3000, 'warning');
+          },
+          error: (e) => {
+            console.error('Error al eliminar pedido pendiente:', e);
+            localStorage.removeItem('pendingMPOrderId');
+            localStorage.removeItem('mpPaymentTimestamp');
+          }
+        });
+      } else {
+        // Si ha pasado mucho tiempo, simplemente limpiar localStorage
+        localStorage.removeItem('pendingMPOrderId');
+        localStorage.removeItem('mpPaymentTimestamp');
+      }
+  }
+
     this.loadCartItems();
   }
 
@@ -134,7 +182,6 @@ export class CheckoutComponent implements OnInit{
     this.scrollToTop();
     this.step++;
  }
-
 
 
  createOrder() {
@@ -222,16 +269,19 @@ export class CheckoutComponent implements OnInit{
   this.mercadoPagoService.checkout(this.orderData())
   .subscribe({
   next: (response) => {
-    // Opcional: guarda localmente los datos del pedido para recuperarlos después
-    // localStorage.setItem('pendingOrderData', JSON.stringify(this.orderData()));
+  // Guardar el ID del pedido en localStorage antes de redirigir
+  localStorage.setItem('pendingMPOrderId', response.orderId.toString());
+  localStorage.setItem('mpPaymentTimestamp', Date.now().toString());
 
-    window.location.href = response.init_point; // Redirige a Mercado Pago
+  console.log('pendingMPOrderId:', response.orderId.toString());
+  console.log('mpPaymentTimestamp:', Date.now().toString());
+
+  window.location.href = response.init_point; // Redirige a Mercado Pago
   },
   error: (e) => {
     this._cusSnackbar.openCustomSnackbar("error", 'Error al iniciar pago', "Ok", 3000, 'danger');
   }
   });
  }
-
 
 }
