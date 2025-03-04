@@ -14,17 +14,8 @@ export class PaymentConfirmationComponent implements OnInit {
 
   ngOnInit() {
 
-    this.cartService.clearCart();
-
-    const pendingMPOrderId = localStorage.getItem('pendingMPOrderId');
-    const mpPaymentTimestamp = localStorage.getItem('mpPaymentTimestamp');
-
-    if (pendingMPOrderId && mpPaymentTimestamp) {
-      console.log('pendingMPOrderId:', pendingMPOrderId);
-      console.log('mpPaymentTimestamp:', mpPaymentTimestamp);
-
-      localStorage.removeItem('pendingMPOrderId');
-      localStorage.removeItem('mpPaymentTimestamp');
-    }
+    setTimeout(() => {
+      this.cartService.clearCart();
+    } , 1000);
   }
 }

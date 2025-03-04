@@ -6,9 +6,9 @@
         <section class="col-span-3">
           <div class="flex flex-col items-center text-center">
             <svg class="fill-[var(--success)]" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
-            <h3 class="text-xl mt-2 font-semibold">Tu pago se ha realizado con éxito!</h3>
-            <h4 class="text-base font-light mt-4">Gracias por comprar con nosotros. Tu pedido se está procesando</h4>
-            <button class="chip primary mt-8" >
+            <h3 class="text-xl mt-2 font-semibold">Tu pedido se ha realizado con éxito y ya se está procesando</h3>
+            <h4 class="text-base font-light mt-4">¡Gracias por comprar con nosotros!</h4>
+            <button class="chip primary mt-8" [routerLink]="['/orders']">
               VER DETALLE DEL PEDIDO
             </button>
           </div>

@@ -18,6 +18,6 @@ export class MercadoPagoService {
       'authorization': `Bearer ${localStorage.getItem('token')}`
     })
 
-    return this.http.post<{ init_point: string, orderId: number }>(url, body,{headers});
+    return this.http.post<{ init_point: string }>(url, body,{headers});
   }
 }

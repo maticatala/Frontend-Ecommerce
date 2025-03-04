@@ -43,10 +43,10 @@ export class OrderPageComponent implements OnInit{
 
   setOrderStatusColor(status:OrderStatus): string {
     const statusClasses = {
-      [OrderStatus.CANCELLED]: 'text-danger bg-red-50',
-      [OrderStatus.PROCESSING]: 'text-warning bg-yellow-50',
-      [OrderStatus.DELIVERED]: 'text-success bg-green-50',
-      [OrderStatus.SHIPPED]: 'text-info bg-blue-50',
+      [OrderStatus.CANCELLED]: 'text-danger bg-red-50 font-bold',
+      [OrderStatus.PROCESSING]: 'text-warning bg-yellow-50 font-bold',
+      [OrderStatus.DELIVERED]: 'text-success bg-green-50 font-bold',
+      [OrderStatus.SHIPPED]: 'text-info bg-blue-50 font-bold',
     };
 
     return statusClasses[status];
@@ -54,13 +54,13 @@ export class OrderPageComponent implements OnInit{
 
   setPaymentStatusColor(status: PaymentStatus): string {
     const statusClasses = {
-      [PaymentStatus.FAILED]: 'text-danger bg-red-50',
-      [PaymentStatus.REFUNDED]: 'text-warning bg-yellow-50',
-      [PaymentStatus.COMPLETED]: 'text-success bg-green-50',
-      [PaymentStatus.PENDING]: 'text-info bg-blue-50',
+      [PaymentStatus.FAILED]: 'text-danger bg-red-50 font-bold',
+      [PaymentStatus.REFUNDED]: 'text-warning bg-yellow-50 font-bold',
+      [PaymentStatus.COMPLETED]: 'text-success bg-green-50 font-bold',
+      [PaymentStatus.PENDING]: 'text-info bg-blue-50 font-bold',
     };
 
-    return statusClasses[status];
-  }
+    return statusClasses[status] || 'text-success bg-green-50 font-bold' ;
+   }
 
 }

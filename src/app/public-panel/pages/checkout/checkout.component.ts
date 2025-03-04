@@ -30,6 +30,8 @@ export class CheckoutComponent implements OnInit{
   public step = 1;
   public paymentMethod: string = '';
   public orderId: string = '';
+  public isLoading = false;   // loading de pago
+  public disablePayButton = false; // deshabilitar boton de pago para evitar doble click
 
   public myForm: FormGroup = this.fb.group({
     name:     [''],
@@ -57,66 +59,10 @@ export class CheckoutComponent implements OnInit{
   ngOnInit() {
 
     this.loadCartItems();
-
-    this.validateOrderPending();
-  }
-
-
-  validateOrderPending() {
-
-    // Verificar si se viene de una redirección de failure para limpiar localStorage (manda cleanPendingOrder en la url)
-    this.route.queryParams.subscribe(params => {
-      // console.log('params:', params);
-      if (params['cleanPendingOrder'] === 'true') {
-        // console.log('cleanPendingOrder:', params['cleanPendingOrder']);
-        localStorage.removeItem('pendingMPOrderId');
-        localStorage.removeItem('mpPaymentTimestamp');
-
-        this._cusSnackbar.openCustomSnackbar("warning",'Se canceló el proceso de pago',"Ok",3000,'warning');
-
-        // Limpiar el parámetro de la URL para evitar que se dispare nuevamente si el usuario recarga
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: { cleanPendingOrder: null },
-          queryParamsHandling: 'merge'
-        });
-      }
-    });
-
-    // Verificar si hay un pedido pendiente (posible navegación con botón "atrás")
-    const pendingOrderId = localStorage.getItem('pendingMPOrderId');
-    const paymentTimestamp = localStorage.getItem('mpPaymentTimestamp');
-
-    if (pendingOrderId && paymentTimestamp) {
-      console.log('pendingOrderId:', pendingOrderId);
-      console.log('mpPaymentTimestamp:', paymentTimestamp);
-
-      const timeElapsed = Date.now() - parseInt(paymentTimestamp);
-      // Si han pasado menos de 30 minutos, probablemente el usuario usó el botón "atrás"
-      if (timeElapsed < 30 * 60 * 1000) {
-        // Eliminar el pedido pendiente
-        this.orderService.deleteOrder(parseInt(pendingOrderId)).subscribe({
-          next: () => {
-            console.log('Pedido eliminado por navegación hacia atrás');
-            localStorage.removeItem('pendingMPOrderId');
-            localStorage.removeItem('mpPaymentTimestamp');
-            this._cusSnackbar.openCustomSnackbar("warning", 'Se canceló el proceso de pago', "Ok", 3000, 'warning');
-          },
-          error: (e) => {
-            console.error('Error al eliminar pedido pendiente:', e);
-            localStorage.removeItem('pendingMPOrderId');
-            localStorage.removeItem('mpPaymentTimestamp');
-          }
-        });
-      } else {
-        // Si ha pasado mucho tiempo, simplemente limpiar localStorage
-        localStorage.removeItem('pendingMPOrderId');
-        localStorage.removeItem('mpPaymentTimestamp');
-      }
-    }
   }
 
   private loadCartItems() {
+
     this.cartService.products
       .pipe(
         tap(cartProducts => {
@@ -125,6 +71,13 @@ export class CheckoutComponent implements OnInit{
       )
       .subscribe({
         next: cartProducts => {
+          const cartItems = localStorage.getItem('cartItems')
+          console.log('cartItems:', cartItems);
+          if (cartItems === '{}' || cartItems === null) {
+            this._cusSnackbar.openCustomSnackbar("error", 'No hay productos en el carrito', "Ok", 3000, 'danger');
+            this.router.navigate(['/products']);
+          }
+
           this.shoppingList = cartProducts;
         },
         error: err => {
@@ -132,10 +85,6 @@ export class CheckoutComponent implements OnInit{
         }
       });
 
-    if (this.shoppingList.length === 0) {
-      this._cusSnackbar.openCustomSnackbar("error", 'No hay productos en el carrito', "Ok", 3000, 'danger');
-      this.router.navigate(['/products']);
-    }
   }
 
   changeQuantity(cartItem: CartItem, quantity: number) {
@@ -165,7 +114,6 @@ export class CheckoutComponent implements OnInit{
     this.scrollToTop();
     this.step --;
   }
-
 
   nextStep() {
 
@@ -198,14 +146,13 @@ export class CheckoutComponent implements OnInit{
     this.step++;
  }
 
-
-
  createOrder() {
-  this.orderService.createOrder(this.orderData()).subscribe({
+  this.orderService.createOrder(this.orderData())
+  .subscribe({
     next: (order:Order) => {
       this.scrollToTop();
       this.orderId = order.id.toString();
-      this.cartService.clearCart();
+      // this.cartService.clearCart();         //TODO VER PQ POR TRANSF Y EFECT SE VA AL HOME
       this.step = 5;
     }, error: (e) => {
       this._cusSnackbar.openCustomSnackbar("error", e.error.message, "Ok", 3000, 'danger');
@@ -266,39 +213,21 @@ export class CheckoutComponent implements OnInit{
 
  payWithMercadoPago() {
 
-  // const items: ItemMP[] = this.shoppingList.map(item => ({
-  //   id: item.product.id.toString(),
-  //   title: item.product.name,
-  //   unit_price: item.product.price,
-  //   quantity: item.quantity,
-  //   currency_id: 'ARS',
-  // }));
+ this.isLoading = true;
+ this.disablePayButton = true;
 
-  // const {name, lastName} = this.myForm.value;
-  // const email = this.authService.getEmail(); // Obtener el email del usuario autenticado
-  // const payer = {
-  //   name,
-  //   lastName,
-  //   email,
-  // };
-
-  this.mercadoPagoService.checkout(this.orderData())
+ this.mercadoPagoService.checkout(this.orderData())
   .subscribe({
   next: (response) => {
-  // Guardar el ID del pedido en localStorage antes de redirigir
-  localStorage.setItem('pendingMPOrderId', response.orderId.toString());
-  localStorage.setItem('mpPaymentTimestamp', Date.now().toString());
-
-  console.log('pendingMPOrderId:', response.orderId.toString());
-  console.log('mpPaymentTimestamp:', Date.now().toString());
-
-  window.location.href = response.init_point; // Redirige a Mercado Pago
+    window.location.href = response.init_point; // Redirige a Mercado Pago
+    this.isLoading = false;
+    this.disablePayButton = false;
   },
   error: (e) => {
-    this._cusSnackbar.openCustomSnackbar("error", 'Error al iniciar pago', "Ok", 3000, 'danger');
+    this.isLoading = false;
+    this.disablePayButton = false;
+    this._cusSnackbar.openCustomSnackbar("error", 'Error al iniciar el pago', "Ok", 3000, 'danger');
   }
   });
  }
-
-
 }

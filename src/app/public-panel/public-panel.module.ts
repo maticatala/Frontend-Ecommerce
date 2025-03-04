@@ -23,6 +23,7 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { UserPanelLayoutComponent } from './layouts/user-panel-layout/user-panel-layout.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { PaymentConfirmationComponent } from './pages/payment-confirmation/payment-confirmation.component';
+import { PaymentPendingComponent } from './pages/payment-pending/payment-pending.component';
 
 
 
@@ -45,7 +46,8 @@ import { PaymentConfirmationComponent } from './pages/payment-confirmation/payme
     SideBarComponent,
     UserPanelLayoutComponent,
     OrderPageComponent,
-    PaymentConfirmationComponent
+    PaymentConfirmationComponent,
+    PaymentPendingComponent
   ],
   imports: [
     CommonModule,
