@@ -11,6 +11,8 @@ import { isAuthenticatedGuard } from '../auth/guards';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
+import { PaymentConfirmationComponent } from './pages/payment-confirmation/payment-confirmation.component';
+import { PaymentPendingComponent } from './pages/payment-pending/payment-pending.component';
 
 const routes: Routes = [{
   path: '',
@@ -22,6 +24,8 @@ const routes: Routes = [{
     {path: 'product/:id', component: ProductPageComponent},
     {path: 'contact', component: ContactComponent},
     {path: 'checkout', canActivate: [isAuthenticatedGuard], component: CheckoutComponent},
+    {path: 'payment-confirmation', canActivate: [isAuthenticatedGuard], component: PaymentConfirmationComponent},
+    {path: 'payment-pending', canActivate: [isAuthenticatedGuard], component: PaymentPendingComponent},
     {path: 'orders', canActivate: [isAuthenticatedGuard], component: OrdersPageComponent},
     {path: 'orders/:orderId', canActivate: [isAuthenticatedGuard], component: OrderPageComponent},
     {path: 'profile', canActivate: [isAuthenticatedGuard], component: ProfilePageComponent},

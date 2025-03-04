@@ -86,4 +86,22 @@ export class OrdersService {
     return this.http.get<Order[]>(`${this.baseUrl}/orders/userOrders`, {headers});
   }
 
+  getLastOrderId(): Observable<{id: String}> {
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.get<{id: string}>(`${this.baseUrl}/orders/last-order`, {headers});
+  }
+
+
+  deleteOrder(orderId: number) {
+    const url = `${this.baseUrl}/orders/${orderId}`;
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.delete(url, { headers });
+  }
+
 }

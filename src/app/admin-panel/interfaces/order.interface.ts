@@ -26,6 +26,9 @@ export interface Payment {
   status:        PaymentStatus;
   transactionId: null;
   paymentDate:   Date;
+  installments: number;
+  paymentMethodType: string;
+  paymentFinancialSystem: string;
 }
 
 export interface ProductElement {

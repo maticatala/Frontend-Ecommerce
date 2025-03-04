@@ -3,15 +3,18 @@
   <p><strong>ID del Pago:</strong> {{ payment.id }}</p>
   <p><strong>Fecha del Pago:</strong> {{ payment.paymentDate | date:'d/M/yy, h:mm a' }}</p>
   <p><strong>Método de Pago:</strong> {{ payment.paymentType }}</p>
-  <p><strong>Total pagado:</strong> {{ payment.amount }}</p>
+  <p><strong>Total pagado:</strong> {{ payment.amount | currency}}</p>
   <p><strong>Moneda:</strong> {{ payment.currency }}</p>
-  <p><strong *ngIf="payment.transactionId">Id de transacción:</strong> {{ payment.transactionId }}</p>
+  <p *ngIf="payment.transactionId"><strong>Id de transacción:</strong> {{ payment.transactionId }}</p>
+  <p *ngIf="payment.installments"><strong>Cuotas:</strong> {{ payment.installments }}</p>
+  <p *ngIf="payment.paymentMethodType && payment.paymentMethodType  !== 'account_money'"><strong >Tarjeta:</strong> {{getPaymentMethodName(payment.paymentMethodType)}}</p>
+  <p *ngIf="payment.paymentFinancialSystem && payment.paymentFinancialSystem !== 'account_money'"><strong >Sistema Financiero:</strong> {{getFinancialSystemName(payment.paymentFinancialSystem)}}</p>
 
   <div class="flex items-center gap-2 mt-2">
     <div class="w-40 p-2 primary rounded-sm">
-      <mat-select [(value)]="paymentInitialStatus" >
+      <mat-select *ngIf="payment.status" [(value)]="paymentInitialStatus" >
         <mat-option *ngFor="let status of paymentStatus | keyvalue" [value]="status.value">
-          {{ status.key }}
+          {{ getPaymentStatusName(status.value) }}
         </mat-option>
       </mat-select>
     </div>

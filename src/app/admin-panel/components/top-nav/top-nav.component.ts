@@ -13,7 +13,7 @@ export class TopNavComponent {
 
   currentUser?: User | null;
 
-  public finishedUserCheck = computed<boolean>(() => {
+  public finishedUserCheck = computed<boolean>(() => { //permite modificar la señal para que sea readonly
 
     if (this.authService.currentUser()) {
       return true;
