@@ -36,11 +36,11 @@
             </div>
             <div class="col-span-3 lg:col-span-2" *ngIf="order.payments.length > 0">
               <span>Pago: </span>
-              <span class="p-1.5 rounded-full" [ngClass]="setPaymentStatusColor(order.payments[0].status)">{{order.payments[0].status}}</span>
+              <span class="p-1.5 rounded-full" [ngClass]="setPaymentStatusColor(order.payments[0].status)">{{getPaymentStatusName(order.payments[0].status)}}</span>
             </div>
             <div class="col-span-3 lg:col-span-2">
               <span>Estado: </span>
-              <span class="p-1.5 rounded-full" [ngClass]="setOrderStatusColor(order.status)">{{order.status}}</span>
+              <span class="p-1.5 rounded-full" [ngClass]="setOrderStatusColor(order.status)">{{getOrderStatusName(order.status)}}</span>
             </div>
           </div>
         </div>

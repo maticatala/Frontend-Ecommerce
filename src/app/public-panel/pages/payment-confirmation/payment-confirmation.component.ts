@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
+import { OrdersService } from 'src/app/shared/services/orders.service';
 
 @Component({
   selector: 'app-payment-confirmation',
@@ -7,15 +8,20 @@ import { CartService } from '../../services/cart.service';
   styleUrls: ['./payment-confirmation.component.css']
 })
 export class PaymentConfirmationComponent implements OnInit {
-  // limpiar el carrito
-  // limpiar el pedido pendiente del localstorage
 
   private cartService = inject(CartService);
+  private orderService = inject(OrdersService);
+
+  orderId: String = '';
 
   ngOnInit() {
-
     setTimeout(() => {
       this.cartService.clearCart();
-    } , 1000);
+    });
+    this.orderService.getLastOrderId().subscribe({
+      next: (response => {
+        this.orderId = response.id;
+      })
+    })
   }
 }

@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Column } from 'src/app/shared/interfaces';
 import { Order } from '../../interfaces/order.interface';
 import { Router } from '@angular/router';
+import { OrderStatus } from '../../enums/order-status.enum';
 
 @Component({
   templateUrl: './orders-page.component.html',
@@ -37,6 +38,7 @@ export class OrdersPageComponent {
         result.forEach((element:any,index:number)=> {
           element['recId'] = index +1;
           element['userEmail'] = element.user.email;
+          element['status'] = this.getOrderStatusName(element['status']);
           rows.unshift(element);
         });
 
@@ -52,5 +54,16 @@ export class OrdersPageComponent {
 
     this.router.navigate(['/dashboard/order', id]);
   }
+
+    orderStatusNames: Record<string, string> = {
+      [OrderStatus.PROCESSING]: 'En Proceso',
+      [OrderStatus.SHIPPED]: 'Enviado',
+      [OrderStatus.DELIVERED]: 'Entregado',
+      [OrderStatus.CANCELLED]: 'Cancelado',
+    };
+
+    getOrderStatusName(status: string): string {
+      return this.orderStatusNames[status] || status;
+    }
 
 }

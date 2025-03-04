@@ -18,7 +18,7 @@
                 <!-- <span>{{orderId}}</span> -->
               </h3>
               <h4 class="text-lg mt-4">Gracias por confiar en <span class="font-semibold">Beyond Limits</span></h4>
-              <button class="chip primary mt-8" [routerLink]="['/orders']">
+              <button *ngIf="orderId !== ''" class="chip primary mt-8" [routerLink]="['/orders',orderId]">
                 VER DETALLE DEL PEDIDO
               </button>
             </div>

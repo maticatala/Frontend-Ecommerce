@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { tap } from 'rxjs';
 import { OrderStatus } from 'src/app/admin-panel/enums/order-status.enum';
 import { PaymentStatus } from 'src/app/admin-panel/enums/payment-status.enum';
 import { Order } from 'src/app/admin-panel/interfaces/order.interface';
@@ -53,9 +52,37 @@ export class OrdersPageComponent implements OnInit{
       [PaymentStatus.REFUNDED]: 'text-warning bg-yellow-50 font-bold',
       [PaymentStatus.COMPLETED]: 'text-success bg-green-50 font-bold',
       [PaymentStatus.PENDING]: 'text-info bg-blue-50 font-bold',
+      [PaymentStatus.REJECTED]: 'text-danger bg-red-50 font-bold',
+      [PaymentStatus.APPROVED]: 'text-success bg-green-50 font-bold',
+      [PaymentStatus.IN_PROCESS]: 'text-info bg-blue-50 font-bold',
     };
 
     return statusClasses[status] || 'text-success bg-green-50 font-bold';
+  }
+
+  orderStatusNames: Record<string, string> = {
+    [OrderStatus.PROCESSING]: 'En Proceso',
+    [OrderStatus.SHIPPED]: 'Enviado',
+    [OrderStatus.DELIVERED]: 'Entregado',
+    [OrderStatus.CANCELLED]: 'Cancelado',
+  };
+
+  paymentStatusNames: Record<string, string> = {
+    [PaymentStatus.PENDING]: 'Pendiente',
+    [PaymentStatus.REJECTED]: 'Rechazado',
+    [PaymentStatus.COMPLETED]: 'Completado',
+    [PaymentStatus.FAILED]: 'Fallido',
+    [PaymentStatus.REFUNDED]: 'Reembolsado',
+    [PaymentStatus.APPROVED]: 'Aprobado',
+    [PaymentStatus.IN_PROCESS]: 'En Proceso',
+  };
+
+  getOrderStatusName(status: string): string {
+    return this.orderStatusNames[status] || status;
+  }
+
+  getPaymentStatusName(status: string): string {
+    return this.paymentStatusNames[status] || status;
   }
 
 

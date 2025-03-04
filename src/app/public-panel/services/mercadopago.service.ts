@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/app/environments/environments';
-import { ItemMP } from '../interfaces/item-mp.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +10,14 @@ export class MercadoPagoService {
   private http = inject(HttpClient);
 
   checkout(body : any) {
-    const url = `${this.baseURL}/payments/create-order`;
-    // const body = { items };
+    const url = `${this.baseURL}/payments/create-preference`;
 
-    const headers = new HttpHeaders({
-      'authorization': `Bearer ${localStorage.getItem('token')}`
-    })
+    const token = localStorage.getItem('token');
 
-    return this.http.post<{ init_point: string }>(url, body,{headers});
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+
+
+    return this.http.post<{init_point: string}>(url, body,{headers});
   }
 }
