@@ -9,7 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserAddEditComponent } from './components/user-add-edit/user-add-edit.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './components/side-nav-left/side-nav/side-nav.component';
 import { SideNavClosedComponent } from './components/side-nav-left/side-nav-closed/side-nav-closed.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
@@ -20,6 +20,7 @@ import { AddEditProductComponent } from './pages/add-edit-product/add-edit-produ
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { PaymentDetailsDialogComponent } from './components/payment-details-dialog/payment-details-dialog.component';
+import { ReportsPageComponent } from './pages/reports-page/reports-page.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PaymentDetailsDialogComponent } from './components/payment-details-dial
     OrdersPageComponent,
     OrderPageComponent,
     PaymentDetailsDialogComponent,
+    ReportsPageComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +47,7 @@ import { PaymentDetailsDialogComponent } from './components/payment-details-dial
     AngularMaterialModule,
     SharedModule,
     ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AdminPanelModule { }

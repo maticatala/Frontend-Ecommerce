@@ -1,5 +1,7 @@
 <mat-icon  [matBadge]="shoppingList ? shoppingList.length : ''" matBadgeColor="warn" (click)="toggleShoppingCart()" class="icon">shopping_cart</mat-icon>
+
 <div class="shoppingCart flex flex-col" [ngClass]="{'translate-x-full' : !isExpanded}">
+
   <div class="flex justify-between items-center mb-4">
     <h2 class="text-2xl">Tu carrito</h2>
     <div class="flex items-center gap-2">
@@ -14,8 +16,10 @@
       </button>
     </div>
   </div>
+
   <ng-container *ngIf="shoppingList">
     <div *ngFor="let shoppItem of shoppingList" class="mb-2">
+
       <div class="flex">
         <figure class="rounded max-w-[80px] max-h-[80px] min-w-[80px] min-h-[80px] p-1 flex items-center justify-center bg-white">
           <img
@@ -39,16 +43,20 @@
           </div>
         </div>
       </div>
+
     </div>
   </ng-container>
+
   <div class="mt-auto w-full bottom-0 flex justify-between">
     <span>Subtotal:</span>
     <span>{{total | currency}}</span>
   </div>
+
   <button class="chiplg primary-reverse brightness mt-4 " [disabled]="shoppingList.length === 0" [ngClass]="{'disabled': shoppingList.length === 0}" routerLink="/checkout" (click)="toggleShoppingCart()">
     <mat-icon>payments</mat-icon>
     <p>Comprar</p>
   </button>
+
   <div id="wallet_container"></div>
 </div>
 <div (click)="toggleShoppingCart()" [ngClass]="{'shadowlg' : isExpanded}">

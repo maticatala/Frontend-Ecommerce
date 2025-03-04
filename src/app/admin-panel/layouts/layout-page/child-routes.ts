@@ -31,4 +31,8 @@ export const childRoutes: AppRoute[] = [
    path: 'orders',
    data: { icon: 'inventory_2', text: 'Pedidos' }
  },
+ {
+  path: 'reports',
+  data: { icon: 'bar_chart', text: 'Reportes' }
+},
 ];

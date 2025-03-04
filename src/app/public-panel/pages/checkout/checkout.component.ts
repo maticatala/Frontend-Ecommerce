@@ -8,6 +8,7 @@ import { Product } from 'src/app/shared/interfaces/product.interface';
 import { OrdersService } from 'src/app/shared/services/orders.service';
 import { Order } from 'src/app/admin-panel/interfaces/order.interface';
 import { CustomSnackbarService } from '../../../shared/components/custom-snackbar/custom-snackbar.service';
+import { OrderRequest, Payment, OrderedProduct, ShippingAddress} from '../../interfaces/order-request.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MercadoPagoService } from '../../services/mercadopago.service';
 import { ItemMP } from '../../interfaces/item-mp.interface';

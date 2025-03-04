@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/app/environments/environments';
 import { Order } from '../../admin-panel/interfaces/order.interface';
 import { Observable, of } from 'rxjs';
+import { OrderRequest } from 'src/app/public-panel/interfaces/order-request.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,13 @@ export class OrdersService {
 
   constructor() { }
 
-  createOrder(body: any): Observable<Order> {
+  createOrder(orderRequest: OrderRequest): Observable<Order> {   //! cambiar any por orderRequest y Order(post)
 
     const headers = new HttpHeaders({
       'authorization': `Bearer ${localStorage.getItem('token')}`
     });
 
-    return this.http.post<any>(`${this.baseUrl}/orders`, body, {headers});
+    return this.http.post<Order>(`${this.baseUrl}/orders`, orderRequest , {headers}); //recibe el pedido con todos los datos.
   }
 
   getOrders(): Observable<Order[]> {
