@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 
 import { environment } from 'src/app/environments/environments';
 import { CheckTokenResponse, LoginResponse, User, RegisterResponse } from '../interfaces';
@@ -27,7 +27,8 @@ export class AuthService {
 
   constructor() {
     //Apenas se llama al servicio se ejecuta el metodo checkAuthStatus para validar el estado de authenticacion del usuario
-    this.checkAuthStatus().subscribe();
+    // console.log("check auth status desde servicio auth");
+    // this.checkAuthStatus().subscribe();
   }
 
   private setAuthentication(user: User, token: string): boolean {
