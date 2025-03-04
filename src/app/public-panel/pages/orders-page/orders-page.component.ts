@@ -55,6 +55,7 @@ export class OrdersPageComponent implements OnInit{
       [PaymentStatus.REJECTED]: 'text-danger bg-red-50 font-bold',
       [PaymentStatus.APPROVED]: 'text-success bg-green-50 font-bold',
       [PaymentStatus.IN_PROCESS]: 'text-info bg-blue-50 font-bold',
+      [PaymentStatus.CANCELLED]: 'text-danger bg-red-50 font-bold',
     };
 
     return statusClasses[status] || 'text-success bg-green-50 font-bold';
@@ -75,6 +76,7 @@ export class OrdersPageComponent implements OnInit{
     [PaymentStatus.REFUNDED]: 'Reembolsado',
     [PaymentStatus.APPROVED]: 'Aprobado',
     [PaymentStatus.IN_PROCESS]: 'En Proceso',
+    [PaymentStatus.CANCELLED]: 'Cancelado',
   };
 
   getOrderStatusName(status: string): string {

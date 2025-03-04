@@ -138,6 +138,7 @@ export class OrderPageComponent {
     [PaymentStatus.REFUNDED]: 'Reembolsado',
     [PaymentStatus.APPROVED]: 'Aprobado',
     [PaymentStatus.IN_PROCESS]: 'En Proceso',
+    [PaymentStatus.CANCELLED]: 'Cancelado'
   };
 
   getOrderStatusName(status: string): string {
