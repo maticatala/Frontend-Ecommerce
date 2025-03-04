@@ -15,7 +15,7 @@ export class OrdersService {
 
   constructor() { }
 
-  createOrder(orderRequest: OrderRequest): Observable<Order> {   //! cambiar any por orderRequest y Order(post)
+  createOrder(orderRequest: any): Observable<Order> {   //! cambiar any por orderRequest y Order(post)
 
     const headers = new HttpHeaders({
       'authorization': `Bearer ${localStorage.getItem('token')}`

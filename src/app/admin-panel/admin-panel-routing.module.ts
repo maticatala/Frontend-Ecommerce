@@ -23,7 +23,7 @@ const routes: Routes = [{
     {path: 'orders', component: OrdersPageComponent},
     {path: 'order/:id', component: OrderPageComponent},
     {path: 'reports', component: ReportsPageComponent},
-    {path: '**', redirectTo: 'orders'},
+    {path: '**', redirectTo: 'reports'},
   ],
 }];
 
