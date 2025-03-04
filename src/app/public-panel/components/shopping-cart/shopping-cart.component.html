@@ -1,10 +1,18 @@
 <mat-icon  [matBadge]="shoppingList ? shoppingList.length : ''" matBadgeColor="warn" (click)="toggleShoppingCart()" class="icon">shopping_cart</mat-icon>
 <div class="shoppingCart flex flex-col" [ngClass]="{'translate-x-full' : !isExpanded}">
-  <div class="flex justify-between mb-4">
+  <div class="flex justify-between items-center mb-4">
     <h2 class="text-2xl">Tu carrito</h2>
-    <button (click)="toggleShoppingCart()">
-      <mat-icon class="icon">close</mat-icon>
-    </button>
+    <div class="flex items-center gap-2">
+      <!-- Botón para vaciar carrito con tooltip -->
+      <button mat-icon-button (click)="clearShoppingCart()" matTooltip="Vaciar carrito">
+        <mat-icon class="text-red-600">delete_forever</mat-icon>
+      </button>
+
+      <!-- Botón para cerrar el carrito -->
+      <button mat-icon-button (click)="toggleShoppingCart()">
+        <mat-icon class="text-white">close</mat-icon>
+      </button>
+    </div>
   </div>
   <ng-container *ngIf="shoppingList">
     <div *ngFor="let shoppItem of shoppingList" class="mb-2">
@@ -18,7 +26,7 @@
         </figure>
         <div class="ml-4 w-full">
           <h3>{{shoppItem.product.name}}</h3>
-          <p>{{shoppItem.product.price * shoppItem.quantity| currency}}</p>
+          <p>{{shoppItem.product.price * shoppItem.quantity | currency}}</p>
         </div>
         <div>
           <div class="ml-auto w-fit">
