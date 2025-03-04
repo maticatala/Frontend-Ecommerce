@@ -32,7 +32,6 @@ export class ProductsService {
     const body = this.createFormData(data, file);
 
     return this.http.post<Product>(`${this.baseUrl}/products`, body, { headers });
-
   }
 
   updateProduct(id:number, data: any, file?: File): Observable<Product> {

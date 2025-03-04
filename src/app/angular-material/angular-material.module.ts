@@ -23,6 +23,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatProgressSpinnerModule,
     MatStepperModule,
     MatRadioModule,
+    MatTooltipModule
   ]
 })
 export class AngularMaterialModule { }

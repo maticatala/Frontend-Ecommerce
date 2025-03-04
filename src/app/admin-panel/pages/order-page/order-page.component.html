@@ -14,7 +14,7 @@
               <div class="w-40 primary p-2 rounded-sm">
                 <mat-select *ngIf="status" [(value)]="status">
                   <mat-option *ngFor="let status of orderStatus | keyvalue" [value]="status.value" >
-                    {{ status.key }}
+                    {{ getOrderStatusName(status.value) }}
                   </mat-option>
                 </mat-select>
               </div>
