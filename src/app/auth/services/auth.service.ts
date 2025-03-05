@@ -31,6 +31,13 @@ export class AuthService {
     // this.checkAuthStatus().subscribe();
   }
 
+  resetPassword(resetPasswordToken: string, password: string) {
+    const url = `${environment.baseUrl}/auth/reset-password`;
+    const body = {resetPasswordToken, password}
+    return this.http.patch(url, body);
+  }
+
+
   private setAuthentication(user: User, token: string): boolean {
 
     this._currentUser.set(user);

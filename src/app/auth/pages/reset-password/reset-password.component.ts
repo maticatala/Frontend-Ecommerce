@@ -37,7 +37,7 @@ export class ResetPasswordComponent {
       console.log(formValue);
       this.authService.recover(formValue).subscribe({
         next: () => {
-          this._cusSnackbar.openCustomSnackbar("success", "Correo enviado", "Okay", 3000, 'success');
+          this._cusSnackbar.openCustomSnackbar("done", "Correo enviado!", "Okay", 3000, 'success');
         },
         error: (e: any) => {
           this._cusSnackbar.openCustomSnackbar("error", "Correo electrónico no encontrado", "Okay", 3000, 'danger');

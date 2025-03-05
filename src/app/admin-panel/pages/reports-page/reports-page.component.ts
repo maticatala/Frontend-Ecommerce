@@ -60,7 +60,6 @@ export class ReportsPageComponent implements OnInit {
 
   loadDashboardData(): void {
     this.loading = true;
-    console.log(`Solicitando datos del dashboard - Período: ${this.selectedPeriod}, Año: ${this.selectedYear}, Mes: ${this.selectedMonth}`);
 
     this.reportsService.getDashboardData(
       this.selectedPeriod,
@@ -68,7 +67,6 @@ export class ReportsPageComponent implements OnInit {
       this.selectedPeriod === 'monthly' ? this.selectedMonth : undefined
     ).subscribe({
       next: (data: DashboardData) => {
-        console.log('Datos recibidos:', data);
         this.dashboardData = data;
         this.prepareChartData();
         this.loading = false;
@@ -93,7 +91,6 @@ export class ReportsPageComponent implements OnInit {
   }
 
   changeMonth(month: number): void {
-    console.log(`Cambiando mes: ${month} (${this.months[month]})`);
     this.selectedMonth = month;
     if (this.selectedPeriod === 'monthly') {
       this.updateSalesSummary();
@@ -101,15 +98,12 @@ export class ReportsPageComponent implements OnInit {
   }
 
   updateSalesSummary(): void {
-    console.log(`Actualizando resumen de ventas - Período: ${this.selectedPeriod}, Año: ${this.selectedYear}, Mes: ${this.selectedMonth}`);
-
-    this.reportsService.getSalesSummary(
+        this.reportsService.getSalesSummary(
       this.selectedPeriod,
       this.selectedPeriod !== 'historical' ? this.selectedYear : undefined,
       this.selectedPeriod === 'monthly' ? this.selectedMonth : undefined
     ).subscribe({
       next: (data: SalesSummary) => {
-        console.log('Datos de resumen recibidos:', data);
         this.dashboardData.salesSummary = data;
       },
       error: (e) => {

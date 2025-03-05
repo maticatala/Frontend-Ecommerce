@@ -17,7 +17,7 @@ export class PaymentConfirmationComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.cartService.clearCart();
-    });
+    }, 500);
     this.orderService.getLastOrderId().subscribe({
       next: (response => {
         this.orderId = response.id;
