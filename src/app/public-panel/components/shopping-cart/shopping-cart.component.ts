@@ -53,5 +53,9 @@ export class ShoppingCartComponent implements OnInit {
     this.isExpanded = !this.isExpanded;
   }
 
+  clearShoppingCart() {
+    this.cartService.clearCart();
+  }
+
 }
 

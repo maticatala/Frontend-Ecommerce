@@ -8,6 +8,7 @@ import { AddEditProductComponent } from './pages/add-edit-product/add-edit-produ
 import { isAdminGuard } from '../auth/guards/is-admin.guard';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
+import { ReportsPageComponent } from './pages/reports-page/reports-page.component';
 
 const routes: Routes = [{
   path: '',
@@ -21,7 +22,8 @@ const routes: Routes = [{
     {path: 'product', component: AddEditProductComponent},
     {path: 'orders', component: OrdersPageComponent},
     {path: 'order/:id', component: OrderPageComponent},
-    {path: '**', redirectTo: 'orders'},
+    {path: 'reports', component: ReportsPageComponent},
+    {path: '**', redirectTo: 'reports'},
   ],
 }];
 

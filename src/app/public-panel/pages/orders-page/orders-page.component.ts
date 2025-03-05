@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { tap } from 'rxjs';
 import { OrderStatus } from 'src/app/admin-panel/enums/order-status.enum';
 import { PaymentStatus } from 'src/app/admin-panel/enums/payment-status.enum';
 import { Order } from 'src/app/admin-panel/interfaces/order.interface';
@@ -38,10 +37,10 @@ export class OrdersPageComponent implements OnInit{
 
   setOrderStatusColor(status:OrderStatus): string {
     const statusClasses = {
-      [OrderStatus.CANCELLED]: 'text-danger bg-red-50',
-      [OrderStatus.PROCESSING]: 'text-warning bg-yellow-50',
-      [OrderStatus.DELIVERED]: 'text-success bg-green-50',
-      [OrderStatus.SHIPPED]: 'text-info bg-blue-50',
+      [OrderStatus.CANCELLED]: 'text-danger bg-red-50 font-bold',
+      [OrderStatus.PROCESSING]: 'text-warning bg-yellow-50 font-bold',
+      [OrderStatus.DELIVERED]: 'text-success bg-green-50 font-bold',
+      [OrderStatus.SHIPPED]: 'text-info bg-blue-50 font-bold',
     };
 
     return statusClasses[status];
@@ -49,13 +48,43 @@ export class OrdersPageComponent implements OnInit{
 
   setPaymentStatusColor(status: PaymentStatus): string {
     const statusClasses = {
-      [PaymentStatus.FAILED]: 'text-danger bg-red-50',
-      [PaymentStatus.REFUNDED]: 'text-warning bg-yellow-50',
-      [PaymentStatus.COMPLETED]: 'text-success bg-green-50',
-      [PaymentStatus.PENDING]: 'text-info bg-blue-50',
+      [PaymentStatus.FAILED]: 'text-danger bg-red-50 font-bold',
+      [PaymentStatus.REFUNDED]: 'text-warning bg-yellow-50 font-bold',
+      [PaymentStatus.COMPLETED]: 'text-success bg-green-50 font-bold',
+      [PaymentStatus.PENDING]: 'text-info bg-blue-50 font-bold',
+      [PaymentStatus.REJECTED]: 'text-danger bg-red-50 font-bold',
+      [PaymentStatus.APPROVED]: 'text-success bg-green-50 font-bold',
+      [PaymentStatus.IN_PROCESS]: 'text-info bg-blue-50 font-bold',
+      [PaymentStatus.CANCELLED]: 'text-danger bg-red-50 font-bold',
     };
 
-    return statusClasses[status];
+    return statusClasses[status] || 'text-success bg-green-50 font-bold';
+  }
+
+  orderStatusNames: Record<string, string> = {
+    [OrderStatus.PROCESSING]: 'En Proceso',
+    [OrderStatus.SHIPPED]: 'Enviado',
+    [OrderStatus.DELIVERED]: 'Entregado',
+    [OrderStatus.CANCELLED]: 'Cancelado',
+  };
+
+  paymentStatusNames: Record<string, string> = {
+    [PaymentStatus.PENDING]: 'Pendiente',
+    [PaymentStatus.REJECTED]: 'Rechazado',
+    [PaymentStatus.COMPLETED]: 'Completado',
+    [PaymentStatus.FAILED]: 'Fallido',
+    [PaymentStatus.REFUNDED]: 'Reembolsado',
+    [PaymentStatus.APPROVED]: 'Aprobado',
+    [PaymentStatus.IN_PROCESS]: 'En Proceso',
+    [PaymentStatus.CANCELLED]: 'Cancelado',
+  };
+
+  getOrderStatusName(status: string): string {
+    return this.orderStatusNames[status] || status;
+  }
+
+  getPaymentStatusName(status: string): string {
+    return this.paymentStatusNames[status] || status;
   }
 
 

@@ -19,7 +19,7 @@ export class ProductPageComponent implements OnInit{
 
   public amount: number = 1;
 
-  ngOnInit(): void {
+  ngOnInit(): void { //Esto se puede refactorizar usando switch map de rxjs para que no quede un subscribe adentro de otro
     this.route.params.subscribe(params => {
       const productId = params['id'];
 

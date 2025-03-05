@@ -15,7 +15,7 @@ export class OrdersService {
 
   constructor() { }
 
-  createOrder(orderRequest: OrderRequest): Observable<Order> {   //! cambiar any por orderRequest y Order(post)
+  createOrder(orderRequest: any): Observable<Order> {   //! cambiar any por orderRequest y Order(post)
 
     const headers = new HttpHeaders({
       'authorization': `Bearer ${localStorage.getItem('token')}`
@@ -85,6 +85,24 @@ export class OrdersService {
 
     // return this.http.put<Order>(`${this.baseUrl}/orders/payments/${id}`, data, {headers})
     return this.http.get<Order[]>(`${this.baseUrl}/orders/userOrders`, {headers});
+  }
+
+  getLastOrderId(): Observable<{id: String}> {
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.get<{id: string}>(`${this.baseUrl}/orders/last-order`, {headers});
+  }
+
+
+  deleteOrder(orderId: number) {
+    const url = `${this.baseUrl}/orders/${orderId}`;
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.delete(url, { headers });
   }
 
 }

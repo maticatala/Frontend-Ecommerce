@@ -11,6 +11,7 @@ import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentDetailsDialogComponent } from '../../components/payment-details-dialog/payment-details-dialog.component';
 import { OrderStatus } from '../../enums/order-status.enum';
+import { PaymentStatus } from '../../enums/payment-status.enum';
 
 @Component({
   templateUrl: './order-page.component.html',
@@ -44,7 +45,7 @@ export class OrderPageComponent {
   public paymentsColumns: Column[] = [
     {id:'paymentType',        label: 'Tipo de Pago',    breakpoint: 'static'                  },
     {id:'status',             label: 'Estado',          breakpoint: 'sm'                      },
-    {id:'amount',             label: 'Cantidad',        breakpoint: 'md', pipe: 'currency'    },
+    {id:'amount',             label: 'Costo',        breakpoint: 'md', pipe: 'currency'    },
     {id:'more',               label: 'Ver',             breakpoint: 'static'                  },
   ]
 
@@ -77,7 +78,12 @@ export class OrderPageComponent {
       });
 
       this.dataSource.data = order.products;
-      this.dataPaymentsSource.data = order.payments;
+      const payments:any = [];
+      order.payments.forEach((element:any,index:number)=> {
+        element['status'] = this.getPaymentStatusName(element['status']);
+        payments.unshift(element);
+      });
+      this.dataPaymentsSource.data = payments;
       return
     });
   }
@@ -96,7 +102,7 @@ export class OrderPageComponent {
     updateFunction().subscribe({
       next: (order: Order) => {
         this.order = order;
-        this._cusSnackbar.openCustomSnackbar("done", `${this.status} Successfuly!`, "Okay", 3000, 'success');
+        this._cusSnackbar.openCustomSnackbar("done", `${this.getOrderStatusName(this.status!)} correctamente!`, "Okay", 3000, 'success');
       },
       error: (e: any) => {
         const message = e.error.message;
@@ -117,5 +123,30 @@ export class OrderPageComponent {
     )
   }
 
+  orderStatusNames: Record<string, string> = {
+    [OrderStatus.PROCESSING]: 'En Proceso',
+    [OrderStatus.SHIPPED]: 'Enviado',
+    [OrderStatus.DELIVERED]: 'Entregado',
+    [OrderStatus.CANCELLED]: 'Cancelado',
+  };
+
+  paymentStatusNames: Record<string, string> = {
+    [PaymentStatus.PENDING]: 'Pendiente',
+    [PaymentStatus.REJECTED]: 'Rechazado',
+    [PaymentStatus.COMPLETED]: 'Completado',
+    [PaymentStatus.FAILED]: 'Fallido',
+    [PaymentStatus.REFUNDED]: 'Reembolsado',
+    [PaymentStatus.APPROVED]: 'Aprobado',
+    [PaymentStatus.IN_PROCESS]: 'En Proceso',
+    [PaymentStatus.CANCELLED]: 'Cancelado'
+  };
+
+  getOrderStatusName(status: string): string {
+    return this.orderStatusNames[status] || status;
+  }
+
+  getPaymentStatusName(status: string): string {
+    return this.paymentStatusNames[status] || status;
+  }
 
 }

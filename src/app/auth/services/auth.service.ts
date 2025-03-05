@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 
 import { environment } from 'src/app/environments/environments';
 import { CheckTokenResponse, LoginResponse, User, RegisterResponse } from '../interfaces';
@@ -27,8 +27,16 @@ export class AuthService {
 
   constructor() {
     //Apenas se llama al servicio se ejecuta el metodo checkAuthStatus para validar el estado de authenticacion del usuario
-    this.checkAuthStatus().subscribe();
+    // console.log("check auth status desde servicio auth");
+    // this.checkAuthStatus().subscribe();
   }
+
+  resetPassword(resetPasswordToken: string, password: string) {
+    const url = `${environment.baseUrl}/auth/reset-password`;
+    const body = {resetPasswordToken, password}
+    return this.http.patch(url, body);
+  }
+
 
   private setAuthentication(user: User, token: string): boolean {
 
@@ -74,6 +82,13 @@ export class AuthService {
 
   }
 
+  recover(email: string): Observable<any> {
+
+    const url = `${this.baseUrl}/auth/request-reset-password`;
+
+    return this.http.patch(url, email);
+  }
+
   checkAuthStatus(): Observable<boolean> {
 
     const url   = `${this.baseUrl}/auth/check-token`
@@ -94,7 +109,7 @@ export class AuthService {
         //Error
         catchError(() => {
           this.logout();
-          return of(false); 
+          return of(false);
         })
       )
   }
