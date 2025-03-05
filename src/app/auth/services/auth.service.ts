@@ -28,7 +28,7 @@ export class AuthService {
   constructor() {
     //Apenas se llama al servicio se ejecuta el metodo checkAuthStatus para validar el estado de authenticacion del usuario
     // console.log("check auth status desde servicio auth");
-    // this.checkAuthStatus().subscribe();
+    this.checkAuthStatus().subscribe();
   }
 
   resetPassword(resetPasswordToken: string, password: string) {
