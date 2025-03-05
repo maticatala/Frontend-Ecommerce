@@ -7,13 +7,15 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { AuthLayoutPageComponent } from './layouts/layout-page/auth-layout-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
 @NgModule({
   declarations: [
     LoginPageComponent,
     RegisterPageComponent,
-    AuthLayoutPageComponent
+    AuthLayoutPageComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
