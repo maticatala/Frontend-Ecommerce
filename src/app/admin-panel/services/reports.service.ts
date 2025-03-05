@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DashboardData, SalesSummary, OrdersStatus, TopProduct, PopularCategory } from '../interfaces/reports.interface';
+import { DashboardData, SalesSummary } from '../interfaces/reports.interface';
 import { environment } from 'src/app/environments/environments';
 
 @Injectable({
