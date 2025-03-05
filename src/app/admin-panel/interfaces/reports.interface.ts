@@ -1,9 +1,11 @@
-// src/app/admin-panel/interfaces/report.interface.ts
 export interface SalesSummary {
-  totalRevenue: number; // ingresos totales
-  orderCount: number; // pedidos completados
-  averageTicket: number; // ticket promedio
-  period: 'monthly' | 'annual' | 'historical'; // periodo
+  totalRevenue: number;   // Total de ingresos
+  confirmedRevenue: number;   // Pedidos entregados y pagados
+  pendingDeliveryRevenue: number;  // Pagos recibidos, pedidos no entregados
+  expectedRevenue: number;    // Pedidos con pago pendiente
+  orderCount: number;
+  averageTicket: number;
+  period: 'monthly' | 'annual' | 'historical';
   year?: number;
   month?: number;
 }
@@ -11,11 +13,6 @@ export interface SalesSummary {
 export interface OrderStatusCount {
   status: string;
   count: string;
-}
-
-export interface OrdersStatus {
-  ordersByStatus: OrderStatusCount[];
-  pendingOrders: number;
 }
 
 export interface TopProduct {
@@ -33,7 +30,7 @@ export interface PopularCategory {
 
 export interface DashboardData {
   salesSummary: SalesSummary;  //resumen de ventas
-  ordersStatus: OrdersStatus; //estado de los pedidos
+  ordersStatus: OrderStatusCount[]; //estado de los pedidos
   topProducts: TopProduct[]; //productos más vendidos
   popularCategories: PopularCategory[]; //categorías más populares
 }

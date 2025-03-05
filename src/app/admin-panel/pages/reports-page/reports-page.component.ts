@@ -15,14 +15,14 @@ export class ReportsPageComponent implements OnInit {
   public dashboardData: DashboardData = {
     salesSummary: {
       totalRevenue: 0,
+      confirmedRevenue: 0,
+      pendingDeliveryRevenue: 0,
+      expectedRevenue: 0,
       orderCount: 0,
       averageTicket: 0,
       period: 'monthly'
     },
-    ordersStatus: {
-      ordersByStatus: [],
-      pendingOrders: 0
-    },
+    ordersStatus: [],
     topProducts: [],
     popularCategories: []
   };
@@ -38,11 +38,11 @@ export class ReportsPageComponent implements OnInit {
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
   ];
 
-  // Para generar años para el selector (últimos 10 años)
+  // Para generar años para el selector (últimos 5 años)
   public availableYears: number[] = Array.from(
     { length: 5 },
-    (_, i) => this.currentDate.getFullYear() - 4 + i
-  );
+    (_, i) => new Date().getFullYear() - i
+  ).reverse();
 
 
   public orderStatusChartData: { name: string; value: number }[] = []; // Para gráfico de pedidos por cada estado
@@ -98,7 +98,8 @@ export class ReportsPageComponent implements OnInit {
   }
 
   updateSalesSummary(): void {
-        this.reportsService.getSalesSummary(
+
+    this.reportsService.getSalesSummary(
       this.selectedPeriod,
       this.selectedPeriod !== 'historical' ? this.selectedYear : undefined,
       this.selectedPeriod === 'monthly' ? this.selectedMonth : undefined
@@ -118,7 +119,7 @@ export class ReportsPageComponent implements OnInit {
     // Inicializa el array con todos los estados y los valores de 0
     this.orderStatusChartData = defaultStatuses.map(status =>
       {
-      const foundStatus = this.dashboardData.ordersStatus.ordersByStatus.find(orderStatus =>
+      const foundStatus = this.dashboardData.ordersStatus.find(orderStatus =>
         this.formatStatusLabel(orderStatus.status) === status);
 
         return {

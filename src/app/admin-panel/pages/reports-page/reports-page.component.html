@@ -37,7 +37,7 @@
             </button>
           </div>
 
-          <!-- Selectores de año y mes en contenedor flexbox -->
+          <!-- Selectores de año y mes -->
           <div class="flex flex-wrap gap-2">
             <!-- Selector de año (mostrar solo para monthly y annual) -->
             <div *ngIf="selectedPeriod !== 'historical'">
@@ -62,27 +62,50 @@
         </div>
       </div>
 
-      <!-- Solución para el problema de tamaño entre 991px y el punto de quiebre del side-nav -->
-      <!-- Cambiamos la estructura para que se adapte mejor a pantallas de tamaño medio -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div class="bg-gray-700 p-4 rounded-lg">
-          <p class="text-sm text-blue-400 font-medium">Ingresos Totales Facturados</p>
-          <p class="text-xl md:text-2xl font-bold break-all md:break-words whitespace-normal">
-            {{ formatCurrency(dashboardData.salesSummary.totalRevenue) || 0 }}
+          <p class="text-sm text-green-400 font-medium">Ingresos Confirmados</p>
+          <p class="text-xl md:text-2xl font-bold">
+            {{ formatCurrency(dashboardData.salesSummary.confirmedRevenue) }}
           </p>
         </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <p class="text-sm text-yellow-400 font-medium">Ingresos con Entrega Pendiente</p>
+          <p class="text-xl md:text-2xl font-bold">
+            {{ formatCurrency(dashboardData.salesSummary.pendingDeliveryRevenue) }}
+          </p>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <p class="text-sm text-red-400 font-medium">Ingresos a Cobrar</p>
+          <p class="text-xl md:text-2xl font-bold">
+            {{ formatCurrency(dashboardData.salesSummary.expectedRevenue) }}
+          </p>
+        </div>
+
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
         <div class="bg-gray-700 p-4 rounded-lg">
           <p class="text-sm text-green-400 font-medium">Pedidos Completados</p>
           <p class="text-xl md:text-2xl font-bold">{{ dashboardData.salesSummary.orderCount || 0 }}</p>
         </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <p class="text-sm text-blue-400 font-medium">Ingresos Totales</p>
+          <p class="text-xl md:text-2xl font-bold break-all md:break-words whitespace-normal">
+            {{ formatCurrency(dashboardData.salesSummary.totalRevenue) || 0 }}
+          </p>
+        </div>
         <div class="bg-gray-700 p-4 rounded-lg sm:col-span-2 lg:col-span-1">
-          <p class="text-sm text-purple-400 font-medium">Venta Promedio</p>
+          <p class="text-sm text-purple-400 font-medium">Venta Promedio Realizada</p>
           <p class="text-xl md:text-2xl font-bold break-all md:break-words whitespace-normal">
             {{ formatCurrency(dashboardData.salesSummary.averageTicket || 0) }}
           </p>
         </div>
       </div>
+
     </div>
+
+
 
     <!-- Estado de los pedidos -->
     <div class="bg-gray-800 rounded-lg shadow-md p-6 col-span-1">
