@@ -34,7 +34,7 @@ export class ResetPasswordComponent {
       };
 
       const formValue = this.myForm.value;
-      console.log(formValue);
+
       this.authService.recover(formValue).subscribe({
         next: () => {
           this._cusSnackbar.openCustomSnackbar("done", "Correo enviado!", "Okay", 3000, 'success');

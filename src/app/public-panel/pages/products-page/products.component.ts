@@ -91,7 +91,7 @@ export class ProductsComponent implements OnInit{
         // Verificar si 'pageSize' no está presente en los parámetros
         if (!params.has('pageSize')) {
           // Obtener el primer valor de pageSizeOptions del mat paginator
-          const firstPageSizeOption = '6'; // Cambia '10' al primer valor de tu pageSizeOptions
+          const firstPageSizeOption = '8'; // Cambia '10' al primer valor de tu pageSizeOptions
           params = params.set('pageSize', firstPageSizeOption); // Establecer 'pageSize' en el primer valor
         }
 
