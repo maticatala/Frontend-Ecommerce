@@ -75,6 +75,13 @@ export class AuthService {
 
   }
 
+  recover(email: string): Observable<any> {
+
+    const url = `${this.baseUrl}/auth/request-reset-password`;
+
+    return this.http.patch(url, email);
+  }
+
   checkAuthStatus(): Observable<boolean> {
 
     const url   = `${this.baseUrl}/auth/check-token`
@@ -95,7 +102,7 @@ export class AuthService {
         //Error
         catchError(() => {
           this.logout();
-          return of(false); 
+          return of(false);
         })
       )
   }
