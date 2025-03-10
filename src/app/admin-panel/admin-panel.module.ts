@@ -13,14 +13,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './components/side-nav-left/side-nav/side-nav.component';
 import { SideNavClosedComponent } from './components/side-nav-left/side-nav-closed/side-nav-closed.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
-import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
-import { CategoryAddEditComponent } from './components/category-add-edit/category-add-edit.component';
+import { ListCategoriesPageComponent } from './pages/list-categories-page/list-categories-page.component';
 import { ListProductsPageComponent } from './pages/list-products-page/list-products-page.component';
 import { AddEditProductComponent } from './pages/add-edit-product/add-edit-product.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { PaymentDetailsDialogComponent } from './components/payment-details-dialog/payment-details-dialog.component';
 import { ReportsPageComponent } from './pages/reports-page/reports-page.component';
+import { AddEditCategoryComponent } from './pages/add-edit-category/add-edit-category.component';
 
 @NgModule({
   declarations: [
@@ -31,14 +31,14 @@ import { ReportsPageComponent } from './pages/reports-page/reports-page.componen
     SideNavComponent,
     SideNavClosedComponent,
     TopNavComponent,
-    CategoriesPageComponent,
-    CategoryAddEditComponent,
+    ListCategoriesPageComponent,
     ListProductsPageComponent,
     AddEditProductComponent,
     OrdersPageComponent,
     OrderPageComponent,
     PaymentDetailsDialogComponent,
     ReportsPageComponent,
+    AddEditCategoryComponent
   ],
   imports: [
     CommonModule,

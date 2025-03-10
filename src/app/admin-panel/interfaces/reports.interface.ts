@@ -25,6 +25,8 @@ export interface TopProduct {
 export interface PopularCategory {
   categoryId: number;
   categoryName: string;
+  description: string;
+  imagen: string;
   orderCount: string;
 }
 

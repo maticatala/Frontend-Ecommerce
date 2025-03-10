@@ -14,8 +14,18 @@ export const childRoutes: AppRoute[] = [
     data: { icon: 'table', text: 'Usuarios' },
   },
   {
-    path: 'categories',
-    data: { icon: 'category', text: 'Categorias' },
+    path: 'Categories',
+    data: { text: 'Categorias' },
+    children:[
+      {
+        path: 'category',
+        data: { icon: 'playlist_add', text: 'Crear Categorias' },
+      },
+      {
+        path: 'categories',
+        data: { icon: 'view_list', text: 'Listado de Categorias' },
+      },
+    ]
   },
   {
     path: 'Products',

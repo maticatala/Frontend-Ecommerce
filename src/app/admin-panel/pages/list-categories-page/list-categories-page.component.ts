@@ -5,22 +5,25 @@ import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar
 import { Column } from 'src/app/shared/interfaces';
 import { MatDialog } from '@angular/material/dialog';
 import { Category } from '../../interfaces/category.interface';
-import { CategoryAddEditComponent } from '../../components/category-add-edit/category-add-edit.component';
 import { DialogConfirmComponent } from 'src/app/shared/components/dialog-confirm/dialog-confirm.component';
+import { Router } from '@angular/router';
 
 @Component({
-  templateUrl: './categories-page.component.html',
-  styleUrls: ['./categories-page.component.css']
+  templateUrl: './list-categories-page.component.html',
+  styleUrls: ['./list-categories-page.css']
 })
-export class CategoriesPageComponent {
+export class ListCategoriesPageComponent {
   private categoriesService = inject(CategoriesService)
   private _cusSnackbar = inject(CustomSnackbarService);
   public dataSource = new MatTableDataSource();
   private dialog = inject(MatDialog);
+  private router = inject(Router);
 
   columns: Column[] = [
+    {id:'imagen',         label: 'Imagen',      breakpoint: 'static'},
     {id: 'id',            label:'ID',       breakpoint: 'static'},
     {id: 'categoryName',  label: 'Name',    breakpoint: 'static'},
+    {id:'description',    label: 'Descripción', breakpoint: 'sm' },
     {id: 'action',        label:'Acciones', breakpoint: 'static'}
   ]
 
@@ -46,17 +49,16 @@ export class CategoriesPageComponent {
     })
   }
 
-  onElementoEditado(category: Category) {
-    const dialogRef = this.dialog.open(CategoryAddEditComponent, {
-      data: category,
-    });
-
-    dialogRef.afterClosed().subscribe({
-      next: (val) => {
-        if (val) this.setCategoriesList();
-      }
-    })
+  onAddElement(event: any) {
+    this.router.navigate(['/dashboard/category']);
   }
+
+  onElementoEditado(category: Category) {
+    const categoryId = category.id;
+
+    this.router.navigate(['/dashboard/category', categoryId]);
+  }
+
 
   onElementoEliminado(category: Category) {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
@@ -86,13 +88,5 @@ export class CategoriesPageComponent {
     })
   }
 
-  onAddElement(event: any) {
-    const dialogRef = this.dialog.open(CategoryAddEditComponent);
 
-    dialogRef.afterClosed().subscribe({
-      next: (val) => {
-        if (val) this.setCategoriesList();
-      }
-    })
-  }
 }
