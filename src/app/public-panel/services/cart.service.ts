@@ -14,7 +14,7 @@ export class CartService {
   private _cusSnackbar = inject(CustomSnackbarService);
   private cartProducts: CartItem[] = [];
   private _products: BehaviorSubject<CartItem[]>;
-  private cartItems: { [key: string]: number } = {};
+  private cartItems: { [key: string]: number } = {};  // para localstorage
 
   constructor() {
     this._products = new BehaviorSubject<CartItem[]>([]);

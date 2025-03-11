@@ -4,6 +4,7 @@
       <h2 class="text-2xl pb-4">Checkout</h2>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div class="col-span-2" *ngIf="step !== 5">
+
           <table class="table w-full" *ngIf="step===1">
             <thead>
               <tr>
@@ -27,7 +28,7 @@
                   </figure>
                   <div class="w-full md:ml-5">
                     <h3>
-                      <a href="./product/{{shoppItem.product.id}}">{{shoppItem.product.name}}</a>
+                      <a href="./#/product/{{shoppItem.product.id}}">{{shoppItem.product.name}}</a>
                     </h3>
                   </div>
                   <div class="w-full">
@@ -52,6 +53,7 @@
               </tr>
             </tbody>
           </table>
+
           <ng-container *ngIf="step===2">
             <h2 class="text-xl pb-4">Información de facturación</h2>
             <form [formGroup]="myForm" class="grid grid-cols-6 gap-4">
@@ -158,6 +160,7 @@
 
             </form>
           </ng-container>
+
           <ng-container *ngIf="step===3">
             <h2 class="text-xl pb-4">Método de Pago</h2>
             <mat-radio-group aria-label="Select an option" class="flex flex-col"  [(ngModel)]="paymentMethod">
@@ -166,6 +169,7 @@
               <mat-radio-button color="primary" value="transferencia">Transferencia</mat-radio-button>
             </mat-radio-group>
           </ng-container>
+
           <ng-container *ngIf="step===4">
             <ng-container *ngIf="paymentMethod === 'transferencia'">
               <section>
@@ -182,6 +186,8 @@
             </ng-container>
           </ng-container>
         </div>
+
+
         <ng-container *ngIf="step===5">
           <ng-container *ngIf="paymentMethod === 'transferencia'">
             <section class="col-span-3">
@@ -204,6 +210,7 @@
               </div>
             </section>
           </ng-container>
+
           <ng-container *ngIf="paymentMethod === 'efectivo'">
           <section class="col-span-3">
             <div class="flex flex-col items-center text-center">
@@ -217,6 +224,9 @@
           </section>
           </ng-container>
         </ng-container>
+
+
+
         <div class="mt-16 lg:mt-0" *ngIf="step !== 5">
           <h3 class="mt-4 md:mt-0 text-xl mb-6">Resumen del Pedido</h3>
           <mat-divider></mat-divider>
@@ -261,6 +271,7 @@
               </tr>
             </tbody>
           </table>
+
           <div class="flex gap-4 mt-4">
             <button class="chip primary-reverse" (click)="lastStep()" *ngIf="step>1">Volver</button>
             <button class="chiplg primary" (click)="nextStep()" [disabled]="isLoading">

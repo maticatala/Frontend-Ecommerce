@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/app/environments/environments';
 import { Order } from '../../admin-panel/interfaces/order.interface';
 import { Observable, of } from 'rxjs';
-import { OrderRequest } from 'src/app/public-panel/interfaces/order-request.interface';
+import { OrderMpRequest, OrderRequest } from 'src/app/public-panel/interfaces/order-request.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class OrdersService {
 
   constructor() { }
 
-  createOrder(orderRequest: any): Observable<Order> {   //! cambiar any por orderRequest y Order(post)
+  createOrder(orderRequest: OrderRequest | OrderMpRequest): Observable<Order> {  // para no usar any
 
     const headers = new HttpHeaders({
       'authorization': `Bearer ${localStorage.getItem('token')}`

@@ -59,6 +59,7 @@ export class ReportsPageComponent implements OnInit {
   }
 
   loadDashboardData(): void {
+
     this.loading = true;
 
     this.reportsService.getDashboardData(
@@ -69,7 +70,10 @@ export class ReportsPageComponent implements OnInit {
       next: (data: DashboardData) => {
         this.dashboardData = data;
         this.prepareChartData();
-        this.loading = false;
+
+        setTimeout(() => {
+          this.loading = false;
+        }, 700);
       },
       error: (e) => {
         console.error('Error al cargar los datos del dashboard', e);

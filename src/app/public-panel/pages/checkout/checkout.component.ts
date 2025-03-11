@@ -11,6 +11,7 @@ import { CustomSnackbarService } from '../../../shared/components/custom-snackba
 import { Router, ActivatedRoute } from '@angular/router';
 import { MercadoPagoService } from '../../services/mercadopago.service';
 import { ItemMP } from '../../interfaces/item-mp.interface';
+import { OrderMpRequest, OrderRequest, Payment, ShippingAddress } from '../../interfaces/order-request.interface';
 
 @Component({
   templateUrl: './checkout.component.html',
@@ -23,7 +24,6 @@ export class CheckoutComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private mercadoPagoService = inject(MercadoPagoService);
-  private route = inject(ActivatedRoute);
 
   public readonly baseUrl: string = environment.baseUrl;
   public total: number = 0;
@@ -35,8 +35,8 @@ export class CheckoutComponent implements OnInit {
   public disablePayButton = false; // deshabilitar boton de pago para evitar doble click
 
   public myForm: FormGroup = this.fb.group({
-    name: [''],
-    lastName: [''],
+    name: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
     phone: ['', [Validators.required]],
     address: ['', [Validators.required]],
     floor: [''],
@@ -58,6 +58,7 @@ export class CheckoutComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.scrollToTop();
     this.loadCartItems();
   }
 
@@ -157,12 +158,18 @@ export class CheckoutComponent implements OnInit {
   }
 
   createOrder() {
+    this.isLoading = true;
+    this.disablePayButton = true;
+
     this.orderService.createOrder(this.orderData()).subscribe({
       next: (order: Order) => {
         this.scrollToTop();
         this.orderId = order.id.toString();
         this.step = 5;
-        this.cartService.clearCart();         //TODO VER PQ POR TRANSF Y EFECT SE VA AL HOME
+        this.cartService.clearCart();
+
+        this.isLoading = false;
+        this.disablePayButton = false;
       },
       error: (e) => {
         this._cusSnackbar.openCustomSnackbar(
@@ -180,7 +187,7 @@ export class CheckoutComponent implements OnInit {
     const { name, lastName, phone, address, city, postCode, state, country } =
       this.myForm.value;
 
-    const shippingAddress = {
+    const shippingAddress: ShippingAddress = {
       name: name + ' ' + lastName,
       phone,
       address,
@@ -198,7 +205,11 @@ export class CheckoutComponent implements OnInit {
         unit_price: item.product.price
       }));
 
-      return {items, shippingAddress}
+      const orderMpRequest: OrderMpRequest = {
+        items,
+        shippingAddress
+      }
+      return orderMpRequest
     }
 
     const orderedProducts = this.shoppingList.map((item) => ({
@@ -206,7 +217,7 @@ export class CheckoutComponent implements OnInit {
       product_quantity: item.quantity,
     }));
 
-    let payments;
+    let payments: Payment[] = [];
 
     if (this.paymentMethod === 'efectivo') {
       payments = [
@@ -226,8 +237,15 @@ export class CheckoutComponent implements OnInit {
       ];
     }
 
-    return { shippingAddress, orderedProducts, payments };
+    const orderRequest: OrderRequest = {
+      shippingAddress,
+      orderedProducts,
+      payments
+    }
+    return orderRequest;
   }
+
+
 
   payWithMercadoPago() {
     this.isLoading = true;

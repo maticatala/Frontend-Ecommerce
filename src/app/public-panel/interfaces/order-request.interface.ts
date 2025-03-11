@@ -1,3 +1,5 @@
+import { ItemMP } from "./item-mp.interface";
+
 export interface ShippingAddress {
   name: string;
   phone: string;
@@ -23,4 +25,9 @@ export interface OrderRequest {
   shippingAddress: ShippingAddress;
   orderedProducts: OrderedProduct[];
   payments: Payment[];
+}
+
+export interface OrderMpRequest {
+  items: ItemMP[];
+  shippingAddress: ShippingAddress
 }

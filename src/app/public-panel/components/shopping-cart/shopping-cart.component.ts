@@ -12,6 +12,7 @@ import { CartItem } from '../../interfaces/cart-item.interface';
 })
 export class ShoppingCartComponent implements OnInit {
   private cartService = inject(CartService);
+  
   public isExpanded: boolean = false;
   public shoppingList: CartItem[] = [];
   public total: number = 0;

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { isAuthenticatedGuard } from '../auth/guards';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ProductsComponent } from './pages/products-page/products.component';
@@ -7,7 +8,6 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { LayoutPageComponent } from './layouts/layout-page/layout-page.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
-import { isAuthenticatedGuard } from '../auth/guards';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
