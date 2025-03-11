@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReportsService } from '../../services/reports.service';
 import { DashboardData, SalesSummary } from '../../interfaces/reports.interface';
+import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 
 @Component({
   selector: 'app-reports-page',
@@ -10,6 +11,8 @@ import { DashboardData, SalesSummary } from '../../interfaces/reports.interface'
 export class ReportsPageComponent implements OnInit {
 
   private reportsService = inject(ReportsService);
+  private _cusSnackbar = inject(CustomSnackbarService);
+
 
   //* inicializacion de todos los campos recibidos desde el backend
   public dashboardData: DashboardData = {
@@ -71,11 +74,10 @@ export class ReportsPageComponent implements OnInit {
         this.dashboardData = data;
         this.prepareChartData();
 
-        setTimeout(() => {
-          this.loading = false;
-        }, 700);
+        this.loading = false;
       },
       error: (e) => {
+        this._cusSnackbar.openCustomSnackbar("error","Error al obtener los datos para el dashboard", "Okay", 5000, 'danger');
         console.error('Error al cargar los datos del dashboard', e);
         this.loading = false;
       }
@@ -113,6 +115,7 @@ export class ReportsPageComponent implements OnInit {
       },
       error: (e) => {
         console.error(`Error al cargar el resumen de ventas`, e);
+        this._cusSnackbar.openCustomSnackbar("error", e.error.message, "Okay", 3000, 'danger');
       }
     });
   }
