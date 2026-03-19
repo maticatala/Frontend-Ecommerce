@@ -1,5 +1,4 @@
-declare const window: any;
-
 export const environment = {
-  baseUrl: window.__env?.baseUrl || 'http://localhost:3000',
+  // baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://beyondlimitsbackend.matiascatala.com',
 };
