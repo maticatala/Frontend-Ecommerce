@@ -74,13 +74,54 @@ export class AddEditProductComponent implements OnInit {
     });
   }
 
-  getFile(e: any) { //Define una función que recibe un evento e (típicamente del evento change de un input file).
-    if (e.target.files[0].type === 'image/png' || e.target.files[0].type === 'image/jpeg') { //Verifica si el tipo de archivo es PNG o JPEG.
-      this.file = e.target.files[0];
-      this.imagen = URL.createObjectURL(this.file); //Crea una URL temporal para la imagen cargada.
-      this.myForm.get('image')?.setErrors(null); //Limpia los errores del control de formulario.
+  /**
+   * Process an image file: validate MIME type, set preview, update form state.
+   * Single source of truth for file processing (DRY principle).
+   */
+  private processImageFile(file: File): void {
+    if (file.type === 'image/png' || file.type === 'image/jpeg') {
+      this.file = file;
+      this.imagen = URL.createObjectURL(file);
+      this.myForm.get('image')?.setErrors(null);
     } else {
-      this.myForm.get('image')?.setErrors({ invalidMimeType: true }) //Si el tipo de archivo no es PNG o JPEG, establece un error en el control de formulario.
+      this.myForm.get('image')?.setErrors({ invalidMimeType: true });
+    }
+  }
+
+  getFile(e: any): void {
+    this.processImageFile(e.target.files[0]);
+  }
+
+  /**
+   * Handle paste events to allow pasting images from clipboard.
+   * Extracts the first image from clipboard data and processes it.
+   */
+  onPaste(event: ClipboardEvent): void {
+    const items = event.clipboardData?.items;
+    if (!items) return;
+
+    for (const item of Array.from(items)) {
+      if (item.type.startsWith('image/')) {
+        const file = item.getAsFile();
+        if (file) {
+          this.processImageFile(file);
+          this.triggerPasteSuccessAnimation();
+          break; // Single image constraint
+        }
+      }
+    }
+  }
+
+  /**
+   * Trigger visual feedback animation on successful paste.
+   */
+  private triggerPasteSuccessAnimation(): void {
+    const container = document.querySelector('.file-container');
+    if (container) {
+      container.classList.add('paste-success');
+      setTimeout(() => {
+        container.classList.remove('paste-success');
+      }, 500);
     }
   }
 
