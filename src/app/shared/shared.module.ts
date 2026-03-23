@@ -5,13 +5,15 @@ import { SharedTableComponent } from './components/shared-table/shared-table.com
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
+import { OptimizedImageComponent } from './components/optimized-image/optimized-image.component';
 
 @NgModule({
   declarations: [
     CustomLabelDirective,
     SharedTableComponent,
     CustomSnackbarComponent,
-    DialogConfirmComponent
+    DialogConfirmComponent,
+    OptimizedImageComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,7 @@ import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confi
     SharedTableComponent,
     CustomSnackbarComponent,
     DialogConfirmComponent,
+    OptimizedImageComponent,
   ]
 })
 export class SharedModule { }

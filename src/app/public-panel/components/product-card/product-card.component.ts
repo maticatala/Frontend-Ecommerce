@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/app/environments/environments';
 import { Product } from 'src/app/shared/interfaces/product.interface';
@@ -8,7 +8,8 @@ import { CartItem } from '../../interfaces/cart-item.interface';
 @Component({
   selector: 'public-panel-product-card',
   templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.css']
+  styleUrls: ['./product-card.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductCardComponent {
 

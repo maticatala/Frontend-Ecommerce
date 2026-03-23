@@ -47,7 +47,7 @@ import { ReportsPageComponent } from './pages/reports-page/reports-page.componen
     AngularMaterialModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class AdminPanelModule { }
