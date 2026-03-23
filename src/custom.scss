@@ -96,4 +96,7 @@ $my-app-theme: mat-dark-theme((
   --danger: #dc3545;
   --warning: #ffc107;
   --info: #17a2b8;
+  
+  // Override M3 tokens to use M2 theme colors
+  --mat-option-selected-state-label-text-color: var(--accent);
 }

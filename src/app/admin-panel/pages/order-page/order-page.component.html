@@ -8,68 +8,55 @@
     <div class="orderContainer">
 
       <div class="estado">
-        <mat-card>
-          <mat-card-content>
-            <div class="flex items-center gap-2">
-              <div class="w-40 primary p-2 rounded-sm">
-                <mat-select *ngIf="status" [(value)]="status">
-                  <mat-option *ngFor="let status of orderStatus | keyvalue" [value]="status.value" >
-                    {{ getOrderStatusName(status.value) }}
-                  </mat-option>
-                </mat-select>
-              </div>
-              <button mat-raised-button color="accent" (click)="updateOrderStatus()" [disabled]="status === order?.status">
-                Actualizar estado
-              </button>
+        <div class="p-6 border border-white/20 rounded-lg">
+          <div class="flex items-center gap-2">
+            <div class="w-40 bg-white/10 p-2 rounded">
+              <mat-select color="accent" *ngIf="status" [(value)]="status">
+                <mat-option *ngFor="let status of orderStatus | keyvalue" [value]="status.value" >
+                  {{ getOrderStatusName(status.value) }}
+                </mat-option>
+              </mat-select>
             </div>
-          </mat-card-content>
-        </mat-card>
+            <button mat-raised-button color="accent" (click)="updateOrderStatus()" [disabled]="status === order?.status">
+              Actualizar estado
+            </button>
+          </div>
+        </div>
       </div>
 
       <div class="cliente">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-subtitle>Cliente</mat-card-subtitle>
-            <mat-card-title>
-              <div class="flex items-center gap-2">
-                <mat-icon>account_box</mat-icon>
-                <p>{{customer?.firstName | titlecase}} {{customer?.lastName | titlecase}}</p>
-                <p>#{{customer?.id}}</p>
-              </div>
-            </mat-card-title>
-          </mat-card-header>
-          <mat-divider></mat-divider>
-          <mat-card-content>
-            <div class="client-data-container">
-              <div>
-                <b>Email:</b>
-                <div>{{customer?.email}}</div>
-              </div>
-              <div>
-                <b>Cuenta Registrada:</b>
-                <div>{{customer?.createdAt | date:'d/M/yy, h:mm a'}}</div>
-              </div>
-              <div *ngIf="shippingAddress">
-                <b>Dirección de Envío:</b>
-                <p>{{ shippingAddress.phone }}</p>
-                <p>{{ shippingAddress.country }}</p>
-                <p>{{ shippingAddress.state }}</p>
-                <p>{{ shippingAddress.postCode }}, {{ shippingAddress.city | titlecase}}</p>
-                <p>{{ shippingAddress.address }}</p>
-              </div>
+        <div class="p-6 border border-white/20 rounded-lg">
+          <h3 class="text-lg font-semibold mb-4">Cliente</h3>
+          <div class="flex items-center gap-2 mb-4">
+            <mat-icon>account_box</mat-icon>
+            <p>{{customer?.firstName | titlecase}} {{customer?.lastName | titlecase}}</p>
+            <p>#{{customer?.id}}</p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <b>Email:</b>
+              <div>{{customer?.email}}</div>
             </div>
-          </mat-card-content>
-        </mat-card>
+            <div>
+              <b>Cuenta Registrada:</b>
+              <div>{{customer?.createdAt | date:'d/M/yy, h:mm a'}}</div>
+            </div>
+            <div *ngIf="shippingAddress" class="col-span-2">
+              <b>Dirección de Envío:</b>
+              <p>{{ shippingAddress.phone }}</p>
+              <p>{{ shippingAddress.country }}</p>
+              <p>{{ shippingAddress.state }}</p>
+              <p>{{ shippingAddress.postCode }}, {{ shippingAddress.city | titlecase}}</p>
+              <p>{{ shippingAddress.address }}</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="pagos">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-subtitle>Pagos</mat-card-subtitle>
-          </mat-card-header>
-          <mat-divider></mat-divider>
-          <mat-card-content class="mt-4">
-            <shared-table
+        <div class="p-6 border border-white/20 rounded-lg">
+          <h3 class="text-lg font-semibold mb-4">Pagos</h3>
+          <shared-table
             [addNew]="false"
             [paginatorOff]="false"
             [filterOff]="false"
@@ -77,28 +64,22 @@
             [columnsdef]="paymentsColumns"
             (elementoEditado)="openPaymentDetaildDialog($event)"
           ></shared-table>
-          </mat-card-content>
-        </mat-card>
+        </div>
       </div>
 
       <div class="productos">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-subtitle>Productos ({{order?.products?.length}})</mat-card-subtitle>
-          </mat-card-header>
-          <mat-divider></mat-divider>
-          <mat-card-content class="mt-4">
-            <shared-table
-              [addNew]="false"
-              [paginatorOff]="false"
-              [dataSource]="dataSource"
-              [columnsdef]="columns"
-            ></shared-table>
-            <div class="text-md font-semibold flex justify-end">
-              <div>Total: {{total | currency}}</div>
-            </div>
-          </mat-card-content>
-        </mat-card>
+        <div class="p-6 border border-white/20 rounded-lg">
+          <h3 class="text-lg font-semibold mb-4">Productos ({{order?.products?.length}})</h3>
+          <shared-table
+            [addNew]="false"
+            [paginatorOff]="false"
+            [dataSource]="dataSource"
+            [columnsdef]="columns"
+          ></shared-table>
+          <div class="text-md font-semibold flex justify-end mt-4">
+            <div>Total: {{total | currency}}</div>
+          </div>
+        </div>
       </div>
 
     </div>
