@@ -1,0 +1,33 @@
+<div 
+  class="image-container" 
+  [style.width.px]="width" 
+  [style.height.px]="height"
+  [style.aspect-ratio]="width + '/' + height">
+  
+  <!-- Skeleton loader mientras carga -->
+  <div *ngIf="isLoading" class="skeleton-loader"></div>
+
+  <!-- Imagen principal -->
+  <img
+    *ngIf="!hasError"
+    [src]="src"
+    [alt]="alt"
+    [loading]="loading"
+    [width]="width"
+    [height]="height"
+    (load)="onImageLoad()"
+    (error)="onImageError()"
+    class="optimized-img"
+    [class.loaded]="!isLoading"
+  />
+
+  <!-- Fallback image cuando hay error -->
+  <img
+    *ngIf="hasError"
+    [src]="fallbackSrc"
+    [alt]="alt || 'Imagen no disponible'"
+    [width]="width"
+    [height]="height"
+    class="optimized-img fallback"
+  />
+</div>

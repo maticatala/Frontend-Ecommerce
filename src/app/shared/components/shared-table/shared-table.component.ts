@@ -48,9 +48,9 @@ export class SharedTableComponent implements AfterContentInit  {
   public expandedElement:any = {}
 
   // MatPaginator Inputs
-  public length = 100;
-  public pageSize = 10;
-  public pageSizeOptions: number[] = [10, 25, 100];
+  @Input() length = 100;
+  @Input() pageSize = 10;
+  @Input() pageSizeOptions: number[] = [10, 25, 100];
 
   // MatPaginator Output
   public  pageEvent?: PageEvent;
@@ -79,6 +79,13 @@ export class SharedTableComponent implements AfterContentInit  {
     this.toggleColumns();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+
+    // Sincronizar length con datos
+    if (this.paginator) {
+      this.paginator.length = this.length;
+      this.paginator.pageSize = this.pageSize;
+      this.paginator.pageIndex = 0;
+    }
 
     this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string) => {
       const value: any = data[sortHeaderId];

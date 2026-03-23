@@ -55,7 +55,7 @@ import { PaymentPendingComponent } from './pages/payment-pending/payment-pending
     AngularMaterialModule,
     ReactiveFormsModule,
     SharedModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class PublicPanelModule { }

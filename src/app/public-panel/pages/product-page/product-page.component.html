@@ -23,12 +23,13 @@
           </div>
         </div>
         <div class="productImage">
-          <img
-          src="{{ baseUrl }}/products/getFile?fileName={{ product.imagen }}"
-          [alt]="product.name"
-          (mousemove)="zoomIn($event)"
-          (mouseleave)="zoomOut($event)"
-          />
+          <app-optimized-image
+            [src]="baseUrl + '/products/getFile?fileName=' + product.imagen"
+            [alt]="product.name"
+            [width]="500"
+            [height]="500"
+            [loading]="'lazy'"
+          ></app-optimized-image>
           <div class="magnifying-glass"></div>
         </div>
         <div class="productCart">

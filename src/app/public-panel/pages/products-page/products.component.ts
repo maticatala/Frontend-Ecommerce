@@ -1,15 +1,17 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, ChangeDetectionStrategy, DestroyRef, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoriesService } from 'src/app/admin-panel/services/categories.service';
 import { Category } from 'src/app/shared/interfaces/category.interface';
 import { ProductsService } from 'src/app/shared/services/products.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'public-panel-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsComponent implements OnInit{
 
@@ -19,6 +21,8 @@ export class ProductsComponent implements OnInit{
   private categoryService  = inject(CategoriesService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
+  private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef);
   public isFilterOn = false;
   public selectedCategoryName?: string;
   public meta:any = null;
@@ -80,7 +84,9 @@ export class ProductsComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.activatedRoute.queryParams.subscribe(parameters => {
+    this.activatedRoute.queryParams.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(parameters => {
         let params = new HttpParams({ fromObject: parameters });
 
             // Verificar si 'page' no está presente en los parámetros
@@ -95,17 +101,22 @@ export class ProductsComponent implements OnInit{
           params = params.set('pageSize', firstPageSizeOption); // Establecer 'pageSize' en el primer valor
         }
 
-        this.productService.getProductsByParams(params).subscribe({
+        this.productService.getProductsByParams(params).pipe(
+          takeUntilDestroyed(this.destroyRef)
+        ).subscribe({
           next: (response) => {
             this.meta = response.meta;
+            this.cdr.markForCheck();
           }
         });
     })
 
-    this.categoryService.getCategories()
-      .subscribe( categories => {
-        this.categories = categories
-      });
+    this.categoryService.getCategories().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe( categories => {
+      this.categories = categories;
+      this.cdr.markForCheck();
+    });
   }
 
   onPaginateChange(event: PageEvent){
