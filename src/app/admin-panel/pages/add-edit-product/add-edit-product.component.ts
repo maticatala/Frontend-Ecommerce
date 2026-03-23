@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../interfaces/category.interface';
@@ -15,6 +15,21 @@ import { environment } from 'src/app/environments/environments';
   styleUrls: ['./add-edit-product.component.css']
 })
 export class AddEditProductComponent implements OnInit {
+  @HostListener('document:paste', ['$event'])
+  handleDocumentPaste(event: ClipboardEvent): void {
+    const activeElement = document.activeElement as HTMLElement;
+    const tagName = activeElement.tagName;
+    const isContentEditable = activeElement.getAttribute('contenteditable') === 'true';
+    
+    // Skip if user is typing in an input or contenteditable area
+    if (tagName === 'INPUT' || tagName === 'TEXTAREA' || isContentEditable) {
+      return;
+    }
+    
+    // Delegate to existing paste handler
+    this.onPaste(event);
+  }
+
   isEditing: boolean = false;
   productId: number | null = null;
 
