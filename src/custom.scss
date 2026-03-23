@@ -1,8 +1,6 @@
-@import '@angular/material/theming';
+@use '@angular/material' as mat;
 
-@include mat-core();
-
-/* For use in src/lib/core/theming/_palette.scss */
+/* Custom Brand Palette - Primary */
 $bv-brand: (
     50 : #e9edee,
     100 : #c9d1d5,
@@ -35,7 +33,8 @@ $bv-brand: (
         A700 : #000000,
     )
 );
-/* For use in src/lib/core/theming/_palette.scss */
+
+/* Custom Yellow Palette - Accent */
 $bv-yellow: (
     50 : #fef5e7,
     100 : #fde6c2,
@@ -69,34 +68,39 @@ $bv-yellow: (
     )
 );
 
-$my-app-primary: mat-palette($bv-brand, 700);
-$my-app-accent:  mat-palette($bv-yellow, 500);
-$my-app-warn:    mat-palette($mat-red);
+/* Core theming setup */
+@include mat.core();
 
-$my-app-colors: (
-  primary: $my-app-primary,
-  accent: $my-app-accent,
-  warn: $my-app-warn,
-);
+/* Define palettes using Angular 16 API */
+$my-app-primary: mat.define-palette($bv-brand, 700);
+$my-app-accent: mat.define-palette($bv-yellow, 500);
+$my-app-warn: mat.define-palette(mat.$red-palette);
 
-$my-app-theme: mat-dark-theme((
-  color: $my-app-colors,
-  typography: mat-typography-config(),
+/* Define dark theme */
+$my-app-theme: mat.define-dark-theme((
+  color: (
+    primary: $my-app-primary,
+    accent: $my-app-accent,
+    warn: $my-app-warn,
+  ),
+  typography: mat.define-typography-config(),
   density: 0,
 ));
 
-@include angular-material-theme($my-app-theme);
+/* Apply Angular Material theme */
+@include mat.all-component-themes($my-app-theme);
 
+/* CSS Variables for component use */
 :root {
-  --primary:  #{mat-color($my-app-primary)};
-  --accent:   #{mat-color($my-app-accent)};
-  --primary-contrast:  #{mat-color($my-app-primary, default-contrast)};
-  --accent-contrast:   #{mat-color($my-app-accent, default-contrast)};
+  --primary: #4a6572;
+  --accent: #f9aa33;
+  --primary-contrast: #ffffff;
+  --accent-contrast: #000000;
   --success: #02be6e;
   --danger: #dc3545;
   --warning: #ffc107;
   --info: #17a2b8;
   
-  // Override M3 tokens to use M2 theme colors
+  /* Override M3 token for mat-option selected state (Angular 16 compatibility) */
   --mat-option-selected-state-label-text-color: var(--accent);
 }
