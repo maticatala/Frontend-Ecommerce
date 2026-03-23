@@ -1,189 +1,191 @@
-<div class="p-6 bg-gray-900 rounded-lg min-h-screen text-gray-200">
-  <div class="mb-6">
-    <h1 class="text-2xl font-bold text-white">Panel de Reportes</h1>
-  </div>
-
-  <div *ngIf="loading" class="flex justify-center items-center h-64">
-    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400"></div>
-  </div>
-
-  <div *ngIf="!loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-    <!-- Resumen de Ventas -->
-    <div class="bg-gray-800 rounded-lg shadow-md p-6 col-span-1 lg:col-span-3">
-      <div class="flex flex-col mb-4 gap-3">
-        <h2 class="text-xl font-semibold text-gray-300">Resumen de Ventas - {{ getPeriodDescription() }}</h2>
-
-        <div class="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:flex-wrap sm:gap-2">
-          <!-- Selector de período -->
-          <div class="flex flex-wrap gap-2">
-            <button
-              (click)="changePeriod('historical')"
-              [ngClass]="{'bg-blue-500 text-white': selectedPeriod === 'historical', 'bg-gray-700 text-gray-300': selectedPeriod !== 'historical'}"
-              class="px-3 py-1 rounded-md text-sm">
-              Histórico
-            </button>
-            <button
-              (click)="changePeriod('monthly')"
-              [ngClass]="{'bg-blue-500 text-white': selectedPeriod === 'monthly', 'bg-gray-700 text-gray-300': selectedPeriod !== 'monthly'}"
-              class="px-3 py-1 rounded-md text-sm">
-              Mensual
-            </button>
-            <button
-              (click)="changePeriod('annual')"
-              [ngClass]="{'bg-blue-500 text-white': selectedPeriod === 'annual', 'bg-gray-700 text-gray-300': selectedPeriod !== 'annual'}"
-              class="px-3 py-1 rounded-md text-sm">
-              Anual
-            </button>
-          </div>
-
-          <!-- Selectores de año y mes -->
-          <div class="flex flex-wrap gap-2">
-            <!-- Selector de año (mostrar solo para monthly y annual) -->
-            <div *ngIf="selectedPeriod !== 'historical'">
-              <select
-                [(ngModel)]="selectedYear"
-                (change)="changeYear(selectedYear)"
-                class="bg-gray-700 text-white rounded px-2 py-1 text-sm w-full">
-                <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
-              </select>
-            </div>
-
-            <!-- Selector de mes (mostrar solo para monthly) -->
-            <div *ngIf="selectedPeriod === 'monthly'">
-              <select
-                [(ngModel)]="selectedMonth"
-                (change)="changeMonth(selectedMonth)"
-                class="bg-gray-700 text-white rounded px-2 py-1 text-sm w-full">
-                <option *ngFor="let month of months; let i = index" [value]="i">{{ month }}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="bg-gray-700 p-4 rounded-lg">
-          <p class="text-sm text-green-400 font-medium">Ingresos Confirmados</p>
-          <p class="text-xl md:text-2xl font-bold">
-            {{ formatCurrency(dashboardData.salesSummary.confirmedRevenue) }}
-          </p>
-        </div>
-        <div class="bg-gray-700 p-4 rounded-lg">
-          <p class="text-sm text-yellow-400 font-medium">Ingresos con Entrega Pendiente</p>
-          <p class="text-xl md:text-2xl font-bold">
-            {{ formatCurrency(dashboardData.salesSummary.pendingDeliveryRevenue) }}
-          </p>
-        </div>
-        <div class="bg-gray-700 p-4 rounded-lg">
-          <p class="text-sm text-red-400 font-medium">Ingresos a Cobrar</p>
-          <p class="text-xl md:text-2xl font-bold">
-            {{ formatCurrency(dashboardData.salesSummary.expectedRevenue) }}
-          </p>
-        </div>
-
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
-        <div class="bg-gray-700 p-4 rounded-lg">
-          <p class="text-sm text-green-400 font-medium">Pedidos Completados</p>
-          <p class="text-xl md:text-2xl font-bold">{{ dashboardData.salesSummary.orderCount || 0 }}</p>
-        </div>
-        <div class="bg-gray-700 p-4 rounded-lg">
-          <p class="text-sm text-blue-400 font-medium">Ingresos Totales</p>
-          <p class="text-xl md:text-2xl font-bold break-all md:break-words whitespace-normal">
-            {{ formatCurrency(dashboardData.salesSummary.totalRevenue) || 0 }}
-          </p>
-        </div>
-        <div class="bg-gray-700 p-4 rounded-lg sm:col-span-2 lg:col-span-1">
-          <p class="text-sm text-purple-400 font-medium">Venta Promedio Realizada</p>
-          <p class="text-xl md:text-2xl font-bold break-all md:break-words whitespace-normal">
-            {{ formatCurrency(dashboardData.salesSummary.averageTicket || 0) }}
-          </p>
-        </div>
-      </div>
-
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Reportes</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="loading" class="loading-spinner">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-current"></div>
     </div>
 
+    <div *ngIf="!loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
+      <!-- Resumen de Ventas -->
+      <div class="p-6 col-span-1 lg:col-span-3 border border-white/20 rounded-lg">
+        <div class="flex flex-col mb-4 gap-3">
+          <h2 class="text-xl font-semibold">Resumen de Ventas - {{ getPeriodDescription() }}</h2>
 
-    <!-- Estado de los pedidos -->
-    <div class="bg-gray-800 rounded-lg shadow-md p-6 col-span-1">
-      <h2 class="text-xl font-semibold text-gray-300 mb-4">Estado de Pedidos</h2>
+          <div class="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:flex-wrap sm:gap-2">
+            <!-- Selector de período -->
+            <div class="flex flex-wrap gap-2">
+              <button
+                (click)="changePeriod('historical')"
+                [ngClass]="{'bg-[var(--accent)] text-black font-semibold': selectedPeriod === 'historical', 'bg-transparent border-2 border-[var(--accent)] text-[var(--accent)] font-semibold': selectedPeriod !== 'historical'}"
+                class="px-3 py-1.5 rounded text-sm transition-colors">
+                Histórico
+              </button>
+              <button
+                (click)="changePeriod('monthly')"
+                [ngClass]="{'bg-[var(--accent)] text-black font-semibold': selectedPeriod === 'monthly', 'bg-transparent border-2 border-[var(--accent)] text-[var(--accent)] font-semibold': selectedPeriod !== 'monthly'}"
+                class="px-3 py-1.5 rounded text-sm transition-colors">
+                Mensual
+              </button>
+              <button
+                (click)="changePeriod('annual')"
+                [ngClass]="{'bg-[var(--accent)] text-black font-semibold': selectedPeriod === 'annual', 'bg-transparent border-2 border-[var(--accent)] text-[var(--accent)] font-semibold': selectedPeriod !== 'annual'}"
+                class="px-3 py-1.5 rounded text-sm transition-colors">
+                Anual
+              </button>
+            </div>
 
-      <div class="mb-4">
-        <div class="flex flex-col">
-          <div *ngFor="let status of orderStatusChartData" class="flex items-center justify-between mb-3">
-            <div class="flex items-center">
-              <div
-                class="w-3 h-3 rounded-full mr-2"
-                [ngClass]="{
-                  'bg-green-500 text-white': status.name === 'Entregados',
-                  'bg-gray-500 text-white': status.name === 'Enviados',
-                  'bg-blue-500 text-white': status.name === 'En procesamiento',
-                  'bg-red-500 text-white': status.name === 'Cancelados'
-                }">
+            <!-- Selectores de año y mes -->
+            <div class="flex flex-wrap gap-2">
+              <!-- Selector de año (mostrar solo para monthly y annual) -->
+              <div *ngIf="selectedPeriod !== 'historical'">
+                <select
+                  [(ngModel)]="selectedYear"
+                  (change)="changeYear(selectedYear)"
+                  class="bg-white border border-gray-400 rounded px-2 py-1 text-sm w-full text-black">
+                  <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
+                </select>
               </div>
-              <span class="flex-1 text-sm font-medium text-gray-200">{{ status.name }}:</span>
+
+              <!-- Selector de mes (mostrar solo para monthly) -->
+              <div *ngIf="selectedPeriod === 'monthly'">
+                <select
+                  [(ngModel)]="selectedMonth"
+                  (change)="changeMonth(selectedMonth)"
+                  class="bg-white border border-gray-400 rounded px-2 py-1 text-sm w-full text-black">
+                  <option *ngFor="let month of months; let i = index" [value]="i">{{ month }}</option>
+                </select>
+              </div>
             </div>
-            <span
-              class="px-2 py-1 text-xs font-semibold rounded-lg"
-              [ngClass]="{
-                  'bg-green-500 text-white': status.name === 'Entregados',
-                  'bg-gray-500 text-white': status.name === 'Enviados',
-                  'bg-blue-500 text-white': status.name === 'En procesamiento',
-                  'bg-red-500 text-white': status.name === 'Cancelados'
-              }"
-            >
-              {{ status.value }}
-            </span>
           </div>
         </div>
-      </div>
-      <!-- Total de pedidos -->
-      <div class="border-t border-gray-600 pt-3 mt-3 flex items-center justify-between">
-        <span class="text-lg font-semibold text-gray-300">Total de pedidos:</span>
-        <span class="px-2 py-1 text-base font-semibold rounded-lg bg-gray-700 text-white">
-          {{ getTotalOrders() }}
-        </span>
-      </div>
-    </div>
 
-    <!-- Productos mas vendidos -->
-    <div class="bg-gray-800 rounded-lg shadow-md p-6 col-span-1">
-      <h2 class="text-xl font-semibold text-gray-300 mb-4">Productos Más Vendidos</h2>
-
-      <div *ngIf="dashboardData.topProducts.length; else noTopProducts">
-        <div *ngFor="let product of dashboardData.topProducts; let i = index" class="flex items-center py-2 border-b border-gray-600">
-          <span class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">{{ i + 1 }}</span>
-          <div class="flex-1 min-w-0">
-            <p class="font-medium text-gray-300 truncate">{{ product.productName }}</p>
-            <p class="text-sm text-gray-400">{{ product.totalQuantity }} unidades</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="p-4">
+            <p class="text-sm font-semibold text-green-400">Ingresos Confirmados</p>
+            <p class="text-xl md:text-2xl font-bold mt-1">
+              {{ formatCurrency(dashboardData.salesSummary.confirmedRevenue) }}
+            </p>
           </div>
-          <p class="font-semibold text-gray-300 ml-2">{{ formatCurrency(product.totalRevenue) }}</p>
+          <div class="p-4">
+            <p class="text-sm font-semibold text-yellow-400">Ingresos con Entrega Pendiente</p>
+            <p class="text-xl md:text-2xl font-bold mt-1">
+              {{ formatCurrency(dashboardData.salesSummary.pendingDeliveryRevenue) }}
+            </p>
+          </div>
+          <div class="p-4">
+            <p class="text-sm font-semibold text-red-400">Ingresos a Cobrar</p>
+            <p class="text-xl md:text-2xl font-bold mt-1">
+              {{ formatCurrency(dashboardData.salesSummary.expectedRevenue) }}
+            </p>
+          </div>
+
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+          <div class="p-4">
+            <p class="text-sm font-semibold text-green-400">Pedidos Completados</p>
+            <p class="text-xl md:text-2xl font-bold mt-1">{{ dashboardData.salesSummary.orderCount || 0 }}</p>
+          </div>
+          <div class="p-4">
+            <p class="text-sm font-semibold text-blue-400">Ingresos Totales</p>
+            <p class="text-xl md:text-2xl font-bold mt-1 break-all md:break-words whitespace-normal">
+              {{ formatCurrency(dashboardData.salesSummary.totalRevenue) || 0 }}
+            </p>
+          </div>
+          <div class="p-4 sm:col-span-2 lg:col-span-1">
+            <p class="text-sm font-semibold text-purple-400">Venta Promedio Realizada</p>
+            <p class="text-xl md:text-2xl font-bold mt-1 break-all md:break-words whitespace-normal">
+              {{ formatCurrency(dashboardData.salesSummary.averageTicket || 0) }}
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <!-- Estado de los pedidos -->
+      <div class="p-6 col-span-1 border border-white/20 rounded-lg">
+        <h2 class="text-xl font-semibold mb-4">Estado de Pedidos</h2>
+
+        <div class="mb-4">
+          <div class="flex flex-col">
+            <div *ngFor="let status of orderStatusChartData" class="flex items-center justify-between mb-3">
+              <div class="flex items-center">
+                <div
+                  class="w-3 h-3 rounded-full mr-2"
+                  [ngClass]="{
+                    'bg-green-500': status.name === 'Entregados',
+                    'bg-gray-500': status.name === 'Enviados',
+                    'bg-blue-500': status.name === 'En procesamiento',
+                    'bg-red-500': status.name === 'Cancelados'
+                  }">
+                </div>
+                <span class="flex-1 text-sm font-semibold">{{ status.name }}:</span>
+              </div>
+              <span
+                class="px-2 py-1 text-xs font-bold rounded"
+                [ngClass]="{
+                    'bg-green-500 text-white': status.name === 'Entregados',
+                    'bg-gray-500 text-white': status.name === 'Enviados',
+                    'bg-blue-500 text-white': status.name === 'En procesamiento',
+                    'bg-red-500 text-white': status.name === 'Cancelados'
+                  }"
+              >
+                {{ status.value }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Total de pedidos -->
+        <div class="border-t pt-3 mt-3 flex items-center justify-between">
+          <span class="text-lg font-semibold">Total de pedidos:</span>
+          <span class="px-3 py-1 text-base font-bold rounded bg-[var(--accent)] text-black">
+            {{ getTotalOrders() }}
+          </span>
         </div>
       </div>
 
-      <ng-template #noTopProducts>
-        <p class="text-gray-400 text-center py-4">No hay datos disponibles</p>
-      </ng-template>
-    </div>
+      <!-- Productos mas vendidos -->
+      <div class="p-6 col-span-1 border border-white/20 rounded-lg">
+        <h2 class="text-xl font-semibold mb-4">Productos Más Vendidos</h2>
 
-    <!-- Categorías mas populares -->
-    <div class="bg-gray-800 rounded-lg shadow-md p-6 col-span-1">
-      <h2 class="text-xl font-semibold text-gray-300 mb-4">Categorías Más Populares</h2>
-      <div *ngIf="dashboardData.popularCategories?.length; else noCategories">
-        <div *ngFor="let category of dashboardData.popularCategories; let i = index" class="flex items-center py-2 border-b border-gray-700">
-          <span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">{{ i + 1 }}</span>
-          <div class="flex-1 min-w-0">
-            <p class="font-medium text-gray-200 truncate">{{ category.categoryName }}</p>
-            <p class="text-sm text-gray-400">{{ category.orderCount }} pedidos</p>
+        <div *ngIf="dashboardData.topProducts.length; else noTopProducts">
+          <div *ngFor="let product of dashboardData.topProducts; let i = index" class="flex items-center py-3 border-b">
+            <span class="w-8 h-8 bg-[var(--accent)] text-black rounded-full flex items-center justify-center font-bold mr-3">{{ i + 1 }}</span>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold truncate">{{ product.productName }}</p>
+              <p class="text-sm opacity-80">{{ product.totalQuantity }} unidades</p>
+            </div>
+            <p class="font-semibold ml-2">{{ formatCurrency(product.totalRevenue) }}</p>
           </div>
         </div>
+
+        <ng-template #noTopProducts>
+          <p class="text-center py-4 opacity-80">No hay datos disponibles</p>
+        </ng-template>
       </div>
-      <ng-template #noCategories>
-        <p class="text-gray-400 text-center py-4">No hay datos disponibles</p>
-      </ng-template>
+
+      <!-- Categorías mas populares -->
+      <div class="p-6 col-span-1 border border-white/20 rounded-lg">
+        <h2 class="text-xl font-semibold mb-4">Categorías Más Populares</h2>
+        <div *ngIf="dashboardData.popularCategories?.length; else noCategories">
+          <div *ngFor="let category of dashboardData.popularCategories; let i = index" class="flex items-center py-3 border-b">
+            <span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">{{ i + 1 }}</span>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold truncate">{{ category.categoryName }}</p>
+              <p class="text-sm opacity-80">{{ category.orderCount }} pedidos</p>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #noCategories>
+          <p class="text-center py-4 opacity-80">No hay datos disponibles</p>
+        </ng-template>
+      </div>
     </div>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>
