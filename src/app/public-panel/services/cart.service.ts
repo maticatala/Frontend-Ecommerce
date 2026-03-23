@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, DestroyRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 import { ProductsService } from 'src/app/shared/services/products.service';
@@ -12,6 +13,7 @@ export class CartService {
 
   private productsService = inject(ProductsService);
   private _cusSnackbar = inject(CustomSnackbarService);
+  private destroyRef = inject(DestroyRef);
   private cartProducts: CartItem[] = [];
   private _products: BehaviorSubject<CartItem[]>;
   private cartItems: { [key: string]: number } = {};
@@ -42,7 +44,9 @@ export class CartService {
       productIds.forEach(productId => {
         const quantity = this.cartItems[productId];
 
-        this.productsService.getProductById(+productId).subscribe({
+        this.productsService.getProductById(+productId).pipe(
+          takeUntilDestroyed(this.destroyRef)
+        ).subscribe({
           next: (product) => {
             this.cartProducts.push({ product, quantity });
             this.updateProducts();

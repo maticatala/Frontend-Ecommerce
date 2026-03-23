@@ -1,17 +1,21 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, ChangeDetectionStrategy, DestroyRef, ChangeDetectorRef } from '@angular/core';
 import { ProductsService } from '../../../shared/services/products.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Column } from 'src/app/shared/interfaces';
 import { Category } from '../../interfaces/category.interface';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { CustomSnackbarService } from 'src/app/shared/components/custom-snackbar/custom-snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogConfirmComponent } from 'src/app/shared/components/dialog-confirm/dialog-confirm.component';
 import { Product } from 'src/app/shared/interfaces/product.interface';
+
 @Component({
   templateUrl: './list-products-page.component.html',
-  styleUrls: ['./list-products-page.component.css']
+  styleUrls: ['./list-products-page.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListProductsPageComponent implements OnInit{
 
@@ -19,7 +23,11 @@ export class ListProductsPageComponent implements OnInit{
   private router = inject(Router);
   private _cusSnackbar = inject(CustomSnackbarService);
   private dialog = inject(MatDialog);
+  private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef);
   public dataSource = new MatTableDataSource();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   columns: Column[] = [
     {id:'imagen',         label: 'Imagen',      breakpoint: 'static'},
@@ -39,7 +47,9 @@ export class ListProductsPageComponent implements OnInit{
 
   private setProductsList(): void {
 
-    this.productsService.getProducts().subscribe({
+    this.productsService.getProducts().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: () => {
         if (this.productsService.productList()?.length !== 0){
           const rows: any = [];
@@ -58,6 +68,13 @@ export class ListProductsPageComponent implements OnInit{
           });
 
           this.dataSource.data = rows;
+
+          // Conectar paginator después de cargar datos
+          if (this.paginator) {
+            this.dataSource.paginator = this.paginator;
+          }
+
+          this.cdr.markForCheck();
         }
       }
 

@@ -5,6 +5,9 @@
       class="object-contain"
       src="{{ baseUrl }}/products/getFile?fileName={{ product.imagen }}"
       [alt]="product.name"
+      loading="lazy"
+      width="300"
+      height="300"
     />
   </mat-card-header>
   <mat-card-content class="mb-3" >

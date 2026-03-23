@@ -22,11 +22,14 @@
 
       <div class="flex">
         <figure class="rounded max-w-[80px] max-h-[80px] min-w-[80px] min-h-[80px] p-1 flex items-center justify-center bg-white">
-          <img
-          src="{{ baseUrl }}/products/getFile?fileName={{ shoppItem.product.imagen }}"
-          [alt]="shoppItem.product.name"
-          class="object-contain h-full"
-          />
+          <app-optimized-image
+            [src]="baseUrl + '/products/getFile?fileName=' + shoppItem.product.imagen"
+            [alt]="shoppItem.product.name"
+            [width]="80"
+            [height]="80"
+            [loading]="'lazy'"
+            class="object-contain h-full"
+          ></app-optimized-image>
         </figure>
         <div class="ml-4 w-full">
           <h3>{{shoppItem.product.name}}</h3>
